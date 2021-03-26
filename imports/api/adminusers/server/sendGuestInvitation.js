@@ -18,14 +18,15 @@ let invitation = (options) => {
   let app = App_General.findOne({ eventId: options.eventId });
   let sendFrom = event.hostDetails.eventHostContact.split(",");
   let footerFrom = sendFrom.join("<br />");
+  const templateId = event.hostDetails.eventEmailTemplateId
+    ? event.hostDetails.eventEmailTemplateId
+    : "d-8b2de57d0722456094d08d5ea8fc06f1";
+
   const msg = {
     //extract the email details
     to: options.guestPersonalEmail,
     from: `${sendFrom[0]} < ${event.hostDetails.eventHostContactEmail} >`,
-    templateId:
-      options.eventId === "2EvSGYbsxcsozn33S"
-        ? "d-8b5bc7b66eea431294a0abdcf70f1780"
-        : "d-8b2de57d0722456094d08d5ea8fc06f1",
+    templateId,
     //extract the custom fields
     dynamic_template_data: {
       name: `${guest.guestTitle} ${guest.guestFirstName} ${guest.guestLastName}`,
