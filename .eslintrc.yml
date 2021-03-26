@@ -1,0 +1,28 @@
+root: true
+  env:
+    es6: true
+    browser: true
+    node: true
+    meteor: true
+
+  parserOptions:
+    ecmaVersion: 6
+    sourceType: module
+    ecmaFeatures:
+      jsx: false
+
+  plugins:
+    - meteor
+
+  extends:
+    - airbnb/base
+    - plugin:meteor/recommended
+
+  globals:
+    # Collections
+    MyCollection: true
+    # ..
+
+    # Packages
+    moment: false # exported by momentjs:moment
+    # ..

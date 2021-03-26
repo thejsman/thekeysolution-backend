@@ -1,0 +1,70 @@
+.events-hotels-add {
+  .card.hotel{
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
+
+.events-hotels {
+  .hotel-card {
+	  .flight-card-title {
+	    margin: 0;
+	    font-weight: 300;
+	    color: #fff;
+	  }
+	  .flight-card-date {
+	    font-size: 1.0rem;
+	    margin: 0;
+	    color: #fff;
+	  }
+	  .card-header {
+	    .card-title {
+		    padding: 20px;
+	    }
+	  }
+
+	  .card-content-bg {
+
+	    background: url('/img/flightbg.jpg') no-repeat center center;
+	    background-size: cover;
+	  }
+
+	  .card-content {
+	    background: rgba(0,0,0,0.25);
+	  }
+
+	  .flight-state-wrapper {
+	    margin: 0 0 100px 0 !important;
+	  }
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
+
+//events-hotels-details
+.events-hotels-details{
+  .switch{
+    margin: 0 auto;
+    padding: 1.5em 0;
+    label{
+      left: 0 !important;
+    }
+  }
+}
+
+// reserve-room
+.reserve-room{
+	position: relative;
+	.card{
+		padding-top: 30px;
+	}
+}
+
+.leg-loader{
+	min-height: auto;
+}
+input#bulkUpload{
+	display: none;
+}

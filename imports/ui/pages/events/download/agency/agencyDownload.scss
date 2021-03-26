@@ -1,0 +1,11 @@
+ol.guest-list {
+  position: relative;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 40em;
+  overflow-y: scroll;
+  li {
+    min-width: 15em;
+  }
+}

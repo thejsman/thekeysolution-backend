@@ -1,0 +1,71 @@
+<template name="events_hotelsforsale">
+  <div class="events-hotels">
+    <div class="row">
+      <div class="col s12">
+	      <h5 class="page-title">Hotels For Sale<a class="waves-effect waves-light btn btn-primary" href={{hotelforsaleAddPath}}><i class="material-icons left">add</i>Add Hotel</a></h5>
+      </div>
+    </div>
+    <div class="row">
+      {{#each hotel in hotelList}}
+	      {{> hotelforsale_card hotel=hotel}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="events_hotelforsale_card">
+  <div class="col s4">
+    <div class="card hotel">
+      <div class="card-content">
+        <div class="card-title">{{hotel.hotelName}}</div>
+        <div class="hotel-info">
+          <p>{{hotel.hotelFrom}}</p>
+          <p>{{hotel.hotelTo}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="hotelforsale_card">
+  <div class="col s12 m12 l4">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">{{hotel.hotelName}}</div>
+        </div>
+      </div>
+      <div class="card-content-bg white-text">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align">
+              <div class="flight-state">
+                <h4 class="margin">{{hotel.hotelAddressCity}}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 m4 l4 center-align">
+              <div class="flight-info">
+                <h6>Total Inventory</h6>
+                <p>{{totalRooms}}</p>
+              </div>
+            </div>
+            <div class="col s4 m4 l4 center-align flight-state-two">
+              <div class="flight-info">
+                <h6>Rooms Reserved</h6>
+                <p>{{reservedRooms}}</p>
+              </div>
+            </div>
+            <div class="col s4 m4 l4 center-align">
+              <div class="flight-info">
+                <h6>Rooms Available</h6>
+                <p>{{roomsAvailable}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,56 @@
+<!-- Destination Section -->
+<template name="app_destination_settings">
+  <div class="app-setting">
+    <div class="row">
+      <div class="col s12">
+        <h5 class="page-title">Destination Section
+          <a class="waves-effect waves-light btn btn-primary" href={{addDestinationRoute}} id="add-destination-button">
+            <i class="material-icons left">add</i>Add Destination</a>
+        </h5>
+        <!-- {{#if isEditing}} {{> app_add_destination_settings editId=editId}} {{else}} {{> app_add_destination_settings}} {{/if}} -->
+      </div>
+    </div>
+    <div class="row">
+      {{#each destination in destinationList}} {{> single_destination_card destination=destination}} {{/each}}
+    </div>
+  </div>
+</template>
+
+<!-- single-sub-event-card -->
+<template name="single_destination_card">
+  <div class="col s12 m12 l4 destination-card">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">
+            {{destination.basicInfo.destinationName}}
+            <p class="info-card-date"></p>
+          </div>
+          <div class="info-card-action">
+            <div class="action-btn">
+              {{#if isAllowed 'edit-destination'}}
+                <a class="btn primary modal-trigger click_edit-button">
+                  <i class="fa fa-pencil"></i>
+                </a>
+              {{/if}}
+              {{#if isAllowed 'delete-destination'}}
+                <a href="#" class="btn primary click_delete-button">
+                  <i class="fa fa-trash"></i>
+                </a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content-bg white-text" style="background-image:url('{{destination.mainImage}}')">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align card-top-content" style="min-height: 170px">
+              <!-- <p>{{destination.basicInfo.aboutDestination}}</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

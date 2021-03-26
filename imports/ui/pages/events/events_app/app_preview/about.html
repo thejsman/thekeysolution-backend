@@ -1,0 +1,204 @@
+<!-- App Preview -->
+<template name="app_preview_about">
+  <h5 class="center-align">Screen Preview</h5>
+  {{#with appAboutSettings}}
+  <div class="owl-carousel">
+    <!-- SCREEN 1 -->
+    <div>
+      <h6 class="center-align">
+        <b>Primary Screen</b>
+      </h6>
+      <div class="app-preview about welcome" style="color: {{appColor2}}">
+        {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=aboutUsTitle}}
+        {{#if aboutPageBackground}}
+        <div class="app-body" style="background-image:url('{{aboutPageBackground}}'); color: {{appColor2}}">
+          <div>
+            <br>
+            <div class="row" style="padding-left:20px;">
+              <center>
+                <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{aboutPageTitle}}</a>
+              </center>
+            </div>
+            <div class="row center-align">
+              <div class="col s4"></div>
+              <div class="col s4 page-dots">
+                <i class="fa fa-circle selected"></i> &nbsp;
+                <i class="fa fa-circle"></i> &nbsp;
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="col s4"></div>
+            </div>
+          </div>
+          <div class="welcome-content">
+            <div class="welcome-image" id="about_main_banner" style="background-image:url('{{aboutPageMainbanner}}'); "></div>
+            <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+              <h5 id="about_main_title">{{aboutPageTitle}}</h5>
+              <p id="about_main_description" style="white-space: pre-wrap;">{{aboutPageMainMessage}}</p>
+            </div>
+          </div>
+        </div>
+        {{else}}
+        <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+          <div>
+            <br>
+            <div class="row" style="padding-left:20px;">
+              <center>
+                <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{aboutPageTitle}}</a>
+              </center>
+            </div>
+            <div class="row center-align">
+              <div class="col s4"></div>
+              <div class="col s4 page-dots">
+                <i class="fa fa-circle selected"></i> &nbsp;
+                <i class="fa fa-circle"></i> &nbsp;
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="col s4"></div>
+            </div>
+          </div>
+          <div class="welcome-content">
+            <div class="welcome-image" id="about_main_banner" style="background-image:url('{{aboutPageMainbanner}}'); "></div>
+            <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+              <h5 id="about_main_title">{{aboutPageTitle}}</h5>
+              <p id="about_main_description" style="white-space: pre-wrap;">{{aboutPageMainMessage}}</p>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+
+      </div>
+    </div>
+    <!--  SCREEN 2 -->
+    <div>
+      <h6 class="center-align">
+        <b>Secondary Screen</b>
+      </h6>
+      <div class="app-preview about welcome" style="color: {{appColor2}}">
+        {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=aboutUsTitle}}
+        {{#if aboutPageBackground}}
+        <div class="app-body" style="background-image:url('{{aboutPageBackground}}'); color: {{appColor2}}">
+          <div>
+            <br/>
+            <div class="row" style="padding-left:20px;">
+              <center>
+                <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{aboutPageSubTitle1}}</a>
+              </center>
+            </div>
+            <div class="row center-align">
+              <div class="col s4"></div>
+              <div class="col s4 page-dots">
+                <i class="fa fa-circle "></i> &nbsp;
+                <i class="fa fa-circle selected"></i> &nbsp;
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="col s4"></div>
+            </div>
+          </div>
+          <div class="welcome-content">
+            <div class="welcome-image" id="about_sub_banner1" style="background-image:url('{{aboutPageSubBanner1}}'); "></div>
+            <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+              <h5 id="about_sub1_title">{{aboutPageSubTitle1}}</h5>
+              <p id="about_sub1_description" style="white-space: pre-wrap;">{{aboutPageSubDescription1}}</p>
+            </div>
+          </div>
+        </div>
+        {{else}}
+        <!-- appBackground -->
+        <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+          <div>
+            <br/>
+            <div class="row" style="padding-left:20px;">
+              <center>
+                <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{aboutPageSubTitle1}}</a>
+              </center>
+            </div>
+            <div class="row center-align">
+              <div class="col s4"></div>
+              <div class="col s4 page-dots">
+                <i class="fa fa-circle "></i> &nbsp;
+                <i class="fa fa-circle selected"></i> &nbsp;
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="col s4"></div>
+            </div>
+          </div>
+          <div class="welcome-content">
+            <div class="welcome-image" id="about_sub_banner1" style="background-image:url('{{aboutPageSubBanner1}}'); "></div>
+            <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+              <h5 id="about_sub1_title">{{aboutPageSubTitle1}}</h5>
+              <p id="about_sub1_description" style="white-space: pre-wrap;">{{aboutPageSubDescription1}}</p>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+
+
+      </div>
+    </div>
+    <!-- SCREEN 3 -->
+    <div>
+      <h6 class="center-align">
+        <b>Third Screen</b>
+      </h6>
+      <div class="app-preview about welcome" style="color: {{appColor2}}">
+        {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=aboutUsTitle}}
+        {{#if aboutPageBackground}}
+        <div class="app-body" style="background-image:url('{{aboutPageBackground}}'); color: {{appColor2}}">
+          <div>
+            <br/>
+            <div class="row" style="padding-left:20px;">
+              <center>
+                <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{aboutPageSubTitle2}}</a>
+              </center>
+            </div>
+            <div class="row center-align">
+              <div class="col s4"></div>
+              <div class="col s4 page-dots">
+                <i class="fa fa-circle "></i> &nbsp;
+                <i class="fa fa-circle"></i> &nbsp;
+                <i class="fa fa-circle selected"></i>
+              </div>
+              <div class="col s4"></div>
+            </div>
+          </div>
+          <div class="welcome-content">
+            <div class="welcome-image" id="about_sub_banner2" style="background-image:url('{{aboutPageSubBanner2}}'); "></div>
+            <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+              <h5 id="about_sub2_title">{{aboutPageSubTitle2}}</h5>
+              <p id="about_sub2_description" style="white-space: pre-wrap;">{{aboutPageSubDescription2}}</p>
+            </div>
+          </div>
+        </div>
+        {{else}}
+        <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+          <div>
+            <br/>
+            <div class="row" style="padding-left:20px;">
+              <center>
+                <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{aboutPageSubTitle2}}</a>
+              </center>
+            </div>
+            <div class="row center-align">
+              <div class="col s4"></div>
+              <div class="col s4 page-dots">
+                <i class="fa fa-circle "></i> &nbsp;
+                <i class="fa fa-circle"></i> &nbsp;
+                <i class="fa fa-circle selected"></i>
+              </div>
+              <div class="col s4"></div>
+            </div>
+          </div>
+          <div class="welcome-content">
+            <div class="welcome-image" id="about_sub_banner2" style="background-image:url('{{aboutPageSubBanner2}}'); "></div>
+            <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+              <h5 id="about_sub2_title">{{aboutPageSubTitle2}}</h5>
+              <p id="about_sub2_description" style="white-space: pre-wrap;">{{aboutPageSubDescription2}}</p>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

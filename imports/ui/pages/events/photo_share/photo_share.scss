@@ -1,0 +1,114 @@
+.photo_share_settings{
+  form{
+    .col {
+      padding: 1em 0;
+    }
+  }
+}
+
+// Photos Page
+.photo_share{
+  position: relative;
+  
+  figure {
+    position: relative;
+    padding: 0 !important;
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    &:hover{
+      cursor: pointer;
+      .img-options {
+        background: rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .image{
+      position: relative;
+    }
+  }
+
+  .image-info {
+    position: relative;
+    margin-top: -5px;
+    background: #ccc;
+    padding: 0.5em;
+
+    .uploader {
+      border-bottom: solid 2px #f5f2ed;
+      padding-bottom: 0.5em;
+      margin-bottom: 0.5em;
+    }
+    .caption {
+      height: 60px;
+      overflow: hidden;
+    }
+  }
+
+  // Image options on hover
+  .img-options {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    padding: 0.125em;
+    flex-direction: column;
+    justify-content: space-between;
+    .top-options, .extra-info {
+      padding: 0.5em 1em;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .extra-info p > i{
+      height: 30px;
+      width: 30px;
+      border: solid 1px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+    }
+    .caption{
+      padding: 1em;
+      flex: 1;
+    }
+
+    .action-btn{
+      margin-left: auto;
+      background : transparent;
+    }
+  }
+}
+
+// Checkbox common 
+.checkbox-wrapper{
+  margin: 2em 0;
+  padding-left: 2em;
+}
+
+// legends
+.legends {
+  ul {
+    list-style: none;
+    li {
+      display: inline-block;
+      padding: 0 0.5em;
+      i {
+        font-size: 1.5em;
+        padding-left: 0.125em;
+      }
+    }
+  }
+}
+.settingsHelp {
+  color: #ccc;
+  font-style: italic;
+  padding-left: 33px;
+}

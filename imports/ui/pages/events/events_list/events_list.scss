@@ -1,0 +1,73 @@
+.events-list {
+  padding: 1rem;
+  height: 100%;
+  overflow: auto;
+  h5{
+    padding: 0 0.75rem;
+  }
+  .card{
+    cursor: pointer;
+    height: 300px;
+    width: 300px;
+    &:hover{
+      box-shadow: 0 4px 4px 0 rgba(0,0,0,0.24), 0 2px 10px 0 rgba(0,0,0,0.22), 0 6px 2px -1px rgba(0,0,0,0.4);
+      .card-logo{
+        transition: all .3s ease-in-out;
+        transform: scale(1.5);
+      }
+    }
+    .card-content{
+      p{
+        margin-bottom: 10px;
+        i.fa {
+          min-width: 20px;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .card-image {
+    background-color: #7b7b7b;
+    height: 190px;
+    .card-title{
+      word-wrap: inherit;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      padding-right: 80px;
+    }
+    .event-type {
+      position: absolute;
+      top: 0;
+      background: #1500ff;
+      padding: 3px 15px;
+      right: 0;
+      border-radius: 0 0 0 4px;
+      color: #fff;
+      &.wedding{
+        background: red;
+      }
+      &.corporate{
+        background: #1500ff;
+      }
+      &.conference{
+        background: #1500ff;
+      }
+    }
+    .card-background {
+      height: 190px;
+      -webkit-filter: brightness(50%);
+      background-color: #eff0f1;
+    }
+    .card-logo {
+      pointer-events: none;
+    }
+  }
+  // multi select
+  .input-field.col .dropdown-content [type="checkbox"]+label{
+    top: -10px;
+  }
+  input[type="search"]{
+    padding-left: 40px;
+  }
+}

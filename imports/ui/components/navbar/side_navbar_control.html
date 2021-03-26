@@ -1,0 +1,45 @@
+<template name="left_navbar_control">
+  <div class="bmt-side-nav">
+    <ul  class="collapsible" data-collapsible="accordion">
+      {{#if agencyList}}
+        <li><a href={{agencyRoute}}>Agencies</a></li>
+      {{/if}}
+      {{#if userList}}
+        <li><a href={{userRoute}}>Users</a></li>
+      {{/if}}
+      {{#if airlineList}}
+        <li><a href={{airlineRoute}}>Airlines</a></li>
+      {{/if}}
+      {{#if airportList}}
+        <li><a href={{airportRoute}}>Airports</a></li>
+      {{/if}}
+      {{#if addPlans}}   
+        <li><a href={{planRoute}}> Plans</a></li>
+      {{/if}}  
+      {{#if addModules}} 
+        <li><a href={{moduleRoute}}> Modules</a></li>
+      {{/if}} 
+      {{#if featureList}}  
+        <li><a href={{featureRoute}}> Feature bank</a></li>
+      {{/if}}
+      {{#if agencySubscription}} 
+        <li><a href={{subscriptionRoute}}> My Subscription</a></li>
+      {{/if}}
+      {{#if agencyOrder}}  
+        <li><a href="{{orderRoute}}"> My Orders</a></li>
+      {{/if}}
+      {{#if activityRecordList}}  
+        <li><a href="{{activityRecordRoute}}"> Activity Record</a></li>
+      {{/if}}
+      {{#if assignPlanList}}  
+      <li>
+          <div class="collapsible-header">Assign Plans </div>
+          <div class="collapsible-body">
+              <a href="{{ assignedPlanRoute }}"><i class="fa fa-chevron-right"></i>Assign Plans </a>
+              <a href='{{ assignedModuleRoute }}'><i class="fa fa-chevron-right"></i>Assign Modules </a>
+            </div>
+      </li>
+      {{ /if }}
+    </ul>
+  </div>
+</template>

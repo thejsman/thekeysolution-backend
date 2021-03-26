@@ -1,0 +1,73 @@
+<template name="events_packages">
+  <div class="eventPackages">
+    <div class="row">
+      <div class="col s12">
+	      <h5 class="page-title">{{title}}<a class="waves-effect waves-light btn btn-primary" href={{eventPackageAddPath}}><i class="material-icons left">add</i>Add New</a></h5>
+      </div>
+    </div>
+    <div class="row">
+      {{#each package in packageList}}
+	      {{> events_packages_card info=package}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="events_packages_card">
+  <div class="eventPackageCard">
+    <div class="col s12 m12 l4">
+      <div class="card info-card">
+        <div class="card-header amber darken-2">
+          <div class="card-title">
+            <div class="info-card-title">{{info.packageName}}</div>
+            <div class="info-card-action" style="margin-top: -20px; margin-bottom: 30px;">
+              <div class="action-btn">
+                {{#if isAllowed 'packages-edit'}}
+                  <a class="waves-effect btn primary click_edit_btn">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                {{/if}}
+                {{#if isAllowed 'packages-delete'}}
+                  <a href="#" class="waves-effect btn primary click_delete_btn">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-content-bg white-text">
+          <div class="card-content">
+            <!-- <div class="row">
+              <div class="col s12 center-align">
+                <div class="flight-state">
+                  <h4 class="margin">{{info.hotelAddressCity}}</h4>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col s4 m4 l4 center-align">
+                <div class="flight-info">
+                  <h6>Total Inventory</h6>
+                  <p>{{info.packageInventory}}</p>
+                </div>
+              </div>
+              <div class="col s4 m4 l4 center-align flight-state-two">
+                <div class="flight-info">
+                  <h6>Price per item</h6>
+                  <p>{{info.packagePrice}}</p>
+                </div>
+              </div>
+              <div class="col s4 m4 l4 center-align">
+                <div class="flight-info">
+                  <h6>GST</h6>
+                  <p>{{info.packageGst}} %</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

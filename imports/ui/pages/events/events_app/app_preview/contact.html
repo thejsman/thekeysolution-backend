@@ -1,0 +1,59 @@
+<!-- App Preview -->
+<template name="app_preview_contact">
+  <h5 class="page-title center">Screen Preview</h5>
+  {{#with appContactSettings}}
+  <div class="app-preview welcome contact" style="color: {{appColor2}}">
+    {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="CONTACT US"}}
+    {{#if contactBackground}}
+    <div class="app-body" style="background-image:url('{{contactBackground}}'); color: {{appColor2}}">
+      <div class="welcome-content center-align">
+        {{#each contact in contacts}} {{#if contact.name}} {{#with appContactSettings}}
+        <div class="center-align row hidden_contact{{incremented @index}}" style=" margin-bottom:10px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-top:10px;padding-bottom:10px;">
+          <div class="col s8">
+            <h6 id="setTitle{{incremented @index}}">
+              <b>{{contact.name}}</b>
+            </h6>
+            <h6 id="setNumber{{incremented @index}}">{{contact.number}}</h6>
+          </div>
+          <div class="col s4"></div>
+        </div>
+        {{/with}} {{else}} {{#with appContactSettings}}
+        <div class="center-align row hidden_contact{{incremented @index}} hide" style=" margin-bottom:10px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-top:10px;padding-bottom:10px;">
+          <div class="col s8">
+            <h6 id="setTitle{{incremented @index}}">
+              <b>{{contact.name}}</b>
+            </h6>
+            <h6 id="setNumber{{incremented @index}}">{{contact.number}}</h6>
+          </div>
+          <div class="col s4"></div>
+        </div>
+        {{/with}} {{/if}} {{/each}}
+      </div>
+    </div>
+    {{else}}
+    <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+      <div class="welcome-content center-align">
+        {{#each contact in contacts}} {{#if contact.name}} {{#with appContactSettings}}
+        <div class="center-align" style="margin-bottom:10px; font-family:{{fontActualName appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-top:10px;padding-bottom:10px;">
+          <h6 id="setTitle{{incremented @index}}">
+            <b>{{contact.name}}</b>
+          </h6>
+          <h6 id="setNumber{{incremented @index}}">{{contact.number}}</h6>
+        </div>
+        {{/with}} {{else}} {{#with appContactSettings}}
+        <div class="center-align row hidden_contact{{incremented @index}} hide" style=" margin-bottom:10px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-top:10px;padding-bottom:10px;">
+          <div class="col s8">
+            <h6 id="setTitle{{incremented @index}}">
+              <b>{{contact.name}}</b>
+            </h6>
+            <h6 id="setNumber{{incremented @index}}">{{contact.number}}</h6>
+          </div>
+          <div class="col s4"></div>
+        </div>
+        {{/with}} {{/if}} {{/each}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+  {{/with}}
+</template>

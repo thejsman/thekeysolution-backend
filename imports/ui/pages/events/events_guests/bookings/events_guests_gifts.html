@@ -1,0 +1,108 @@
+<!-- Gift Add -->
+<template name="agency_guest_gift_add">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        <h5 class="page-title">Gift / Giveaway Assignment</h5>
+      </div>
+      <div class="row">
+      {{#each gift in giftBookings}}
+        <div class="col s4">
+          {{> guest_gift_info gift=gift}}
+        </div>
+      {{/each}}
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn btn-primary modal-trigger" href="#events-gifts-add" id="add-gift-button">
+            <i class="material-icons left">add</i>
+            Assign
+          </a>
+        </div>
+      </div>
+      <div id="events-gifts-add" class="modal" style="height: 600px;">
+	<div class="modal-content">
+	  <div class="row">
+	    <div class="col s6">
+	      <h5>{{modalTitle}}</h5>
+	    </div>
+	  </div>
+	  {{#with bookingValues}}
+	    <form id="add-gift-form" class="row">
+	      <div class="input-field col s6">
+          <select name="giftId" id="giftId">
+            <option value="" disabled selected>Choose your option</option>
+            {{#each gift in giftList}}
+              <option value="{{gift._id}}">{{gift.giftName}} - {{availableGifts gift}}</option>
+            {{/each}}
+          </select>
+          <label>Select Gift / Giveaway</label>
+	      </div>
+	      <div class="input-field col s6">
+          <input id="giftNo" type="text" class="validate" name="giftNo" value="{{giftNo}}">
+          <label for="giftNo">Number of Gifts</label>
+	      </div>
+	      <div class="row">
+          <div class="date-field col s4">
+            <input type="text" class="datepicker" name="giftDate" id="GiftDate" value="{{giftDate}}">
+            <label for="GiftDate">Date of delivery</label>
+          </div>
+          <div class="input-field col s4">
+            <input type="text" class="timepicker" name="giftTime" id="GiftTime" value="{{giftTime}}">
+            <label for="GiftTime">Time of delivery</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="GiftRemarks" type="text" class="validate" name="giftRemarks" value="{{giftRemarks}}">
+            <label for="GiftRemarks">Remarks</label>
+          </div>
+	      </div>
+	    </form>
+	  {{/with}}
+	</div>
+	<div class="modal-footer">
+	  <button class="btn waves-effect waves-light" type="submit" name="action" form="add-gift-form">Save
+	    <i class="material-icons right">send</i>
+	  </button>
+	</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="guest_gift_info">
+  <div class="card">
+    <div class="card-content">
+      <div class="action-btn">
+	{{#if isAllowed 'edit-gift-booking'}}
+	<a class="waves-effect btn click_edit-gift-button modal-trigger" href="#events-gifts-add">
+	  <i class="fa fa-pencil"></i>
+	</a>
+	{{/if}}
+	{{#if isAllowed 'delete-gift-booking'}}
+	<a class="waves-effect btn click_delete-gift-button">
+	  <i class="fa fa-trash"></i>
+	</a>
+	{{/if}}
+      </div>
+      <table>
+	<tr>
+	  <td>Gift Name</td>
+	  <td>{{gift.giftName}}</td>
+	</tr>
+	<tr>
+	  <td>Date</td>
+	  <td>{{gift.giftDate}}</td>
+	</tr>
+	<tr>
+	  <td>Time</td>
+	  <td>{{gift.giftTime}}</td>
+	</tr>
+	<tr>
+	  <td>No of Gifts</td>
+	  <td>{{gift.giftNo}}</td>
+	</tr>
+      </table>
+    </div>
+  </div>
+
+</template>

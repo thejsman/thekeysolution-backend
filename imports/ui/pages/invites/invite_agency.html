@@ -1,0 +1,57 @@
+<template name="invite_agency_page">
+  <div class="invite-agency-page container full-height">
+    <div class="full-height">
+      <div class="col s6 offset-s3 full-height valign-wrapper">
+	<div class="container center-align">
+	  {{#if inviteDetails}}
+	    {{#with inviteDetails}}
+	      <h4>WELCOME</h4>
+	      <h5>PLEASE CHOOSE A PASSWORD AND REGISTER</h5>
+	      <br>
+	      <form class="col s12" id="accept-invitation">
+		<div class="row">
+		  <div class="input-field col s12">
+		    <input disabled value={{name}} id="disabledAgencyName" type="text" class="validate">
+		    <label for="disabledAgencyName" class="active">Agency</label>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="input-field col s12">
+		    <input disabled value={{email}} id="disabledEmail" type="email" class="validate">
+		    <label for="disabledEmail" class="active">Email</label>
+		  </div>
+		</div>
+		<!-- <div class="row">
+		     <div class="input-field col s12">
+		     <input disabled value={{showPackageName}} id="disabledPackageName" type="text" class="validate">
+		     <label for="disabledEmail" class="active">Package Name</label>
+		     </div>
+		     </div> -->
+		<div class="row">
+		  <div class="input-field col s12">
+		    <input id="password" type="password" class="validate" name="password">
+		    <label for="password">Password</label>
+		  </div>
+		</div>
+
+		<div class="row">
+		  <div class="input-field col s12">
+		    <button class="btn waves-effect waves-light" type="submit" name="action" form="accept-invitation">Register
+		      <i class="material-icons right">send</i>
+		    </button>
+		  </div>
+		</div>
+	      </form>
+	    {{/with}}
+	  {{else}}
+	    {{#if showUnavailable}}
+	      <p> Sorry, invite code invalid. Please request another.</p>
+	    {{else}}
+	      {{> preloader_big}}
+	    {{/if}}
+	  {{/if}}
+	</div>
+      </div>
+    </div>
+  </div>
+</template>

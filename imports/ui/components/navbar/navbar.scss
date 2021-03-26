@@ -1,0 +1,206 @@
+@import "../../style/colors";
+
+.app_body2{
+  // Top Navigation
+  .navbar-fixed{
+    li#ham-menu{
+      width: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ddd;
+      font-size: 30px;
+      cursor: pointer;
+    }
+  }
+  // Side Navigation Bar
+  .bmt-side-nav {
+    width: 100%;
+    padding: 1.8rem 0;
+    background: #fff;
+    i.fa{
+      min-width: 30px;
+      margin-right: 0;
+    }
+    .btn-flat{
+      &:hover, &.active{
+        font-weight: 600;
+        background-color: $negativeColor;
+      }
+    }
+    .event-info {
+      position: relative;
+      text-align: center;
+      h5{
+        font-size: 18px;
+      }
+      a.event-name{
+        color: #343434;
+        &:hover, &.active{
+          color: #343434 !important;
+        }
+      }
+    }
+  }
+  .side-nav.fixed{
+    margin-top: 64px;
+    min-height: 100vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 4px;
+      background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: #F5F5F5;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: $positiveColor;
+      border: 2px solid $positiveColor;
+    }
+    &.active{
+      transform: translateX(0%) !important;
+    }
+  }
+  #nav-mobile{
+    margin-left: -300px;
+    transition: all 0.2s ease;
+    li{
+      margin-bottom: 10px;
+    }
+    a, .collapsible-header, .collapsible-body a{
+      position: relative;
+      i.tooltip-icon {
+        position: absolute;
+        right: 0;
+        top: 15px;
+      }
+      &.collapsible-header i.tooltip-icon{
+        top: 0;
+      }
+      &.active, &:hover{
+        color: #fff;
+        background-color: $negativeColor;
+        i{
+          color: #fff;
+        }
+      }
+    }
+    &.active{
+      margin-left: 0;
+    }
+    .collapsible-header{
+      color: rgba(0,0,0,0.87);
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      height: 25px;
+      line-height: 25px;
+      padding: 0 32px;
+      i{
+        float: left;
+        height: 25px;
+        line-height: 25px;
+        margin-right: 20px;
+        color: rgba(0,0,0,0.54);
+        font-size: 14px;
+        width: 10px;
+        &:first-child{
+          margin-right: 0;
+        }
+      }
+    }
+    .collapsible-body{
+      a{
+        color: rgba(0,0,0,0.87);
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        height: 25px;
+        line-height: 25px;
+        padding: 0 20px;
+        padding-left: 60px;
+        margin-bottom: 5px;
+        i.fa{
+          min-width: 14px;
+          font-size: 10px;
+        }
+        i.tooltip-icon{
+          right: 28px !important;
+          top: 5px;
+        }
+      }
+    }
+    .event-admin-action {
+      position: relative;
+      padding: 40px 0;
+      button.click_delete-event{
+        background: $neutralColor !important;
+      }
+      button.click_remove-event{
+        background: $negativeColor !important;
+      }
+    }
+  }
+  #nav-mobile.active + .event-content{
+    margin-left: 300px;
+  }
+  .nav-wrapper{
+    background: $top-nav-color;
+    .logo{
+      a:hover{
+        background: transparent;
+      }
+      img{
+        height: 50px;
+        width: 50px;
+        vertical-align: middle;
+      }
+    }
+    ul li a{
+      color: $top-nav-text-color;
+    }
+  }
+  ul.app-setting-nav{
+    padding-left: 35px;
+    li a{
+      text-transform: capitalize;
+    }
+  }
+}
+
+nav.breadcrumbs{
+  display: inline-block;
+  width: auto;
+  box-shadow: none;
+  margin-left: 30px;
+  a.breadcrumb{
+    color: #000;
+    &:before{
+      color: #000;
+    }
+  }
+  li{ 
+    a{
+      position: relative;
+      &:after{
+        content: '>';
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: -5px;
+        font-size: 24px;
+      }
+    }
+    &:last-of-type{
+      a::after{
+        content: '';
+      }
+    }
+  }
+}
+
+.selected-li {
+  background: #54B1AA ;
+ }

@@ -1,0 +1,43 @@
+<template name="login">
+  <div class="card medium">
+    <div class="card-content dark-primary-color">
+      <span class="card-title text-primary-color">Login</span>
+    </div>
+    <div class="card-content">
+      <form id="signin-form">
+        <div>
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" name="user" required>
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div>
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password" required>
+            <label for="password">Password</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-action">
+      <a href="#forgotPasswordModal" class="left modal-trigger">Forgot Password?</a>
+      <button class="btn waves-effect waves-light right default-primary-color" type="submit" name="action" form="signin-form">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+  <div class="modal" id="forgotPasswordModal">
+    <div class="modal-content">
+      <form id="forgotPasswordForm" class="row">
+        <div class="input-field col s12">
+          <input id="forgotPasswordEmail" type="text" name="email" placeholder="Email Address">
+          <label for="forgotPasswordEmail">Email</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="forgotPasswordForm">Send reset
+          link
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+    </div>
+  </div>
+</template>

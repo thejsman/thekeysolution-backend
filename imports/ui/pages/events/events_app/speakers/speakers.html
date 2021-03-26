@@ -1,0 +1,139 @@
+<!-- List all Speakers -->
+<template name="app_speakers">
+  <div class="event-speakers">
+    <div class="row">
+      <div class="col s12">
+        <h5 class="page-title">Speakers <a class="waves-effect waves-light btn btn-primary" href={{addPath}}><i class="material-icons left">add</i>Add Speaker</a></h5>
+      </div>
+    </div>
+    <div class="row">
+      {{#each speaker in speakers}}
+        {{> speaker_card speaker=speaker}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<!-- Speaker Form -->
+<template name="add_speaker">
+  <div id="add-speaker">
+    <div class="row">
+      <div class="col s12 m6">
+        <h5>{{title}}</h5>
+        <form class="col s12" id="speaker-form">
+          <div class="row">
+            <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="page sequence number">
+              <input id="sequence" type="number" min="1" name="sequence" value={{speaker.sequence}}>
+              <label class="always-active" for="sequence">Speaker Sequence</label>
+            </div>
+            <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="This image will appear in the App. Please ensure it is a licensed / purchased image or use one from our resources page">
+              <input type="file" id="input-file-now" class="dropify" data-default-file="{{speaker.image}}" name="image">
+              <label class="dropify-img-label" for="image">Speaker Photo 1, Max : 1 Mb, 1200 x 520, Format:
+                JPEG</label>
+            </div>
+            <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Name of the Speaker">
+              <input id="name" type="text" name="name" data-length="40" value={{speaker.name}}>
+              <label class="always-active" for="name">Name <i class="tooltip-icon"></i></label>
+            </div>
+            <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Designation/Title of the Speaker">
+              <input id="intro" type="text" name="intro" data-length="40" maxlength="50" value={{speaker.intro}}>
+              <label class="always-active" for="intro">Designation <i class="tooltip-icon"></i></label>
+            </div>
+            <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Description about the speaker">
+              <textarea class="materialize-textarea about" id="about" name="about"
+                cols="30" rows="10">{{speaker.about}}</textarea>
+              <label class="always-active" for="about">About <i class="tooltip-icon"></i></label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col s12 m6 app-setting">
+        {{> app_preview_speaker}}
+      </div>
+    </div>
+    <div class="section-footer">
+      <button class="btn waves-effect waves-light" id="update_app_preview">
+        <i class="fa fa-refresh"></i>App Preview <i class="tooltip-icon" data-position="top" data-delay="50"
+          data-tooltip="All the App screens togther, for final approval from your client"></i></button>
+      <button class="btn waves-effect waves-light" type="submit" name="action" form="speaker-form">
+        <i class="material-icons left">add</i>{{buttonText}}
+      </button>
+    </div>
+  </div>
+</template>
+
+<!-- Single Speaker Cards -->
+<template name="speaker_card">
+  <div class="col s12 m12 l4 speaker-card">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">
+            {{speaker.name}}
+            <p class="info-card-date"></p>
+          </div>
+          <div class="info-card-action">
+            <div class="action-btn">
+              {{#if isAllowed 'edit-speaker'}}
+                <a class="btn primary click_edit-button">
+                  <i class="fa fa-pencil"></i>
+                </a>
+              {{/if}}
+              {{#if isAllowed 'delete-speaker'}}
+                <a href="#" class="btn primary click_delete-button">
+                  <i class="fa fa-trash"></i>
+                </a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content-bg white-text" style="background-image:url('{{speaker.image}}')">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align card-top-content" style="min-height: 170px">
+              <p>{{speaker.intro}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- App Preview -->
+<template name="app_preview_speaker">
+  <h5 class="page-title center">Screen Preview</h5>
+  {{#with appGeneralSettings}} {{#let page=pageInfo}}
+  <div class="app-preview about welcome" style="color: {{appColor2}}">
+    {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=aboutUsTitle}}
+    <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+      <div>
+        <br>
+        <div class="row" style="padding-left:20px;">
+          <center>
+            <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{page.name}}</a>
+          </center>
+        </div>
+        <div class="row center-align">
+          <div class="col s4"></div>
+          <div class="col s4 page-dots">
+            <i class="fa fa-circle selected"></i> &nbsp;
+            <i class="fa fa-circle"></i> &nbsp;
+            <i class="fa fa-circle"></i>
+          </div>
+          <div class="col s4"></div>
+        </div>
+      </div>
+      <div class="welcome-content">
+        <div class="welcome-image" id="about_main_banner" style="background-image:url('{{page.image}}'); "></div>
+        <div class="welcome-text" style="font-family: {{appBodyFont}}; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+          <h5 id="about_main_title">{{page.name}}</h5>
+          <p id="sub-title">{{page.intro}}</p>
+          <p id="about_main_description" style="white-space:pre-line;">{{page.about}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/let}} {{/with}}
+</template>

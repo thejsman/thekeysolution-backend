@@ -1,0 +1,60 @@
+<template name="events_services">
+  <div class="events-services">
+    <div class="row">
+      <div class="col s12">
+	      <h5 class="page-title">Services<a class="waves-effect waves-light btn btn-primary modal-trigger" href="#event-services-add"><i class="material-icons left">add</i>Add Service</a></h5>
+      </div>
+      <div class="col s12">
+	      {{> events_services_add_form}}
+      </div>
+    </div>
+    <div class="row">
+      {{#each service in serviceList}}
+	      {{> events_single_service service=service}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="events_single_service">
+  <div class="col s4 m4 l4">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">{{service.serviceName}}</div>
+        </div>
+      </div>
+      <div class="card-content-bg white-text">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align">
+              <div class="flight-state">
+                <p class="margin">{{service.serviceDescription}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 m4 l4 center-align">
+              <div class="flight-info">
+                <h6>Total Slots</h6>
+                <p>{{total}}</p>
+              </div>
+            </div>
+            <div class="col s4 m4 l4 center-align">
+              <div class="flight-info">
+                <h6>Slots Available</h6>
+                <p>{{available}}</p>
+              </div>
+            </div>
+            <div class="col s4 m4 l4 center-align flight-state-two">
+              <div class="flight-info">
+                <h6>Slots Booked</h6>
+                <p>{{booked}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

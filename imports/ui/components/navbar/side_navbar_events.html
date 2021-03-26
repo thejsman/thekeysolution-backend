@@ -1,0 +1,501 @@
+<template name="side_navbar_events">
+  <div class="bmt-side-nav">
+    <div class="side-nav-header">
+      <div class="agency-info">
+        <!-- Agency info -->
+      </div>
+      <div class="event-info">
+        <a class="event-name" href="{{ eventSummary }}">
+          <h5>{{ eventName }}</h5>
+        </a>
+      </div>
+    </div>
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <a class="collapsible-header" href="{{ eventSummary }}"
+          ><i class="fa fa-dashboard"></i> Summary
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="This page gives you a macro look at the event data about guests, inventory and services. Downloadable as an excel."
+          ></i
+        ></a>
+      </li>
+      {{#if isAllowed 'activity-record-based-on-event'}}
+      <li>
+        <div class="collapsible-header">
+          <i class="fa fa-tasks"></i>Activity Records
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Click here to check activity record of users, for this particular event only."
+          ></i>
+        </div>
+        <div class="collapsible-body">
+          <a href="{{ activityRoute }}"
+            ><i class="fa fa-chevron-right"></i> Workstation Activity</a
+          >
+          <a href="{{ activityRoutePwa }}"
+            ><i class="fa fa-chevron-right"></i> App Activity</a
+          >
+        </div>
+      </li>
+      {{/if}} {{#if isAllowed 'guests-list'}}
+      <li>
+        <a class="collapsible-header" href="{{ guestRoute }}"
+          ><i class="fa fa-user"></i> Guest List
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Click here to add, view, edit, manage & delete individual Guests and their Information. Import & Export Excel Sheets from here."
+          ></i
+        ></a>
+      </li>
+      {{/if}}
+
+      <!-- {{#if isAllowed 'guests-list'}} -->
+      <li>
+        <a class="collapsible-header" href="{{ meetingRoute }}"
+          ><i class="fa fa-users"></i> Meeting
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Click here to add, view, edit, manage & delete individual meetings and their Information"
+          ></i
+        ></a>
+      </li>
+      <!-- {{/if}} -->
+
+      <!-- For deployment. -->
+      {{#if hasFeature 'packages'}}
+      <li>
+        <div class="collapsible-header">
+          <i class="fa fa-shopping-bag"></i> Packages
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Click here to add, view, edit, manage & delete Packages."
+          ></i>
+        </div>
+        <div class="collapsible-body">
+          <a href="{{ packagesInfoRoute }}"
+            ><i class="fa fa-chevron-right"></i> Packages Info</a
+          >
+          <a href="{{ packagesRoute }}"
+            ><i class="fa fa-chevron-right"></i> All Packages</a
+          >
+          <a href="{{ packagesOptionalRoute }}"
+            ><i class="fa fa-chevron-right"></i> Additional Packages</a
+          >
+        </div>
+      </li>
+      {{/if}}
+      <!-- {{#if hasFeature 'polls'}} -->
+      <!-- <li>
+          <a class="collapsible-header" href={{pollRoute}}>
+            <i class="fa fa-question"></i> Polls
+            <i class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Define guest services and their appointment slots here if offered by the client">
+            </i>
+          </a></li> -->
+      <!-- {{/if}} -->
+      <!-- Photo Sharing UI -->
+      <!-- TODO : Add photo sharing to features option to select -->
+      {{#if hasFeature 'photoShare'}} {{#if isAllowed 'packages-list'}}
+      <li>
+        <div class="collapsible-header">
+          <i class="fa fa-image"></i> Photo Sharing
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Click here to add, view, edit, manage & delete Photos."
+          ></i>
+        </div>
+        <div class="collapsible-body">
+          <a href="{{ photosRoute }}"
+            ><i class="fa fa-chevron-right"></i> Photos</a
+          >
+          <a href="{{ photoSettingsRoute }}"
+            ><i class="fa fa-chevron-right"></i> Settings</a
+          >
+        </div>
+      </li>
+      {{/if}} {{/if}} {{#if isAllowed 'view-hotels'}} {{#if anyHotelExist}}
+      <li>
+        <div class="collapsible-header">
+          <i class="fa fa-hotel"></i>Hotels
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Click here to add, view, edit, manage & delete individual Guests and their Information. Import & Export Excel Sheets from here."
+          ></i>
+        </div>
+        <div class="collapsible-body">
+          {{#if eventHotelExist }}<a href="{{ hotelRoute }}"
+            ><i class="fa fa-chevron-right"></i>Rooms for Assignment
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Click here if rooms have been purchased by the client and only need to be added to your inventory for assignment to guest"
+            ></i></a
+          >{{/if}} {{#if eventPaidHotelExist }}<a href="{{ hotelforsaleRoute }}"
+            ><i class="fa fa-chevron-right"></i>Rooms for Sale
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Click here if rooms will be purchased by the guest from pre-bought inventory"
+            ></i></a
+          >{{/if}}
+        </div>
+      </li>
+      {{/if}} {{/if}} {{#if isAllowed 'view-flights'}} {{#if anyFlightExist}}
+      <li>
+        <div class="collapsible-header">
+          <i class="fa fa-plane"></i>Flights
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Manage your Flights inventory here"
+          ></i>
+        </div>
+        <div class="collapsible-body">
+          {{#if eventFlightExist }}<a href="{{ flightRoute }}"
+            ><i class="fa fa-chevron-right"></i>Flights for Assignment
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Click here if flights have been purchased by the client and only need to be added to your inventory for assignment to guest"
+            ></i></a
+          >{{/if}} {{#if eventPaidFlightExist }}<a
+            href="{{ flightforsaleRoute }}"
+            ><i class="fa fa-chevron-right"></i>Flights for Sale
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Click here if flights will be purchased by the guest from pre-bought inventory"
+            ></i></a
+          >{{/if}}
+        </div>
+      </li>
+      {{/if}} {{/if}} {{#if isAllowed 'view-gifts'}} {{#if eventGiftsExist}}
+      <li>
+        <a class="collapsible-header" href="{{ giftRoute }}"
+          ><i class="fa fa-gift"></i>Giveaways & Gifts
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Manage your gifts and giveaways inventory here"
+          ></i
+        ></a>
+      </li>
+      {{/if}} {{/if}} {{#if isAllowed 'view-transport'}} {{#if
+      eventTransportExist}}
+      <li>
+        <a class="collapsible-header" href="{{ transportRoute }}"
+          ><i class="fa fa-car"></i>Guest Logistics
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Add drivers & vehicles here"
+          ></i
+        ></a>
+      </li>
+      {{/if}} {{/if}} {{#if isAllowed 'view-managers'}}
+      <li>
+        <a class="collapsible-header" href="{{ managersRoute }}"
+          ><i class="fa fa-user"></i> Managers
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Add Hospitality & Transport Managers details here"
+          ></i
+        ></a>
+      </li>
+      {{/if}} {{#if isAllowed 'view-services'}} {{#if eventServicesExist}}
+      <li>
+        <a class="collapsible-header" href="{{ servicesRoute }}"
+          ><i class="fa fa-feed"></i> Guest Services
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Define guest services and their appointment slots here if offered by the client"
+          ></i
+        ></a>
+      </li>
+      {{/if}} {{/if}} {{#if isAllowed "send-notification"}}
+      <li>
+        <a class="collapsible-header" href="{{ appNotificationsRoute }}"
+          ><i class="fa fa-chevron-right"></i>Notifications<i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Add, Edit & Send Default or Custom Notifications to Guests"
+          ></i
+        ></a>
+      </li>
+      {{/if}}
+      <!-- Download Section -->
+      {{#if hasFeature 'downloads'}} {{#if isAllowed "download-section"}}
+      <li>
+        <a class="collapsible-header" href="{{downloadRoute}}"
+          ><i class="fa fa-download"></i> E-Docs
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Bulk upload PDF dcuments like Flight tickets,Event guidelines, Visa, Travel insurance, etc."
+          ></i
+        ></a>
+      </li>
+      {{/if}} {{/if}} {{#if hasFeature "Travel Details"}}
+      <li>
+        <a class="collapsible-header" href="{{downloadRouteAgency}}"
+          ><i class="fa fa-files-o"></i> Travel Documents
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Bulk download guests documents like Flight tickets, Visa, Photo ID, Insurance"
+          ></i
+        ></a>
+      </li>
+      {{/if}}
+      <li>
+        <div class="collapsible-header">
+          <i class="fa fa-bar-chart"></i>
+          Reports
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Check and download reports"
+          ></i>
+        </div>
+        <div class="collapsible-body">
+          <a href="{{ reportLogin }}"
+            ><i class="fa fa-chevron-right"></i>Guest Login</a
+          >
+          <a href="{{ reportPassword }}"
+            ><i class="fa fa-chevron-right"></i>Password Report</a
+          >
+          {{#if eventMealExist }}
+          <a href="{{ reportMealPref }}"
+            ><i class="fa fa-chevron-right"></i>Guest Meal Preference</a
+          >
+          {{/if}} {{#if eventSizeExist }}
+          <a href="{{ reportMerchandise }}"
+            ><i class="fa fa-chevron-right"></i>Merchandise Report</a
+          >
+
+          {{/if}} {{#if eventSpecialAssistanceExist }}
+
+          <a href="{{ reportSpecialAssist }}"
+            ><i class="fa fa-chevron-right"></i>Special Assistance</a
+          >
+          {{/if}} {{#if eventServicesExist}}
+          <a href="{{ reportServiceInfo }}"
+            ><i class="fa fa-chevron-right"></i>Service Info Report</a
+          >
+          {{/if}}
+          <!-- <a href="{{ reportRsvpInfo }}"
+            ><i class="fa fa-chevron-right"></i>RSVP Info</a
+          > -->
+          {{#if eventFlightExist }}
+          <ul class="collapsible" data-collapsible="accordion2">
+            <li>
+              <a class="collapsible-header preferenceStyle">
+                <i class="fa fa-chevron-right"></i>Flight Reports
+              </a>
+              <div class="collapsible-body">
+                <a href="{{ reportFlights }}" class="preferenceStyleElement"
+                  ><i class="fa fa-chevron-right"></i>Fight Master Reports</a
+                >
+                <a
+                  href="{{ reportFlightsArrival }}"
+                  class="preferenceStyleElement"
+                  ><i class="fa fa-chevron-right"></i>Fights Arival Report</a
+                >
+                <a
+                  href="{{ reportFlightsDeparture }}"
+                  class="preferenceStyleElement"
+                  ><i class="fa fa-chevron-right"></i>Fights Departure Report</a
+                >
+              </div>
+            </li>
+          </ul>
+          {{/if}} {{#if eventHotelExist }}
+          <a href="{{ reportHotels }}"
+            ><i class="fa fa-chevron-right"></i>Hotels Report</a
+          >
+          {{/if}}
+        </div>
+      </li>
+      <!-- {{#if isAllowed 'view-app-settings'}} -->
+      <li>
+        <div class="collapsible-header">
+          <i class="fa fa-mobile"></i>App Settings
+          <i
+            class="tooltip-icon"
+            data-position="top"
+            data-delay="50"
+            data-tooltip="Design, Style & Customize your Event App from here"
+          ></i>
+        </div>
+        <div class="collapsible-body">
+          <a href="{{ appRoute }}"
+            ><i class="fa fa-chevron-right"></i>App Design<i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Design & define your App settings here. You can preview your App screen as you create it.  You can keep editing this section uptill the Generate App Request. Any changes made here, after the App has been generated will require the App to be re-made."
+            ></i
+          ></a>
+          <a href="{{ appWelcomeRoute }}"
+            ><i class="fa fa-chevron-right"></i>Welcome Message</a
+          >
+          {{#if hasFeature 'About'}}
+          <a href="{{ appAboutRoute }}"
+            ><i class="fa fa-chevron-right"></i>About Host / Event</a
+          >
+          {{/if}} {{#if hasFeature 'Speakers'}}
+          <a href="{{ appSpeakerRoute }}"
+            ><i class="fa fa-chevron-right"></i>Speakers</a
+          >
+          {{/if}} {{#if hasFeature 'Sponsors'}}
+          <a href="{{ appSponsorRoute }}"
+            ><i class="fa fa-chevron-right"></i>Sponsors</a
+          >
+          {{/if}} {{#if hasFeature 'Destination'}}
+          <a href="{{ appDestinationRoute }}"
+            ><i class="fa fa-chevron-right"></i>Destination</a
+          >
+          {{/if}}
+          <a href="{{ subeventRoute }}"
+            ><i class="fa fa-chevron-right"></i>Sub-Events</a
+          >
+          {{#if hasFeature 'Itinerary'}}
+          <a href="{{ appItineraryRoute }}"
+            ><i class="fa fa-chevron-right"></i>Itinerary</a
+          >
+          {{/if}}
+          <a href="{{ appWishFeedbackRoute }}"
+            ><i class="fa fa-chevron-right"></i>General Queries</a
+          >
+          {{#if isAllowed 'view-preferences'}} {{#if guestPreferenceExist}}
+          <ul class="collapsible" data-collapsible="accordion2">
+            <li>
+              <a class="collapsible-header preferenceStyle">
+                <i class="fa fa-chevron-right"></i>Guest Preferences
+              </a>
+              <div class="collapsible-body">
+                {{#if eventMealExist }}<a
+                  class="preferenceStyleElement"
+                  href="{{ foodRoute }}"
+                  ><i class="fa fa-chevron-right"></i>Meal
+                  <i
+                    class="tooltip-icon"
+                    data-position="top"
+                    data-delay="50"
+                    data-tooltip="Add the choices of Meal Preferences here for the Guests to choose from (ex: Veg, Non Veg, Jain)"
+                  ></i></a
+                >{{/if}} {{#if eventSizeExist }}<a
+                  class="preferenceStyleElement"
+                  href="{{ sizeRoute }}"
+                  ><i class="fa fa-chevron-right"></i>Merchandise Size
+                  <i
+                    class="tooltip-icon"
+                    data-position="top"
+                    data-delay="50"
+                    data-tooltip="Add the choices of Merchandize Giveaways to Guests that require their sizes (ex: T-shirts)"
+                  ></i></a
+                >{{/if}} {{#if eventSpecialAssistanceExist }}<a
+                  class="preferenceStyleElement"
+                  href="{{ assistanceRoute }}"
+                  ><i class="fa fa-chevron-right"></i>Special Assistance
+                  <i
+                    class="tooltip-icon"
+                    data-position="top"
+                    data-delay="50"
+                    data-tooltip="Add the choices of Special Assistances that are offered to the Guests (ex: Wheelchair)"
+                  ></i></a
+                >{{/if}}
+              </div>
+            </li>
+          </ul>
+          {{/if}} {{/if}} {{#if hasFeature 'Contact Details'}}
+          <a href="{{ appContactRoute }}"
+            ><i class="fa fa-chevron-right"></i>Contact</a
+          >
+          {{/if}}
+          <a href="{{ appPreviewRoute }}"
+            ><i class="fa fa-chevron-right"></i>App Preview
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Click here to see the full preview of your App Screens"
+            ></i
+          ></a>
+        </div>
+      </li>
+      <!-- {{/if}} -->
+    </ul>
+    <div class="event-admin-action">
+      {{#if isAllowed 'close-events'}}
+      <div class="row center-align">
+        <div class="col s12">
+          <button
+            class="btn waves-effect darken-4 click_delete-event"
+            type="submit"
+            name="action"
+          >
+            {{ closeEventTitle }}
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="Clicking here will move your Active Event into Closed. Can be re-opened if required."
+            ></i>
+          </button>
+        </div>
+      </div>
+      {{/if}} {{#if isAllowed 'delete-events'}}
+      <div class="row center-align">
+        <div class="col s12">
+          <button
+            class="btn waves-effect darken-4 click_remove-event"
+            type="submit"
+            name="action"
+          >
+            Delete Event
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="This can not be undone. Clicking here will delete your event and will not be available to you to see"
+            ></i>
+          </button>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>

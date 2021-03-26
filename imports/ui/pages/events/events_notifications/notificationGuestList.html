@@ -1,0 +1,41 @@
+<template name="notificationGuestList">
+  <div class=" " id="notificationGuestListModal">
+    <div class="row selectGuestListType">
+      <p class="col s12">Select guest list to send notifications.</p>
+      <p class="col s4">
+        <input value="all_guest" class="with-gap" type="radio" id="all_guest" name="guestGroup" checked/>
+        <label for="all_guest">All Guests</label>
+      </p>
+      <p class="col s4">
+        <input value="not_logged_guest" class="with-gap" type="radio" id="not_logged_guest" name="guestGroup" />
+        <label for="not_logged_guest">Not LoggedIn Guests</label>
+      </p>
+      <p class="col s4">
+        <input value="new_guest" class="with-gap" type="radio" id="new_guest" name="guestGroup" />
+        <label for="new_guest">New Guests</label>
+      </p>
+      <div class="col s8">
+        <input type="text" placeholder="Search Guest" id="searchGuest">
+      </div>
+      <div class="col s4">
+        <p>
+          <input type="checkbox" id="selectAllGuest"/>
+          <label for="selectAllGuest">Select All</label>
+        </p>
+      </div>
+    </div>
+    <div class="row guestListNotification">
+      {{#each guest in guestList}}
+        <div class="col s3">
+          {{#if selected guest._id}}
+            <input type="checkbox" name="notificationUserList[]" value="{{guest._id}}" id="{{guest._id}}" checked/>
+          {{else}}
+            <input type="checkbox" name="notificationUserList[]" value="{{guest._id}}" id="{{guest._id}}"/>
+          {{/if}}
+          <label for="{{guest._id}}">{{guest.guestFirstName}} {{guest.guestLastName}} - (Folio No: {{guest.folioNumber}})</label>
+        </div>
+      {{/each}}
+    </div>
+    <p class="footnote">After clicking on Save, do remember to click on Send in the Notifications list.</p>
+  </div>
+</template>

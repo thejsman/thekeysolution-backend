@@ -1,0 +1,47 @@
+<template name="events_guest_member_list">
+  {{#if guestList}}
+    <div class="card">
+      <div class="card-content">
+        <div class="card-title">
+          <h5 class="page-title">Family Member Information</h5>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Contact Number</th>
+              <th>Email</th>
+              <th>Relation</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{#each guest in guestList}}
+              {{> events_guest_member_list_item guest=guest}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{/if}}
+</template>
+
+<template name="events_guest_member_list_item">
+  <tr>
+    <td>
+      <a href={{guestProfilePath guest._id}}>{{guest.guestFirstName}} {{guest.guestLastName}}</a>
+    </td>
+    <td>{{guest.guestContactNo}}</td>
+    <td>{{guest.guestPersonalEmail}}</td>
+    <td>{{guest.guestRelation}}</td>
+    <td>
+      {{#if isAllowed 'guest-edit'}}
+        <div class="action-btn">
+          <a class="waves-effect btn click_edit-guest-button"><i class="fa fa-pencil"></i></a>
+          <a class="waves-effect btn click_delete-guest-button"><i class="fa fa-trash"></i></a>
+        </div>
+      {{/if}}
+    </td>
+  </tr>
+</template>

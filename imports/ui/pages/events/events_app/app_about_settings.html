@@ -1,0 +1,83 @@
+<template name="app_about_settings">
+  {{#with appData}}
+    <div class="app-setting">
+      <div class="row">
+        <div class="col m8">
+          <h5 class="title">About Screen <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Enter information about the Host, the Corporate, or the Bride & Groom here"></i></h5>
+          <div class="row card">
+            <form id="app_about_settings" method="post" class="col s12">
+              <div class="row">
+                {{#unless isDefaultAppBackground}}          
+                  <div class="col s12 aboutBackgroundDiv" >
+                    <label>Background, Max 1MB, 1080 x 1920, Format: JPEG</label>
+                    <input type="file" class="dropify" data-default-file={{appData.aboutPageBackground}} name="aboutPageBackground" data-max-file-size="1M" data-allowed-formats="portrait" data-allowed-file-extensions="jpg"/>
+                  </div> 
+                {{/unless}}
+                <div class="row">
+                  <div class="col s3 aboutFirstDiv" >
+                    <label>First Image, Max : 1 Mb, 1200 x 520, Format: JPEG</label>
+                    <input type="file" class="dropify" data-default-file={{appData.aboutPageMainbanner}} name="aboutPageMainbanner" data-max-file-size="1M" data-allowed-formats="landscape" data-allowed-file-extensions="jpg"/>
+                </div>
+                <div class="col s9">
+                  <div class="input-field col s12">
+                    <input id="app_title" type="text" class="validate about_first_title" name="aboutPageTitle" value={{appData.aboutPageTitle}}>
+                    <label class="always-active"  for="first_name">First Screen Title</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea about_first_content" cols="10" name="aboutPageMainMessage" value={{appData.aboutPageMainMessage}}></textarea>
+                    <label class="always-active" for="textarea1">First Sceen Content</label>
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col s3 aboutSecondDiv">
+                    <label>Second Image, Max : 1 Mb, 1200 x 520, Format: JPEG </label>
+                    <input type="file" class="dropify" data-default-file={{appData.aboutPageSubBanner1}} name="aboutPageSubBanner1" data-max-file-size="1M" data-allowed-formats="landscape" data-allowed-file-extensions="jpg"/>
+                  </div>
+                <div class="col s9">
+                  <div class="input-field col s12">
+                    <input id="app_title" type="text" class="validate about_second_title" name="aboutPageSubTitle1" value={{appData.aboutPageSubTitle1}}>
+                    <label class="always-active" for="first_name">Second Screen Title</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea about_second_content" cols="10" name="aboutPageSubDescription1" value={{appData.aboutPageSubDescription1}}></textarea>
+                    <label class="always-active" for="textarea1">Second Screen Content</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s3 aboutThirdDiv" >
+                  <label>Third Image, Max : 1 Mb, 1200 x 520, Format: JPEG</label>
+                  <input type="file" class="dropify" data-default-file={{appData.aboutPageSubBanner2}} name="aboutPageSubBanner2" data-max-file-size="1M" data-allowed-formats="landscape" data-allowed-file-extensions="jpg"/>
+                </div>
+                <div class="col s9">
+                  <div class="input-field col s12">
+                    <input id="app_title" type="text" class="validate about_third_title" name="aboutPageSubTitle2" value={{appData.aboutPageSubTitle2}}>
+                    <label class="always-active" for="first_name">Third Screen Title</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea about_third_content" cols="10" name="aboutPageSubDescription2" value={{appData.aboutPageSubDescription2}}></textarea>
+                    <label class="always-active" for="textarea1">Third Screen Content</label>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+              <div class="row">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Save
+                  <i class="material-icons right">send</i>
+                </button>
+                <button class="btn waves-effect waves-light" type="button"  id="update_about_preview">
+              <i class="fa fa-refresh"></i>App Preview</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col m4">
+          {{> app_preview_about}}
+        </div>
+      </div>
+    </div>
+  {{/with}}
+</template>

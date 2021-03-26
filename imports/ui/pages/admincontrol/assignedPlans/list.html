@@ -1,0 +1,36 @@
+<template name="agency_assigned_plan">
+        {{#if agencyList}}
+          <div class="row">
+            <h5 class="col s10">AGENCIES ASSIGNED PLANS</h5>
+          </div>
+          <table>
+            <thead>
+          <tr>
+            <th>#</th>
+            <th>Agency Name</th>
+            <th>Date</th>
+            <th>Plan Name</th>
+            <th>Number of Apps</th>
+            <th>Apps Remaining</th>
+            
+          </tr>
+            </thead>
+            <tbody>
+          {{  #each agencyList}}
+            <tr>
+              <th scope="row">{{indexPlusOne @index}}</th>
+              <td>{{name}}</td>
+              <td>{{ planPurchaseDateTime }}</td>
+
+              <td>{{ agencyPlanName }}</td>
+              <td>{{ agencyPlanNumOfAppsPurchased }}</td>
+              <td>{{ remainingCount agencyPlanNumOfAppsPurchased agencyPlanAppsGenerated }}</td>
+             
+            </tr>
+          {{/each}}
+            </tbody>
+          </table>
+          <div class="divider"></div>
+        {{/if}}
+      </template>
+      

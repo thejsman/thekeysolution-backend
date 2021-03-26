@@ -1,0 +1,55 @@
+<template name="events_add_guest">
+  <div id="add-guest-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Add Guest</h4>
+      <form class="col s12" id="add-guest">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="first_name" type="text" class="validate" name="guestName" value={{autoFillName}}>
+            <label for="first_name">Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" name="guestEmail" value={{autoFillEmail}}>
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="contactNo" type="text" class="validate" name="guestPhoneNo" value={{autoFillContact}}>
+            <label for="contactNo">Contact Number</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="familyID" type="text" class="validate" name="guestFamilyID" value={{autoFillContact}}>
+            <label for="familyID">Family ID</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="guestIsPrimary">Guest Type</label>
+          </div>
+          <div class="col s6">
+            <div class="switch">
+              <label>
+                Others
+                <input type="checkbox" name="guestIsPrimary" id="guestIsPrimary">
+                <span class="lever"></span>
+                Primary
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close {{isEnabled}}">Cancel</a>
+      <button class="btn waves-effect waves-light {{isEnabled}}" type="submit" name="action" form="add-guest">
+        <i class="material-icons left">add</i>
+        Add
+      </button>
+    </div>
+  </div>
+</template>

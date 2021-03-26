@@ -1,0 +1,89 @@
+<template name="agency_passport_add">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        <h5 class="page-title">Passport / Photo ID</h5>
+      </div>
+      {{#if guestPassportImages}}
+      <div class="user-uploads">
+        <h6>Uploaded by user</h6>
+        <div class="img-uploaded">
+          <!-- TODO: EACH IMG UPLOADED -->
+          {{#each image in guestPassportImages}}
+          <figure>
+            <img src="{{image}}" alt="">
+            <div class="hover-options">
+              <a onclick="window.open('{{image}}', 'newwindow', 'width=600,height=600'); return false;">open</a>
+              <a target="_blank" href="{{image}}" download>download</a>
+            </div>
+          </figure>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+      <div class="events-passport-add">
+        {{#let passport=guestPassport}}
+          <form id="add-passport-form" class="row">
+            <div class="row">
+              <div class="input-field col s3">
+                <select id="guestNationality" name="guestNationality">
+                  <option value="India">India</option>
+                  {{#each countries}}
+                    <option value="{{name}}">{{name}}</option>
+                  {{/each}}
+                </select>
+                <label for="guestNationality">Nationality</label>
+              </div>
+              <div class="input-field col s3">
+                <select id="guestPhotoID" name="guestPhotoID">
+                  <option value="passport">Passport</option>
+                  <option value="drivingLicence">Driving Licence</option>
+                  <option value="aadhar">Aadhar Card</option>
+                  <option value="voterID">Voter ID</option>
+                  <option value="otherID">Others</option>
+                </select>
+                <label for="guestPhotoID">Photo ID Type</label>
+              </div>
+              <div class="input-field col s3">
+                <input id="guestPassportNumber" type="text" name="guestPassportNumber" value={{passport.guestPassportNumber}}>
+                <label class="always-active" for="guestPassportNumber">ID No.</label>
+              </div>
+              <div class="col s3">
+                <label for="guestDOB">Date of Birth</label>
+                <input type="text" class="datepicker" name="guestDOB" id="guestDOB" value={{passport.guestDOB}}>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s4">
+                <input id="guestpassportissue" type="text" name="guestPassportPlaceOfIssue" value={{passport.guestPassportPlaceOfIssue}}>
+                <label class="always-active" for="guestpassportissue">Place of Issue</label>
+              </div>
+              <div class="col s4">
+                <label for="guestpassportissuedate">Date of Issue</label>
+                <input id="guestpassportissuedate" type="text" class="datepicker" name="guestPassportIssueDate" value={{passport.guestPassportIssueDate}}>
+              </div>
+              <div class="col s4">
+                <label for="guestpassportexpiry">Date of Expiry</label>
+                <input id="guestpassportexpiry" type="text" class="datepicker" name="guestPassportExpiryDate" value={{passport.guestPassportExpiryDate}}>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="guestpassportaddress" type="text" name="guestPassportAddress" value={{passport.guestPassportAddress}}>
+                <label class="always-active" for="guestpassportaddress">Address as per ID</label>
+              </div>
+            </div>
+
+          </form>
+        {{/let}}
+        <div class="row">
+          <div class="col s12">
+            <button class="btn waves-effect waves-light" type="submit" name="action" form="add-passport-form">Save
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

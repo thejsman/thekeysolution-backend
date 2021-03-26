@@ -1,0 +1,95 @@
+<template name="events_flights_legs">
+  {{#each leg in legs}}
+  <div class="col s12 flight-leg z-depth-2 card leginfocard">
+    <div class="card-content">
+      <div class="row">
+        <div class="col s12">
+          <div class="edit-delete-btn">
+            <a class="edit-button waves-effect waves-light btn flightEditBtn  modal-trigger" href="#edit-leg-modal{{ @index }}">
+              <i class="material-icons">edit</i>
+            </a>
+            <a class="delete-button waves-effect waves-light btn" id={{leg._id}}>
+              <i class="material-icons">delete</i>
+            </a>
+          </div>
+        </div>
+        <div class="col s5">
+          <p>{{leg.airlineIATA}}, {{parseAirlineName leg.flightId}} - {{leg.flightNo}}</p>
+          <p>PNR - {{leg.pnr}}</p>
+        </div>
+        {{#let cityData=(flightName leg)}}
+        <div class="col s3">
+          <div class="flightDepartureCity">
+            {{cityData.first.airportLocation}}, {{cityData.first.airportCountry}} - {{cityData.first.airportIATA}}
+          </div>
+          <div class="flightDepartureTime">
+            {{parseDateTime leg.flightDepartureTime}}
+          </div>
+        </div>
+        <div class="col s1">
+        </div>
+        <div class="col s3">
+          <div class="flightArrivalCity">
+            {{cityData.last.airportLocation}}, {{cityData.last.airportCountry}} - {{cityData.last.airportIATA}}
+          </div>
+          <div class="flightArrivalTime">
+            {{parseDateTime leg.flightArrivalTime}}
+          </div>
+        </div>
+        {{/let}}
+      </div>
+      <div id="edit-leg-modal{{ @index }}" index={{ @index }} class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h5>Edit Flight Leg</h5>
+          <div class="flightstat">
+            <form id="search-flight">
+              {{> airline_list_new airlineIATA=(parseAirlineIATA leg.flightId) flightId=leg.flightId value=(parseAirlineDetails leg.flightId)}}
+              <input autocomplete="off" value={{ leg.flightNo }} type="text" name="flightNumber" placeholder="Flight Number. For example: 122">
+              <input autocomplete="off" value={{ parseDateForFlight leg.flightDepartureTime }} type="text" class="datepicker" name="flightDate" id="flightDate" placeholder='Select date of departure of the Flight.'>
+              <input type="hidden" value={{ @index }} name="legIndex" id="legIndex">
+              <button class="btn" type="submit">Search </button>
+            </form>
+            {{#if isLoading}}
+              <div class="leg-loader">
+                {{> preloader_small}}
+              </div>
+            {{else}}
+              {{#if showRes}}
+                <div class="row">
+                  {{#each foundFlights}}
+                    <div class="col s12">
+                      <div class="row card blue-grey darken-1 white-text valign-wrapper">
+                        <div class="col s5">
+                          <h5>Departure Information</h5>
+                          <p><span class="legLabel">Airport</span>: {{departureAirportFsCode}}</p>
+                          <p><span class="legLabel">Terminal</span>: {{departureTerminal}}</p>
+                          <p><span class="legLabel">Time</span>: {{parseDateTime departureTime}}</p>
+                        </div>
+                        <div class="col s5">
+                          <h5>Arrival Information</h5>
+                          <p><span class="legLabel">Airport</span>: {{arrivalAirportFsCode}}</p>
+                          <p><span class="legLabel">Terminal</span>: {{arrivalTerminal}}</p>
+                          <p><span class="legLabel">Time</span>: {{parseDateTime arrivalTime}}</p>
+                        </div>
+                        <div class="col s2">
+                          <button class="btn select_flight">Select</button>
+                        </div>
+                      </div>
+                    </div>
+                  {{/each}}
+                </div>
+              {{/if}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#if layover @index}}
+  <div class="col s12 seperator z-depth-2">
+    <div class="text center">
+      {{layoverTime leg @index}}
+    </div>
+  </div>
+  {{/if}} {{/each}}
+</template>

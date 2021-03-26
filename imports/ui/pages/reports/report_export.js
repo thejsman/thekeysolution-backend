@@ -1,0 +1,111 @@
+import FileSaver from "file-saver";
+import Excel from "../../../extras/client/excel.js";
+import moment from "moment";
+let fillColorHeading = {
+  type: "pattern",
+  pattern: "solid",
+  fgColor: { argb: "FFF4D03F" }
+};
+let cellFont = {
+  name: "Calibri",
+  size: 11,
+  bold: true
+};
+
+let cellAlignmentCenter = { vertical: "middle", horizontal: "center" };
+let headingCells = ["A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"];
+
+const fillData = (sheet, data) => {
+  sheet.getColumn(4).width = 20;
+  sheet.getColumn(3).width = 20;
+  sheet.getColumn(5).width = 20;
+  sheet.getColumn(7).width = 15;
+  sheet.getColumn(8).width = 20;
+  sheet.getColumn(9).width = 12;
+  sheet.getColumn(10).width = 15;
+  sheet.getColumn(15).width = 15;
+  sheet.getColumn(16).width = 15;
+
+  sheet.getCell("A1").alignment = { vertical: "middle", horizontal: "center" };
+  sheet.getCell("A1").font = {
+    name: "Calibri",
+    family: 2,
+    size: 14,
+    bold: true,
+    underline: true
+  };
+  sheet.getCell("A1").value = "Event logged-in Report";
+
+  sheet.mergeCells("A1:J1");
+
+  //Single cells heading
+  _.each(headingCells, e => {
+    sheet.getCell(e).fill = fillColorHeading;
+    sheet.getCell(e).font = cellFont;
+    sheet.getCell(e).alignment = cellAlignmentCenter;
+  });
+
+  let row = sheet.getRow(1);
+  row.height = 25;
+
+  sheet.getCell("A3").value = "Folio No";
+  sheet.getCell("B3").value = "Family ID";
+  sheet.getCell("C3").value = "Guest Name";
+  sheet.getCell("D3").value = "Email";
+  sheet.getCell("E3").value = "Contact Number";
+  sheet.getCell("F3").value = "Gender";
+  sheet.getCell("G3").value = "Remark";
+  sheet.getCell("H3").value = "Logged-In";
+  sheet.getCell("I3").value = "Login Date";
+  sheet.getCell("J3").value = "Login Time";
+
+  let baseCount = 4;
+  let logedInCount = 0;
+  data.forEach((d, index) => {
+    const time = d.appLoginTime ? moment(d.appLoginTime) : "";
+    if (d.appLoginTime) {
+      logedInCount++;
+    }
+    sheet.getCell(`A${baseCount + index}`).value = d.folioNumber;
+    sheet.getCell(`B${baseCount + index}`).value = d.guestFamilyID;
+    sheet.getCell(`C${baseCount + index}`).value =
+      d.guestTitle + " " + d.guestFirstName + " " + d.guestLastName;
+    sheet.getCell(`D${baseCount + index}`).value = d.guestPersonalEmail;
+    sheet.getCell(`E${baseCount + index}`).value =
+      d.guestPhoneCode + "-" + d.guestContactNo;
+    sheet.getCell(`F${baseCount + index}`).value =
+      d.guestGender === "male" ? "Male" : "Female";
+    sheet.getCell(`G${baseCount + index}`).value = "";
+    sheet.getCell(`H${baseCount + index}`).value = time ? "Yes" : "No";
+    sheet.getCell(`I${baseCount + index}`).value = time
+      ? moment(time).format("DD-MM-YYYY")
+      : "";
+    sheet.getCell(`J${baseCount + index}`).value = time
+      ? moment(time)
+          .local()
+          .format("HH:mm")
+      : "";
+  });
+
+  sheet.getCell("A2").value = `Total Guests: ${
+    data.length
+  } | Loggedin Guest: ${logedInCount} | Not Loggedin Guest: ${data.length -
+    logedInCount}`;
+
+  sheet.mergeCells("A2:P2");
+};
+
+export default data => {
+  var workbook = new Excel.Workbook();
+  var sheet = workbook.addWorksheet("Event Summary", {
+    properties: { showGridLines: false }
+  });
+  fillData(sheet, data);
+
+  workbook.xlsx.writeBuffer().then(function(data) {
+    FileSaver.saveAs(
+      new Blob([data], { type: "application/octet-stream" }),
+      `Guest-loggedin.xlsx`
+    );
+  });
+};

@@ -1,0 +1,147 @@
+<template name="guest_flightforsale_info">
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+	Purchased Flight Information
+      </div>
+      <div class="row">
+	<div class="col s12">
+	  <div class="row">
+      <div class="col s6">
+	      Reference Number :
+	    <b>
+	      {{booking.flightBookingReferenceNo}}
+      </b>
+	    </div>
+      <div class="col s6">
+	      Cost Per Ticket : 
+      <b>
+	      {{booking.flightBookCost}}
+      </b>
+</div>
+
+	  </div>
+	  {{#each leg in getLegs}}
+	    {{#let info=(getInfo leg)}}
+	      <div class="row">
+		<div class="col s8">
+  <div class="row">
+    <div class="col s6">Flight No - {{info.flightNo}}      </div>
+    <div class="col s6"><b>PNR Number {{info.flightPNR}}</b></div>
+
+  </div>
+  	</div>
+		<div class="col s4">
+		  Airline - {{info.flightName}}
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="col s6">
+		  <div class="row">
+		    <div class="col s12">
+		      Departs from : {{info.dAirport}}
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="col s12">
+		      Departs at : {{info.dTime}}
+		    </div>
+		  </div>
+		</div>
+		<div class="col s6">
+		  <div class="row">
+		    <div class="col s12">
+		      Arrives at : {{info.aAirport}}
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="col s12">
+		      Arrives at : {{info.aTime}}
+		    </div>
+		  </div>
+		</div>
+	      </div>
+	    {{/let}}
+	  {{/each}}
+	</div>
+      </div>
+      {{#if isAllowed 'delete-flight-booking'}}
+	<a class="waves-effect waves-light btn click_remove_flightforsale_booking"><i class="material-icons">delete</i></a>
+      {{/if}}
+    </div>
+  </div>
+
+</template>
+
+<!-- Guest Event Add Flight Personally -->
+<template name="agency_guest_flightforsale_add">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+	Paid Flight Information
+      </div>
+      <div class="events-flights-add">
+	<div class="row">
+	  <div class="col s6">
+	    <h5>Add Flight</h5>
+	  </div>
+	</div>
+	<form id="add-flightforsale-form" class="row">
+	  <div class="col s12">
+	    <div class="row">
+	      <div class="col s12">
+		 {{> events_guests_flightforsale_agency_booking}}
+	      </div>
+	    </div>
+	  </div>
+	  <div class="row">
+	  	<div class="col s12">
+	  		{{#if guestFamilyMember}}
+	  			<h6>Select Family Member</h6>
+	  			{{#each member in guestFamilyMember}}
+	  			<div class="col s3">
+	  				<input type="checkbox" name="guestFamilyMember[]" value="{{member._id}}" id="guestFamilyMember1{{member._id}}">
+	  				<label for="guestFamilyMember1{{member._id}}">{{member.guestFirstName}}</label>
+
+	  			</div>
+	  			{{/each}}
+	  		{{/if}}
+	  	</div>
+	  </div>
+	</form>
+	<div class="row">
+	  <div class="col s12">
+	    <button class="btn waves-effect waves-light {{submitEnabled}}" type="submit" name="action" form="add-flightforsale-form">Submit
+	      <i class="material-icons right">send</i>
+	    </button>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="events_guests_flightforsale_agency_booking">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+	<div class="input-field col s12">
+	  <select id="guest_flightforsale_name" name="flightId">
+	    <option value="" disabled selected>Choose your option</option>
+	    {{#each flightforsaleList}}
+	      {{#with flightLegs this}}
+		<option value={{_id}}>{{text}}</option>
+	      {{/with}}
+	    {{/each}}
+	  </select>
+	  <label>Select Flight</label>
+	</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <p class="col s12">Available Seats : {{availableSeats}}</p><br>
+  </div>
+
+</template>

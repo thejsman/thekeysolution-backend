@@ -1,0 +1,15 @@
+<template name="app_navbar">
+  <nav style="background-color: {{bgColor}}; color: {{color}}; font-family: {{font}}; ">
+    <div class="nav-icons">
+      <i class="icon-back"></i>
+      <i class="icon-hamburger"></i>
+    </div>
+    <div class="app-title">{{pageTitle}}</div>
+    <div class="nav-icons right">
+      <i class="icon-notification"></i>
+      {{#if checkFeature 'Chat Option'}}
+        <i class="icon-chat"></i>
+      {{/if}}
+    </div>
+  </nav>
+</template>

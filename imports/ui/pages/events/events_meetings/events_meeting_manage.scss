@@ -1,0 +1,92 @@
+.sub-title{
+  position: relative;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.guest-count.modal-trigger{
+  cursor: pointer;
+}
+
+#scheduleNofication{
+  height: 30em;
+  color: #000;
+  .modal-content{
+    position: relative;
+    padding: 0;
+  }
+  .tab-content {
+    padding: 1em;
+    min-height: 10em;
+  }
+}
+
+// Scheduled Notifications
+tr.scheduled{
+  background-color: #54b1aa !important;
+  color: #fff !important;
+}
+
+#scheduleForm {
+  input, select{
+    color: #000 !important;
+  }
+}
+
+.cross-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  font-size: 2em;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ccc9;
+}
+
+.guestListNotification {
+  position: relative;
+  height: 20em;
+  overflow-y: scroll;
+}
+
+.timezone-card {
+  position: relative;
+  background: lightcyan;
+  padding: 0.125rem;
+  line-height: 1;
+  border: solid 1px;
+  margin: 0.125rem;
+  cursor: pointer;
+  &.active, &:hover, &:active{
+    border: solid 3px;
+  }
+  p{
+    margin: 0;
+    padding: 0.125rem;
+  }
+}
+#scheduleNofication {
+  min-height: 35em;
+}
+.notificationWarning {
+  background: #ff000036;
+    width: 400px;
+    border-radius: 10px;
+    padding: 2px 5px;
+    font-size: 12px;
+    text-align: center;
+    
+}
+
+
+.admin-page .date-field label {
+  left: 10px;
+}
+
+.app-setting .card {
+  padding: 7px !important;
+}

@@ -1,0 +1,60 @@
+<!-- Room Preference -->
+<template name="events_guest_room_preference">
+  {{#with roomPreferencesInfo}}
+    <form id="guest-room-preference">
+      <div class="row">
+        <div class="col s4">
+          <div class="switch">
+            <label>
+              Non Smoking
+              <input type="checkbox" name="smoking" checked="{{smoking}}">
+              <span class="lever"></span>
+              Smoking
+            </label>
+          </div>
+        </div>
+        <div class="col s4">
+          <div class="switch">
+            <label>
+              Single Occupancy
+              <input type="checkbox" name="doubleOccupancy" checked="{{doubleOccupancy}}">
+              <span class="lever"></span>
+              Double Occupancy
+            </label>
+          </div>
+        </div>
+        <div class="col s4">
+          <div class="switch">
+            <label>
+              Adjoining
+              <input type="checkbox" name="adjoining" checked="{{adjoining}}">
+              <span class="lever"></span>
+              Adjacent
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">      
+        <div class="input-field col s4">
+          <input id="no_adults" type="number" name="noOfAdults" value="{{noOfAdults}}">
+          <label class="always-active" for="no_adults">Number of Adults</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="no_kids" type="number" name="noOfKids" value="{{noOfKids}}">
+          <label class="always-active" for="no_kids">Number of kids</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="no_rooms" type="number" name="noOfRooms" value="{{noOfRooms}}">
+          <label class="always-active" for="no_rooms">Number of Rooms</label>
+        </div>      
+            </div>
+            <div class="row">
+        <div class="col s12">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Update
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  {{/with}}
+</template>

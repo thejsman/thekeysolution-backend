@@ -1,0 +1,17 @@
+<template name="event_update_hotel_room_remarks">
+  <div class="row">
+    <form class="col s12 update-room-remarks" id="update-room-remarks-{{room._id}}">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="room_remarks" type="text">
+          <label class="always-active" for="room_remarks">Room Remarks</label>
+        </div>
+        <div class="col s6">
+          <button class="btn waves-effect waves-light" type="submit" form="update-room-remarks-{{room._id}}">Additional Room Remarks
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>

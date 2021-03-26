@@ -1,0 +1,47 @@
+.subevent{
+  nav{
+    display: flex;
+    justify-content: space-between;
+    .back-icon{
+      display: block;
+      padding: 0 10px;
+      font-size: 30px;
+    }
+    .app-title{
+      flex: 1;
+    }
+  }
+}
+.welcome-content{
+  position: relative;
+  padding: 20px;
+}
+.welcome-image {
+  position: relative;
+  min-height: 160px;
+  width: 100%;
+  background-position: center;
+  background-size: contain;
+  border-radius: 0px 0px 0 0;
+}
+.welcome-text {
+  position: relative;
+  background: red;
+  border-radius: 0 0 0px 0px;
+  padding: 10px 20px;
+  h6{
+    font-weight: bold;
+    margin-top: 20px;
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+}
+
+.events-subevent{
+  .sub-event-card{
+    margin-right: auto !important;
+    margin-left: 0 !important;
+    margin-bottom: 30px;
+  }
+}

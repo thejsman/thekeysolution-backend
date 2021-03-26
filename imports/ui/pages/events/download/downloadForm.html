@@ -1,0 +1,54 @@
+<template name="downloadForm">
+  <section class="page-section download-form">
+    <header>
+      <h5 class="section-title">
+        {{title}}
+      </h5>
+      <a href="{{backLink}}" class="add-new-section cancel">
+        Cancel
+      </a>
+    </header>
+    <main>
+      <form id="downloadForm">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="name" data-length="40" maxlength="40" type="text" name="name" value={{info.name}}>
+            <label class="always-active" for="name">Section Name</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="description" type="text" name="description" value={{info.description}}>
+            <label class="always-active" for="description">Description</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="subtitle-with-action">
+              <h6>Sub-sections</h6>
+              <a class="waves-effect waves-light btn-action btn btn-small">Add New</a>
+            </div>
+          </div>
+          {{#each subsection in subsections}}
+            <!-- {{> downloadSubSection subsection=data}} -->
+            <div class="input-field col s12" id="inputSubsection">
+              <input data-index={{subsection.index}} id="subsection-{{subsection.index}}" type="text" name="sections[]" value={{subsection.name}}>
+              <label class="always-active" for="subsection-{{subsection.index}}">Subsection Name </label>
+              <span data-index={{subsection.index}} class="deleteSubSection"> <i class="fa fa-close" data-index={{subsection.index}}></i> </span>
+            </div>
+          {{/each}}
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </section>
+</template>
+
+<template name="downloadSubSection">
+  <div class="input-field col s12">
+    <input id="subsection-{{index}}" type="text" name="sections[]" value={{subsection.name}}>
+    <label class="always-active" for="subsection-{{subsection.index}}">Subsection Name</label>
+  </div>
+</template>

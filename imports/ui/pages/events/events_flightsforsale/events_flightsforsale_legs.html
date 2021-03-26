@@ -1,0 +1,45 @@
+<template name="events_flightsforsale_legs">
+  {{#each leg in legs}}
+    <div class="col s12 flight-leg z-depth-2 card">
+      <div class="card-content">
+        {{#let cityData=(flightName leg)}}
+          <div class="row">
+            <div class="col s5">
+              <p>Flight No - {{leg.flightNo}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> PNR Number {{leg.flightPNR}}</b></p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp; Departs From : {{cityData.first.airportName}}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp; Departs At : {{parseDateTime leg.flightDepartureTime}}</p>
+            </div>
+            <div class="col s2">
+              <div class="row">
+                <div class="col s12">
+                  Flight Duration
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  {{leg.flightDurationHours}} Hours {{leg.flightDurationMins}} Mins
+                </div>
+              </div>
+
+
+
+            </div>
+            <div class="col s5">
+              <p>Airline : <b>{{parseAirlineName leg.flightId}}</b></p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;Arrives At : {{cityData.last.airportName}}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;Arrives At : {{parseDateTime leg.flightArrivalTime}}</p>
+            </div>
+	        </div>
+        {{/let}}
+        <a class="delete-button waves-effect waves-light btn" id={{leg._id}}><i class="material-icons">delete</i></a>
+      </div>
+    </div>
+    {{#if layover @index}}
+      <div class="col s12 seperator z-depth-2">
+      	<div class="text center">
+      	  {{layoverTime leg @index}}
+      	</div>
+      </div>
+    {{/if}}
+  {{/each}}
+</template>

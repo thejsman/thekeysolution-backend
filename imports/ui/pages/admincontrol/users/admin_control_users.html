@@ -1,0 +1,248 @@
+<template name="admin_control_users_page">
+  <div class="admin-control-users">
+    <div class="section user-list">
+      {{> control_user_list}}
+    </div>
+    <div class="section invited-user-list">
+      {{> invited_user_list}}
+    </div>
+  </div>
+</template>
+
+<template name="control_user_list">
+  {{#if userList}}
+  <div class="row">
+    <h5 class="col s10">USERS</h5>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Agency Name</th>
+        <th>User Name</th>
+        <th>Contact No</th>
+        <th>Email Id</th>
+        <th>Role</th>
+        {{#if isAllowed 'delete-admin-user'}}
+        <th>...</th>
+        {{/if}} {{#if isAllowed 'edit-freelancer-events'}}
+        <th>...</th>
+        {{/if}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each user in userList}} {{> control_user_list_item user=user index=@index}} {{/each}}
+    </tbody>
+  </table>
+  <div class="divider"></div>
+  {{> edit_freelancer_button}} {{/if}}
+</template>
+
+<template name="control_user_list_item">
+  <tr>
+    <th scope="row">{{indexPlusOne index}}</th>
+    <td>{{getAgency user._id}}</td>
+    <td>{{user.profile.name}}</td>
+    <td>{{user.profile.contact}}</td>
+    <td>{{getEmails user.emails}}</td>
+    <td>
+      {{#if currentUser}}
+      <label>{{getRole}}</label>
+      {{else}} {{#if isAllowed 'superadmin'}}
+      <select class="change_role_selection" name="role-assigned" id={{_id}}>
+        <option value="member" {{isSelected 'member'}}>Member</option>
+        <option value="admin" {{isSelected 'admin'}}>Admin</option>
+      </select>
+      {{else}} {{#if checkChangeRolePermission}}
+      <select class="change_role_selection" name="role-assigned" id={{_id}}>
+        <option value="member" {{isSelected 'member'}}>Member</option>
+        <option value="admin" {{isSelected 'admin'}}>Admin</option>
+      </select>
+      {{else}}
+      <label>{{getRole}}</label>
+      {{/if}} {{/if}} {{/if}}
+    </td>
+    {{#if isAllowed 'delete-admin-user'}}
+    <td>
+      {{#if isNotSelf}} {{#if checkDeletePermission}}
+      <a class="waves-effect waves-light btn lighten-2 click_delete-user-button">
+        <i class="material-icons">delete</i>
+      </a>
+      {{/if}} {{/if}}
+    </td>
+    {{/if}} {{#if isAllowed 'edit-freelancer-events'}}
+    <td>
+      {{#if isClientOrFreelancer}}
+      <a class="waves-effect waves-light btn lighten-2 click_edit-user-button modal-trigger" href="#edit-freelancer-modal">
+        <i class="material-icons">edit</i>
+      </a>
+      {{/if}}
+    </td>
+    {{/if}}
+  </tr>
+</template>
+
+<template name="invited_user_list">
+  {{#if hasInvitations}}
+  <div class="row">
+    <h5 class="col s8">INVITED USERS</h5>
+    <div class="col s4">
+      {{> invite_user_button}}
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Agency</th>
+        <th>Email Id</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Contact Number</th>
+        <th>Token</th>
+        <th>Resend Invitation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each invitedUsers}} {{> invited_user_item info=this index=@index}} {{/each}}
+    </tbody>
+  </table>
+  {{> cancel_user_invitation_button}} {{else}}
+  <h5> No users in the invite list</h5>
+  {{> invite_user_button}} {{/if}}
+</template>
+
+<template name="invited_user_item">
+  <tr>
+    <th scope="row">{{indexPlusOne index}}</th>
+    {{#if getAgencyName}}
+    <td>{{getAgencyName}}</td>
+    {{else}}
+    <td>{{invitedAgencyList}}</td>
+    {{/if}}
+    <td>{{info.email}}</td>
+    <td>{{info.username}}</td>
+    <td>{{info.role}}</td>
+    <td>{{info.contactNumber}}</td>
+    <td>{{info.token}}</td>
+    <td>
+      <a class="waves-effect waves-light btn lighten-2 click_resend-invitation-button">Resend</a>
+    </td>
+    <td>
+      <a class="waves-effect waves-dark btn red lighten-2 click_cancel-invitation-button">
+        <i class="material-icons left">remove</i>Cancel</a>
+    </td>
+  </tr>
+</template>
+
+<template name="edit_freelancer_button">
+  <div class="edit-freelancer-button">
+    <div id="edit-freelancer-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <form id="edit-events-freelancer">
+          <h6>Events List</h6>
+          {{#each ev in eventsList}}
+          <div class="col s3">
+            <input type="checkbox" name="selectedEvents[]" value="{{ev._id}}" id="{{ev._id}}" checked={{ev.isAllowed}} />
+            <label for="{{ev._id}}">{{ev.basicDetails.eventName}}</label>
+          </div>
+          {{/each}}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="edit-events-freelancer">
+          <i class="material-icons left">add</i>
+          Update Events
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="cancel_user_invitation_button">
+  <div id="cancel-modal" class="modal">
+    <div class="modal-content">
+      <h4>Cancel User Invitation</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_cancel-button" type="button" name="action">
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="invite_user_button">
+  <div class="invite-user-button">
+    <a class="waves-effect waves-dark btn modal-trigger right" href="#invite-user-modal">
+      <i class="material-icons left">add</i>Invite User</a>
+    <div id="invite-user-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4>Invite User</h4>
+        <form class="col s12" id="invite-user">
+          <div class="row">
+            <div class="input-field col s12">
+              {{#if isInRole 'superadmin'}}
+              <select name="agency" {{isDisabled}} id="agency-name">
+                {{#each agencyName}}
+                <option value={{id}}>{{name}}</option>
+                {{/each}}
+              </select>
+              <label>Agency</label>
+              {{else}} {{#each agencyName}}
+              <input type="text" disabled id="agency" name="agency" value={{name}}>
+              <label for="agency">Agency</label>
+              {{/each}} {{/if}}
+            </div>
+            <div class="input-field col s12">
+              <select name="role" id="user-role-select">
+                <option value="member">Agency Member</option>
+                <option value="client">Client</option>
+                <option value="freelancer">Limited Access</option>
+              </select>
+              <label>Role</label>
+            </div>
+            {{#if showEvents}}
+            <div class="row">
+              <h6>Events List</h6>
+              {{#each ev in eventsList}}
+              <div class="col s3">
+                <input type="checkbox" name="selectedEvents[]" value="{{ev._id}}" id="{{ev._id}}" />
+                <label for="{{ev._id}}">{{ev.basicDetails.eventName}}</label>
+              </div>
+              {{/each}}
+            </div>
+            {{/if}}
+            <div class="input-field col s12">
+              <input id="first_name" type="text" class="validate" name="username" value={{autoFillName}}>
+              <label for="first_name">User Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="email" type="email" class="validate" name="email" value={{autoFillEmail}}>
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="contactNo" type="text" class="validate" name="contactNumber" value={{autoFillContact}}>
+              <label for="contactNo">Contact Number</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="invite-user">
+          <i class="material-icons left">add</i>
+          Invite
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

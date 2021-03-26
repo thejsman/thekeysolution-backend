@@ -1,0 +1,98 @@
+@import "../../style/colors";
+
+.bmt-side-nav {
+  margin-top: -1.8rem;
+  width: 100%;
+  padding: 1.8rem 0;
+  background: #fff;
+  i.fa{
+    min-width: 30px;
+    margin-right: 0;
+  }
+  .btn-flat{
+    &:hover, &.active{
+      font-weight: 600;
+      background-color: rgba(0,0,0,0.1);
+    }
+  }
+}
+
+.app_body2{
+  .nav-wrapper{
+    background: $top-nav-color;
+    .logo{
+      a:hover{
+        background: transparent;
+      }
+      img{
+        height: 50px;
+        width: 50px;
+        vertical-align: middle;
+      }
+    }
+    ul li a{
+      color: $top-nav-text-color;
+    }
+  }
+  ul.collapsible{
+    border: none;
+    margin: 0;
+    box-shadow: none;
+    .collapsible-header{
+      display: flex;
+      align-items: center;
+      padding: 0;
+      box-shadow: none;
+      border: none;
+      i.fa{
+        padding-left: 10px;
+      }
+    }
+    .collapsible-body{
+      padding: 0;
+      box-shadow: none;
+      border: none;
+    }
+  }
+  ul.app-setting-nav{
+    padding-left: 35px;
+    li a{
+      text-transform: capitalize;
+    }
+  }
+}
+
+nav.breadcrumbs{
+  display: inline-block;
+  width: auto;
+  box-shadow: none;
+  margin-left: 30px;
+  a.breadcrumb{
+    color: #000;
+    &:before{
+      color: #000;
+    }
+  }
+  li{ 
+    a{
+      position: relative;
+      &:after{
+        content: '>';
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: -5px;
+        font-size: 24px;
+      }
+    }
+    &:last-of-type{
+      a::after{
+        content: '';
+      }
+    }
+  }
+}
+
+.plans{
+  text-transform:none;
+}

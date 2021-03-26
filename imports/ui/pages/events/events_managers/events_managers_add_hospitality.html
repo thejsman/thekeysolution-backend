@@ -1,0 +1,31 @@
+<template name="events_managers_add_hosman">
+  <div class="events-hosman-add">
+    <!-- Modal Structure -->
+    <div id="add-hosman-modal" class="modal">
+      <div class="modal-content">
+      	<h4>Add Hospitality Manager</h4>
+      	<form id="add-new-hosman">
+      	  <div class="row">
+      	    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Shows in the My Summary section on the App">
+      	      <input id="hospitality_manager_name" type="text" name="hospitalityManagerName" value={{autoFillName}}>
+      	      <label class="always-active" for="hospitality_manager_name">Name <i class="tooltip-icon"></i></label>
+      	    </div>
+      	    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Please put Manager's local number on which they can be contacted">
+      	      <input id="hospitality_manager_no" type="text" name="hospitalityManagerNo" value={{autoFillString}}>
+      	      <label class="always-active" for="hospitality_manager_no">Mobile No <i class="tooltip-icon"></i></label>
+      	    </div>
+            <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Where the Manager is stationed (ex: Hotel)">
+      	      <input id="hospitality_manager_location" type="text" name="hospitalityManagerLocation" value={{autoFillString}}>
+      	      <label class="always-active" for="hospitality_manager_location">Location <i class="tooltip-icon"></i></label>
+      	    </div>
+      	  </div>
+      	</form>
+      </div>
+      <div class="modal-footer">
+      	<button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-hosman">Submit
+      	  <i class="material-icons right">send</i>
+      	</button>
+      </div>
+    </div>
+  </div>
+</template>

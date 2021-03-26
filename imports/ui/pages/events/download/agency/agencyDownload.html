@@ -1,0 +1,77 @@
+<template name="agencyDownload">
+  <section class="page-section downloads-agency">
+    <header>
+      <h5 class="section-title">
+        Download Guest Data
+      </h5>
+    </header>
+    <main class="card-container">
+      <div class="row">
+        <div class="col s12">
+          Select guests to download data
+        </div>
+        <div class="col s12">
+          <div class="input-group">
+            <input class="" type="text" id="searchGuests" placeholder="Search Guests by Name and Email address">
+            <p>{{selectedGuestCount}} Guests selected
+              <span>
+                <input type="checkbox" name="selectallGuest" id="selectallGuest">
+                <label for="selectallGuest">{{selectAllText}}</label>
+              </span>
+            </p>
+          </div>
+          <div class="row">
+            <ol class="guest-list">
+              {{# each guest in guests}}
+                <li>
+                  <input type="checkbox" name="selectedGuestIds[]" id="{{guest.id}}" value="{{guest.id}}">
+                  <label for="{{guest.id}}">{{guest.name}} - ({{guest.folio}})</label>
+                </li>
+              {{/each}}
+            </ol>
+            
+          </div>
+        </div>
+        <div class="col s12">
+          Select documents to download
+        </div>
+        <div class="col s12">
+          <ul class="docs-list">
+
+             <!-- @Madan - Bug: Profile photo is a string rest others are Array , fix it and the uncomment it -->
+            <li>
+              <input type="checkbox" name="downloadDocs[]" id="profile" value="profile">
+              <label for="profile">Profile Photo</label>
+            </li>
+            <li>
+              <input type="checkbox" name="downloadDocs[]" id="passport" value="passport">
+              <label for="passport">Passport/Photo ID</label>
+            </li>
+            <li>
+              <input type="checkbox" name="downloadDocs[]" id="visa" value="visa">
+              <label for="visa">Visa</label>
+            </li>
+            <li>
+              <input type="checkbox" name="downloadDocs[]" id="travel" value="travel">
+              <label for="travel">Travel Tickets</label>
+            </li>
+
+          <!-- @Madan - Below option is for which images??? -->
+
+            <!-- <li>
+              <input type="checkbox" name="downloadDocs[]" id="photos" value="photos">
+              <label for="photos">Photos</label>
+            </li> -->
+            <li> 
+              <input type="checkbox" name="downloadDocs[]" id="insurance" value="insurance">
+              <label for="insurance">Insurance</label>
+            </li>
+          </ul>
+        </div>
+        <div class="col s12">
+          <button class="btn btn-primary" id="submitRequest">Submit Request</button>
+        </div>
+      </div>
+    </main>
+  </section>
+</template>

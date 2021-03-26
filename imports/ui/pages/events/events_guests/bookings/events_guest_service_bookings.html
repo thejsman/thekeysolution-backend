@@ -1,0 +1,104 @@
+<template name="agency_guest_service_add">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        <h5 class="page-title">Services Information</h5>
+      </div>
+      <div class="row">
+        {{#each booking in serviceBookings}}
+          <div class="col s4">
+            {{> guest_service_info service=booking}}
+          </div>
+        {{/each}}
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn btn-primary modal-trigger" href="#events-services-add" id="add-service-button">
+            <i class="material-icons left">add</i>
+            Services Information
+            <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Input will come from Guest's App. Manual entry from Dashboard is also possible."></i>
+          </a>
+        </div>
+      </div>
+      <div id="events-services-add" class="modal modal-fixed-footer" style="height: 600px;">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s6">
+              <h5>{{modalTitle}}</h5>
+            </div>
+          </div>
+          {{#let data=bookingValues}}
+            <form id="add-service-form" class="row">
+              <div class="input-field col s12">
+                <select name="serviceId" id="serviceId">
+                  <option value="" disabled selected>Choose your option</option>
+                  {{#each service in serviceList}}
+                    <option value="{{service._id}}">{{service.serviceName}} - {{availableSlots service}}</option>
+                  {{/each}}
+                </select>
+                <label>Select Service</label>
+              </div>
+              <div class="input-field col s12">
+                <select name="serviceDate" id="serviceDate">
+                  <option value="" disabled selected>Choose your option</option>
+                  {{#each date in dateList}}
+                    <option value="{{date}}">{{date}}</option>
+                  {{/each}}
+                </select>
+                <label>Select Date</label>
+              </div>
+              <div class="input-field col s12">
+                <select name="serviceTime" id="serviceTime">
+                  <option value="" disabled selected>Choose your option</option>
+                  {{#each time in timeList}}
+                    <option value="{{time}}">{{time}}</option>
+                  {{/each}}
+                </select>
+                <label>Select Time</label>
+              </div>
+            </form>
+          {{/let}}
+        </div>
+        <div class="modal-footer">
+          <button class="btn waves-effect waves-light" type="submit" name="action" form="add-service-form">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="guest_service_info">
+  <div class="card">
+    <div class="card-content">
+      <div class="action-btn">
+        {{#if isAllowed 'edit-services-booking'}}
+          <a class="waves-effect btn click_edit-service-button modal-trigger" href="#events-services-add">
+            <i class="fa fa-pencil"></i>
+          </a>
+        {{/if}}
+        {{#if isAllowed 'delete-services-booking'}}
+          <a class="waves-effect btn click_delete-service-button">
+            <i class="fa fa-trash"></i>
+          </a>
+        {{/if}}
+      </div>
+      <table>
+        <tr>
+          <td>Service</td>
+          <td>{{service.serviceName}}</td>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>{{service.serviceDate}}</td>
+        </tr>
+        <tr>
+          <td>Time</td>
+          <td>{{service.serviceTime}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</template>

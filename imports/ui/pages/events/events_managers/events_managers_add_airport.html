@@ -1,0 +1,33 @@
+<template name="events_managers_add_airman">
+  <div class="events-airman-add">
+    <!-- Modal Structure -->
+    <div id="add-airman-modal" class="modal">
+      <div class="modal-content">
+      	<h4>Add Transport Manager</h4>
+      	<form id="add-new-airman">
+      	  <div class="row">
+      	    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Shows in the My Summary section on the App">
+      	      <input id="airport_manager_name" type="text" name="airportManagerName" value={{autoFillName}}>
+      	      <label class="always-active" for="airport_manager_name">Name <i class="tooltip-icon"></i></label>
+      	    </div>
+      	    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Please put Manager's local number on which they can be contacted">
+      	      <input id="airport_manager_no" type="text" name="airportManagerNo" value={{autoFillString}}>
+      	      <label class="always-active" for="airport_manager_no">Mobile Number <i class="tooltip-icon"></i></label>
+      	    </div>
+      	  </div>
+      	  <div class="row">
+      	    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Where the Manager is stationed (ex: Hotel)">
+      	      <input id="airport_manager_location" type="text" name="airportManagerLocation" value={{autoFillString}}>
+      	      <label class="always-active" for="airport_manager_location">Location <i class="tooltip-icon"></i></label>
+      	    </div>
+      	  </div>
+      	</form>
+      </div>
+      <div class="modal-footer">
+      	<button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-airman">Submit
+      	  <i class="material-icons right">send</i>
+      	</button>
+      </div>
+    </div>
+  </div>
+</template>

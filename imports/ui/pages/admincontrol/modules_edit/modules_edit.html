@@ -1,0 +1,104 @@
+<template name="modules_edit_page">
+  <div class="modules-edit-page">
+     <div class="row">
+	   <div class="col s8">
+	     <h5>Edit Modules</h5>
+       </div>
+     </div>
+
+    {{#if moduleDetails}}
+	  {{#with moduleDetails}}
+     <form id="modules-edit-page">
+  	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="module_edit_name" type="text" class="validate" name="moduleName" value={{moduleName}}>
+	      <label for="module_edit_name">Module Name</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <textarea id="module_edit_description" class="materialize-textarea validate" type="text" name="moduleDescription" value={{moduleDescription}}></textarea>
+          <label for="module_edit_description">Module Description</label>
+	    </div>
+	  </div>
+
+	   <div class="row">
+	    <div class="input-field col s6">
+	      <input id="cost_per_edit_module" type="number" class="validate" name="moduleCostPerModule" value={{moduleCostPerModule}}>
+	      <label for="cost_per_edit_module" min=0>Cost per module</label>
+	    </div>
+
+	    <div class="input-field col s6">
+	      <input id="edit_module_gst_rate" type="number" class="validate" name="moduleGstRate" value={{moduleGstRate}} min=0 max=100>
+	      <label for="edit_module_gst_rate">GST rate (%)</label>
+	    </div>
+	  </div>
+
+
+	 <div class="row">
+	    <div class="input-field col s12">
+	    	<span >Module Status</span>
+	    </div>
+	 </div>
+
+	 <div class="row">
+	  	<div class="col s12">
+	      <div class="switch">
+		    <label>
+		      Active
+		      <input type="checkbox" name="moduleIsStatusInactive" id="edit_module_status" checked={{moduleIsStatusInactive}}>
+		      <span class="lever"></span>
+		      Inactive
+		    </label>
+	      </div>
+	    </div>
+	</div>
+
+	 <div class="row">
+	    <div class="input-field col s12">
+	    	<span >Module Available for</span>
+	    </div>
+	 </div>
+
+	 <div class="row" >
+	    <div class="col s12">
+	      <div class="switch">
+			<label>
+			  All agencies
+			  <input type="checkbox" name="moduleIsAvailableForSpecificAgency" id="edit_module_available_for" checked={{moduleIsAvailableForSpecificAgency}}>
+			  <span class="lever"></span>
+			  Specific agencies
+			</label>
+	      </div>
+	    </div>
+	</div>
+
+	<div class="row" id="edit_module_agency_list_div">  
+		{{#if moduleAgencyList}}
+		  <div class="input-field col s12 ">
+	   		 <select multiple name="moduleAgencyList[]" id="editModuleAgencyList">
+	   		 	<option value="" disabled selected>Choose your option</option>
+	   		 	{{#each moduleAgencyList}}
+			      {{> edit_module_agency_options info=this}}  
+			    {{/each}}
+	   		 </select>
+	       <label>Specific Agencies</label>
+	  </div>
+	  {{/if}} 
+	</div>
+	
+   <div class="row">
+	<button class="btn waves-effect waves-light" type="submit" name="action" form="modules-edit-page">
+	  SAVE
+	</button>
+   </div>
+
+   </form>
+      {{/with}}
+   {{/if}}
+  </div>
+</template>
+<template name="edit_module_agency_options">
+		<option value={{info._id}}>{{info.name}}</option>
+</template>
+

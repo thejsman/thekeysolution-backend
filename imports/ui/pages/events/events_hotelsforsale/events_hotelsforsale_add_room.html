@@ -1,0 +1,159 @@
+<template name="events_hotelsforsale_add_room">
+  <div class="events-hotels-add-room">
+    <a class="waves-effect waves-light btn modal-trigger add-rooms-button" href="#add-rooms-modal">Add Rooms</a>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      {{> hotelforsale_details_rooms roomDetails=hotelRoomDetails}}
+    </div>
+  </div>
+  <div id="reserve-roomsforsale-modal">
+    {{> events_hotelsforsale_rooms currentRoom=selectedRoom}}
+  </div>
+  <div id="add-rooms-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>{{title}}</h4>
+      {{#let room=roomDetails}}
+      <form id="add-new-hotel-for-sale-room">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="hotel_room_category" type="text" name="hotelRoomCategory" value={{room.hotelRoomCategory}}>
+            <label class="always-active" for="hotel_room_category">Room Category</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="hotel_room_type" type="text" name="hotelRoomType" value={{room.hotelRoomType}}>
+            <label class="always-active" for="hotel_room_type">Room Type</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="hotelRoomBedType" type="text" name="hotelRoomBedType" value={{room.hotelRoomBedType}}>
+            <label class="always-active" for="hotelRoomBedType">Bed Type</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="hotelRoomCost" type="text" name="hotelRoomCost" value={{room.hotelRoomCost}}>
+            <label class="always-active" for="hotelRoomCost">Cost Per Room(incl. all taxes)</label>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="hotel_room_total" type="text" name="hotelRoomTotal" value={{room.hotelRoomTotal}}>
+            <label class="always-active" for="hotel_room_total">Total Inventory</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="hotel_room_max_pax" type="text" name="hotelRoomMaxOccupants" value={{room.hotelRoomMaxOccupants}}>
+            <label class="always-active" for="hotel_room_max_pax">Max Occupants</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <div class="switch" id="hotelRoomIsSmoking">
+              <label>
+                Non-Smoking
+                <input type="checkbox" name="hotelRoomIsSmoking" checked="{{room.hotelRoomIsSmoking}}">
+                <span class="lever"></span>
+                Smoking
+              </label>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="switch" id="hotelRoomIsAdjoining">
+              <label>
+                Not-Adjoining
+                <input type="checkbox" name="hotelRoomIsAdjoining" checked="{{room.hotelRoomIsAdjoining}}">
+                <span class="lever"></span>
+                Adjoining
+              </label>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="switch" id="hotelRoomIsConnecting">
+              <label>
+                Not-Connecting
+                <input type="checkbox" name="hotelRoomIsConnecting" checked="{{room.hotelRoomIsConnecting}}">
+                <span class="lever"></span>
+                Connecting
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="date-field col s6">
+            {{> datetimepicker id="check_in_time" type="text" name="hotelRoomFrom" label="Check In Date and Time"  }}
+          </div>
+          <div class="date-field col s6">
+            {{> datetimepicker id="check_out_time" type="text" name="hotelRoomTo" label="Check Out Date and Time"  }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="hotelRoomRemarks" type="text" name="hotelRoomRemarks" value={{room.hotelRoomRemarks}} >
+            <label class="always-active" for="hotelRoomRemarks">Remarks</label>
+          </div>
+        </div>
+      </form>
+      {{/let}}
+    </div>
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-hotel-for-sale-room">Submit
+	      <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="hotelforsale_details_rooms">
+  <div class="summary-table">
+    <table id="hotel-details-rooms">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Category</td>
+          <td>Type</td>
+          <td>Bed Type</td>
+          <td>Cost Per Room(Incl. Taxes)</td>
+          <td>Smoking</td>
+          <td>Adjoining</td>
+          <td>Connecting</td>
+          <td>Max no of PAX</td>
+          <td>Quantity</td>
+          <td>Reserved</td>
+          <td>Remarks</td>
+          <td>Reserve</td>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each room in roomDetails}}
+        {{> hotelforsale_rooms_room_details room=room index=@index}}
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="hotelforsale_rooms_room_details">
+  <tr>
+    <th scope="row">{{indexPlusOne index}}</th>
+    <td>{{room.hotelRoomCategory}}</td>
+    <td>{{room.hotelRoomType}}</td>
+    <td>{{room.hotelRoomBedType}}</td>
+    <td>{{room.hotelRoomCost}}</td>
+    <td>{{parseBool room.hotelRoomIsSmoking}}</td>
+    <td>{{parseBool room.hotelRoomIsAdjoining}}</td>
+    <td>{{parseBool room.hotelRoomIsConnecting}}</td>
+    <td>{{room.hotelRoomMaxOccupants}}</td>
+    <td>{{room.hotelRoomTotal}}</td>
+      <td>{{reservedRooms room.hotelRoomId}}</td>
+    <td>{{room.hotelRoomRemarks}}</td>
+    <td>
+      <a class="waves-effect waves-light btn modal-trigger reserve-button" href="#events-hotel-rooms"> <i class="material-icons">add</i></a>
+      {{#if isAllowed 'edit-hotels'}}
+	      <a class="waves-effect waves-light btn modal-trigger edit-room-button" href="#add-rooms-modal"> <i class="material-icons">edit</i></a>
+      {{/if}}
+      {{#if isAllowed 'delete-hotels'}}
+	      <a class="waves-effect waves-light btn delete-room-button"> <i class="material-icons">delete</i></a>
+      {{/if}}
+    </td>
+  </tr>
+</template>

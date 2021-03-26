@@ -1,0 +1,284 @@
+<template name="agency_guest_hotelforsale_add">
+  <div class="events-hotelsforsale-add">
+    <div class="row">
+      <div class="col s6">
+	<h5><a href="#reserve-hotelforsale-rooms" class="btn waves-effect waves-light modal-trigger">Book Paid Hotel Room</a></h5>
+      </div>
+    </div>
+    {{#if canBookRoom}}
+
+    {{/if}}
+    <div class="modal modal-fixed-footer" id="reserve-hotelforsale-rooms" style="height: 75%;">
+      <div class="reserve-room modal-content">
+	<h5>Book Paid Hotel Room</h5>
+	<form id="hotelforsale_book_room" class="col s12">
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <select id="hotelName" name="hotelId">
+		<option value="" disabled selected>Choose your option</option>
+		{{#each hotelList}}
+		  <option value={{_id}}>{{hotelName}}</option>
+		{{/each}}
+	      </select>
+	      <label for="hotelName">Hotel Name</label>
+	    </div>
+	    <div class="input-field col s12">
+	      <select id="hotelRoomCategory" name="hotelRoomId">
+		<option value="" disabled selected>Choose your option</option>
+		{{#each roomCategories}}
+		  <option value={{hotelRoomId}}>Category: {{hotelRoomCategory}}, Type: {{hotelRoomType}}, Bed Type: {{hotelRoomBedType}}, Smoking: {{parseBool hotelRoomIsSmoking}}, Adjoining: {{parseBool hotelRoomIsAdjoining}}, Connecting: {{parseBool hotelRoomIsConnecting}}</option>
+		{{/each}}
+	      </select>
+	      <label for="hotelRoomCategory">Room Category</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s6">
+	      <select id="hotelRoomId" name="roomId">
+		<option value="" disabled selected>Choose your option</option>
+		{{#each room in rooms}}
+		  <option value={{room._id}}>Room No: {{room.roomNumber}} - {{spaceLeft room}} people</option>
+		{{/each}}
+	      </select>
+	      <label for="hotelRoomId">Rooms</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    {{#each member in familyMembers}}
+	      <p class="col s4">
+		<input type="checkbox" name="selectedPeople[]" value="{{member._id}}" id="family2{{member._id}}"/>
+		<label for="family2{{member._id}}">{{member.guestFirstName}}</label>
+	      </p>
+	    {{/each}}
+	  </div>
+	</form>
+      </div>
+      <div class="modal-footer">
+	<button class="btn waves-effect waves-light" type="submit" name="action" form="hotelforsale_book_room">Submit
+	  <i class="material-icons right">send</i>
+	</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Hotel Info -->
+<template name="events_guests_hotelforsale_info">
+  <div class="events-guests-hotel-info">
+    {{#if hotelforsaleBookingInfo}}
+      <div class="row">
+	{{#each hotelforsaleBookingInfo}}
+	  <div class="col s6">
+	    {{#with hotelforsaleInfo}}
+	      {{> hotelforsale_booking_info_card hotel=this}}
+	    {{/with}}
+	  </div>
+	{{/each}}
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="hotelforsale_booking_info_card">
+  <div class="card">
+    {{#if isAllowed 'delete-hotel-booking'}}
+      <div class="row">
+	<a class="btn waves-effect waves-light click_delete-hotelforsale-booking"><i class="material-icons">delete</i></a>
+      </div>
+    {{/if}}
+    <div class="row">
+      <div class="col s4">
+    <p>Booking Reference No.</p>
+      </div>
+      <div class="col s8">
+    <p>{{hotel.hotelBookingReferenceNo
+}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+    <p>Cost</p>
+      </div>
+      <div class="col s8">
+    <p>{{hotel.hotelRoomBookCost
+    }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s4">
+	<p>Hotel</p>
+      </div>
+      <div class="col s8">
+	<p>{{hotel.hotelName}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+	<p>Room Info</p>
+      </div>
+      <div class="col s8">
+	<p>Category: {{hotel.hotelRoomInfo.hotelRoomCategory}}, Room Type:  {{hotel.hotelRoomInfo.hotelRoomType}}, Bed Type:  {{hotel.hotelRoomInfo.hotelRoomBedType}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+	<p>Check In</p>
+      </div>
+      <div class="col s8">
+	<p> {{hotel.hotelRoomInfo.hotelRoomFrom}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+	<p>Check Out </p>
+      </div>
+      <div class="col s8">
+	<p>{{hotel.hotelRoomInfo.hotelRoomTo}}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s4">
+	Room No (assigned by dashboard)
+      </div>
+      <div class="col s8">
+	<p>{{hotel.roomNumber}}</p>
+      </div>
+    </div>
+{{#if hotel.hotelAirpotPickupQuantities}}
+      <div class="row">
+	<div class="col s4">
+	  Airport To Hotel Drop Qty
+	</div>
+	<div class="col s8">
+	  <p>{{hotel.hotelAirpotPickupQuantities}}</p>
+	</div>
+      </div>
+    {{/if}}
+    
+{{#if hotel.hotelAirpotDropQuantities}}
+      <div class="row">
+	<div class="col s4">
+	  Hotel To Airport Drop Qty
+	</div>
+	<div class="col s8">
+	  <p>{{hotel.hotelAirpotDropQuantities}}</p>
+	</div>
+      </div>
+    {{/if}}
+
+{{#if hotel.hotelBookingInstructions}}
+      <div class="row">
+	<div class="col s4">
+	  Room Instructions
+	</div>
+	<div class="col s8">
+	  <p>{{hotel.hotelBookingInstructions}}</p>
+	</div>
+      </div>
+    {{/if}}
+    {{#if hotel.hotelBookingTransactionId}}
+      <div class="row">
+	<div class="col s4">
+	Transaction Id	
+		</div>
+	<div class="col s8">
+	  <p>{{hotel.hotelBookingTransactionId}}</p>
+	</div>
+      </div>
+    {{/if}}
+    
+    {{#if hotel.hotelRoomNumber}}
+      <div class="row">
+	<div class="col s4">
+	  Hotel Room No
+	</div>
+	<div class="col s8">
+	  <p>{{hotel.hotelRoomNumber}}</p>
+	</div>
+      </div>
+    {{/if}}
+    {{#if hotel.hotelRoomRemarks}}
+      <div class="row">
+	<div class="col s4">
+	  Hotel Room Remarks
+	</div>
+	<div class="col s8">
+	  <p>{{hotel.hotelRoomRemarks}}</p>
+	</div>
+      </div>
+    {{/if}}
+    <div class="row">
+      <div class="col s4">
+	Guest Name
+      </div>
+      <div class="col s8">
+	<p>{{hotel.guestName}}</p>
+      </div>
+    </div>
+    <div class="row">
+      {{> event_update_hotelforsale_room_number room=hotel}}
+    </div>
+
+    <div class="row">
+      {{> event_update_hotelforsale_room_remarks room=hotel}}
+    </div>
+  </div>
+</template>
+
+
+
+<template name="hotelforsaleinfo_edit_modal">
+  <div class="hotelinfo-edit">
+    <div id="edit-hotelinfo-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+	{{#if hotelforsaleinfoDetails}}
+	  {{#with hotelforsaleinfoDetails}}
+	    <h4>Edit Hotel Room</h4>
+	    <form id="edit-hotelinfo" class="col s12">
+	      <div class="row">
+		<div class="input-field col s12">
+		  <select id="hotelName" name="hotelId">
+		    <option value="{{hotelName}}" selected>Choose your option</option>
+		    {{#each hotelList}}
+		      <option value={{_id}}>{{hotelName}}</option>
+		    {{/each}}
+		  </select>
+		  <label for="hotelName">Hotel Name</label>
+		</div>
+		<div class="input-field col s12">
+		  <select id="hotelRoomCategory" name="hotelRoomId">
+		    <option value="Category: {{hotelRoomCategory}}, Type: {{hotelRoomType}}, Bed Type: {{hotelRoomBedType}}, Smoking: {{parseBool hotelRoomIsSmoking}}, Adjoining: {{parseBool hotelRoomIsAdjoining}}, Connecting: {{parseBool hotelRoomIsConnecting}}" selected>Choose your option</option>
+		    {{#each roomCategories}}
+		      <option value={{_id}}>Category: {{hotelRoomCategory}}, Type: {{hotelRoomType}}, Bed Type: {{hotelRoomBedType}}, Smoking: {{parseBool hotelRoomIsSmoking}}, Adjoining: {{parseBool hotelRoomIsAdjoining}}, Connecting: {{parseBool hotelRoomIsConnecting}}</option>
+		    {{/each}}
+		  </select>
+		  <label for="hotelRoomCategory">Room Category</label>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="input-field col s6">
+		  <input id="hotel_rooms" type="number" class="validate" name="hotelRooms" value={{hotelRooms}} max={{maxRooms}}>
+		  <label for="hotel_rooms">Rooms</label>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="input-field col s6">
+		  <!-- <label for="hotel_rooms">Available Rooms: {{availableRooms}}</label> -->
+		</div>
+	      </div>
+	    </form>
+	  {{/with}}
+	{{/if}}
+      </div>
+      <div class="modal-footer">
+	<a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+	<button class="btn waves-effect waves-light" type="submit" name="action" form="edit-hotelinfo">
+	  <i class="material-icons left">send</i>
+	  Update
+	</button>
+      </div>
+    </div>
+  </div>
+</template>

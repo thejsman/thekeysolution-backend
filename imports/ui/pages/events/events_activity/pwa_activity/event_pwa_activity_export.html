@@ -1,0 +1,26 @@
+<template name="event_pwa_activity_export">
+  <div class="event-pwa-activity-export">
+    <div id="event-pwa-activity-export-modal" class="modal">
+      <div class="modal-content">
+        <h4>Export Data</h4>
+        <form id="event-export-pwa-activity-form">
+          <div class="date-field col s6">
+            {{> datetimepicker id="start_date" type="text" name="start_date" label="Start Date and Time"}}
+            <!-- <label for="start_date">Start Date</label>
+            <input type="text" class="datepicker" name="start_date" id="start_date" value={{start_date}}> -->
+          </div>
+          <div class="date-field col s6">
+            {{> datetimepicker id="end_date" type="text" name="end_date" label="End Date and Time"}}
+            <!-- <label for="end_date">End Date</label>
+            <input type="text" class="datepicker" name="end_date" id="end_date" value={{end_date}}> -->
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="event-export-pwa-activity-form">Export
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

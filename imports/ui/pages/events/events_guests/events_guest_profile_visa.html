@@ -1,0 +1,81 @@
+<template name="agency_visa_add">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        <h5 class="page-title">Visa Information</h5>
+      </div>
+      {{#if visaImages}}
+        <div class="user-uploads">
+          <h6>Uploaded by user</h6>
+          <div class="img-uploaded">
+            <!-- TODO: EACH IMG UPLOADED -->
+            {{#each image in visaImages}}
+              <figure>
+                <img src="{{image}}" alt="">
+                <div class="hover-options">
+                  <a onclick="window.open('{{image}}', 'newwindow', 'width=600,height=600'); return false;">open</a>
+                  <a target="_blank" href="{{image}}" download>download</a>
+                </div>
+              </figure>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+      <div class="events-visa-add">
+        {{#let visa=visaInformation}}
+          <form id="add-visa-form" class="row">
+            <div class="row">
+              <div class="switch col s12">
+                Valid Visa:
+                <label>
+                  No
+                  <input type="checkbox" id="guestValidVisa" name="guestValidVisa">
+                  <span class="lever"></span>
+                  Yes
+                </label>
+              </div>
+            </div>
+            {{#if validvisa}}
+              <div class="row">
+                <div class="input-field col s4">
+                  <select id="guestCountryIssue" name="guestCountryIssue">
+                    <option value="India">India</option>
+                    {{#each countries}}
+                      <option value="{{name}}">{{name}}</option>
+                    {{/each}}
+                  </select>
+                  <label for="guestCountryIssue">Country of Issue</label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="guestTypeOfVisa" type="text" name="guestTypeOfVisa" value={{visa.guestTypeOfVisa}}>
+                  <label class="always-active" for="guestTypeOfVisa">Type of visa</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s4">
+                  <input id="guestVisaNumber" type="text" name="guestVisaNumber" value={{visa.guestVisaNumber}}>
+                  <label class="always-active" for="guestVisaNumber"> Visa Number</label>
+                </div>
+                <div class="col s4">
+                  <label for="guestValidFrom">Valid From</label>
+                  <input id="guestValidFrom" type="text" class="datepicker" name="guestValidFrom" value={{visa.guestValidFrom}}>
+                </div>
+                <div class="col s4">
+                  <label for="gestValidTill">Valid Till</label>
+                  <input id="gestValidTill" type="text" class="datepicker" name="guestValidTill" value={{visa.guestValidTill}}>
+                </div>
+              </div>
+            {{/if}}
+            <div class="row">
+              <div class="col s12">
+                <button class="btn waves-effect waves-light" type="submit" name="action" form="add-visa-form">Save
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        {{/let}}
+      </div>
+    </div>
+  </div>
+</template>

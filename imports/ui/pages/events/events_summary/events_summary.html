@@ -1,0 +1,461 @@
+<template name="events_summary">
+  {{#if Template.subscriptionsReady}}
+  <div class="events-summary">
+    <div class="events-charts">
+      <div class="row">
+        <div class="col s12 m12 l8">
+          {{#if eventInfo}}
+          {{#with eventInfo}}
+          {{> event_summary}}
+          {{/with}}
+          {{/if}}
+        </div>
+        <div class="col s12 m12 l4">
+          {{#if isAllowed 'view-host-details'}}
+          {{#if hostInfo}}
+          {{#with hostInfo}}
+          {{> events_host_info}}
+          {{/with}}
+          {{/if}}
+          {{/if}}
+        </div>
+      </div>
+      <div class="row">
+        <!-- {{rsvpChart}} -->
+        <div class="col s12 m6 l3">
+          {{> events_chart_users}}
+        </div>
+        <div class="col s12 m6 l3">
+          {{> events_chart_guests}}
+        </div>
+        <div class="col s12 m6 l3">
+          {{> events_chart_gender}}
+        </div>
+        <div class="col s12 m6 l3">
+          {{#if loading}}
+            loading ....
+          {{else}}
+          {{#if isEqual rsvpChart 'subevent'}}
+            {{> events_chart_rsvp_se}}
+          {{/if}}
+          {{#if isEqual rsvpChart 'date'}}
+            {{> events_chart_rsvp_date}}
+          {{/if}}
+          {{#if isEqual rsvpChart 'destination'}}
+            {{> events_chart_rsvp_location}}
+          {{/if}}
+          {{/if}}
+          
+        </div>
+      </div>
+
+      <div class="row">
+        {{#if hasHotels}}
+        <div class="col s12 m6 l3">
+          {{> events_chart_hotels}}
+        </div>
+        {{/if}}
+        {{#if hasPaidHotels}}
+        <div class="col s12 m6 l3">
+          {{> events_chart_hotels_paid}}
+        </div>
+        {{/if}}
+        {{#if hasFlights}}
+        <div class="col s12 m6 l3">
+          {{> events_chart_flights}}
+        </div>
+        {{/if}}
+        {{#if hasPaidFlights}}
+        <div class="col s12 m6 l3">
+          {{> events_chart_flights_paid}}
+        </div>
+        {{/if}}
+      </div>
+      {{#if showPreferences}}
+      <div class="row card preferences-charts">
+        <div class="col s12 m12 l12">
+          <div class="card-title">Preferences</div>
+        </div>
+        {{#if hasFoodPreference}}
+        <div class="col s12 m12 l4">
+          {{> food_chart}}
+        </div>
+        {{/if}}
+        {{#if hasSizePreferece}}
+        <div class="col s12 m12 l4">
+          {{> size_chart}}
+        </div>
+        {{/if}}
+        {{#if hasSpecailAssistance}}
+        <div class="col s12 m12 l4">
+          {{> special_assistance_chart}}
+        </div>
+        {{/if}}
+      </div>
+      {{/if}}
+      <!-- <div class="row">
+        <div class="col s12 m12 l12">
+          {{#if hasService}}
+          {{> events_chart_services}}
+          {{/if}}
+        </div>
+      </div> -->
+    </div>
+  </div>
+  {{else}}
+  <div class="preloader-wrapper small active">
+    <div class="spinner-layer spinner-green-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>
+
+<!-- Event Details -->
+<template name="event_summary">
+  <div class="event-info card">
+    <div class="row">
+      <div class="col s12">
+        <h5>{{eventName}} <small>{{eventType}}</small></h5>
+        <p class="destination"><i class="fa fa-map-marker"></i>{{eventDestination}}</p>
+        <p class="duration"><i class="fa fa-calendar-check-o"></i>{{eventStart}} to {{eventEnd}}</p>
+      </div>
+      <div class="col s12 right-align">
+        {{#if isAllowed 'edit-event'}}
+        <a class="waves-effect waves-light btn" href="{{editEventPath}}" style="background-color: #29244e !important"><i
+            class="material-icons">edit</i></a>
+        {{/if}}
+        <a id="exportSummary" class="waves-effect waves-light btn" style="background-color: #54b1aa !important" href="#"><i
+            class="fa fa-download"></i></a>
+      </div>
+    </div>
+    {{#if isAllowed 'event-view-feature-list'}}
+    {{#if featuresInfo}}
+    {{#with featuresInfo}}
+    {{> event_features}}
+    {{/with}}
+    {{/if}}
+    {{/if}}
+  </div>
+</template>
+
+<!-- Event Features -->
+<template name="event_features">
+  <div class="description">
+    <p class="title"><i class="fa fa-file"></i> Features</p>
+    <ul>
+      {{#each selectedFeatures}}
+      <li><i class="fa fa-circle-o"></i>{{featureDisplayName this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<!-- Host Info -->
+<template name="events_host_info">
+  <div class="card host-info">
+    {{#if hostInfo}}
+    {{#with hostInfo}}
+    <h5>Host Details</h5>
+    <p><i class="fa fa-building"></i>{{eventHostName}}</p>
+    <p><i class="fa fa-user"></i>{{eventHostContact}}</p>
+    <p><i class="fa fa-phone"></i>{{eventHostContactNumber}}</p>
+    <p><i class="fa fa-envelope"></i>{{eventHostContactEmail}}</p>
+    {{/with}}
+    {{/if}}
+  </div>
+</template>
+
+<!-- Chart - users -->
+<template name="events_chart_users">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">App Users</div>
+      <div class="total">Total: {{totalUsers}}</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Logged-in</li>
+      <li><i class="fa fa-square negative"></i> Pending</li>
+    </ul>
+    <div class="card-image donut-chart">
+      <canvas id="user-chart"></canvas>
+    </div>
+  </div>
+</template>
+
+<!-- Chart guests -->
+<template name="events_chart_guests">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">Guests Invited</div>
+      <div class="total">Total: {{totalGuests}}</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Primary</li>
+      <li><i class="fa fa-square negative"></i> Secondary</li>
+    </ul>
+    <div class="card-image donut-chart">
+      <canvas id="guest-chart"></canvas>
+    </div>
+  </div>
+</template>
+
+<!-- Chart guests by guest-->
+<template name="events_chart_gender">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">Guests Demographic</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square negative"></i> Male</li>
+      <li><i class="fa fa-square positive"></i> Female</li>
+      <li><i class="fa fa-square neutral"></i> Child</li>
+    </ul>
+    <div class="card-image donut-chart">
+      <canvas id="guest-chart-gender"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_rsvp">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">RSVP Total</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Attending</li>
+      <li><i class="fa fa-square negative"></i> Regret</li>
+      <li><i class="fa fa-square neutral"></i> Not Responded</li>
+    </ul>
+    <div class="card-image donut-chart">
+      <canvas id="rsvp-chart"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_rsvp_date">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">RSVP by Date</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Attending</li>
+      <li><i class="fa fa-square negative"></i> Regret</li>
+      <li><i class="fa fa-square neutral"></i> Not Responded</li>
+    </ul>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="rsvpDateGraph up" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="rsvpDateGraph down inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas id="rsvp-chart-date-stacked"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_rsvp_se">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">RSVP by Sub-Events</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Attending</li>
+      <li><i class="fa fa-square negative"></i> Regret</li>
+      <li><i class="fa fa-square neutral"></i> Not Responded</li>
+    </ul>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="rsvpEvent up" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="rsvpEvent down inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas id="rsvp-chart-event-stacked"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_rsvp_location">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">RSVP by Destination</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Attending</li>
+      <li><i class="fa fa-square negative"></i> Regret</li>
+      <li><i class="fa fa-square neutral"></i> Not Responded</li>
+    </ul>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="rsvpLocation up" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="rsvpLocation down inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas id="rsvp-chart-location-stacked"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_hotels">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">Hotel for Assignment</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square neutral"></i> Total</li>
+      <li><i class="fa fa-square positive"></i> Assigned</li>
+      <li><i class="fa fa-square negative"></i> Available</li>
+    </ul>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="freeHotelChart up" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="freeHotelChart down inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas id="hotel-chart"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_hotels_paid">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">Hotel for Sale</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Sold</li>
+      <li><i class="fa fa-square negative"></i> Available</li>
+    </ul>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="paidHotelChart up" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="paidHotelChart down inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas id="hotel-chart-paid"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_flights">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">Flight for Assignment</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Assigned</li>
+      <li><i class="fa fa-square negative"></i> Available</li>
+    </ul>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="freeFlightChart up" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="freeFlightChart down inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas id="flight-chart"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_flights_paid">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">Flight for Sale</div>
+    </div>
+    <ul class="chart-lable">
+      <li><i class="fa fa-square positive"></i> Sold</li>
+      <li><i class="fa fa-square negative"></i> Available</li>
+    </ul>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="paidFlightChart up" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="paidFlightChart down inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas id="flight-chart-paid"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="food_chart">
+  <div class="food card">
+    <div class="card-title">
+      <div class="title">Meal Preferences</div>
+    </div>
+    <ul class="chart-lable">
+      {{#each pref in preferences}}
+      <li><i class="fa fa-square {{pref.color}}"></i> {{pref.preference}}</li>
+      {{/each}}
+    </ul>
+    <div class="card-image donut-chart">
+      <canvas id="food-chart"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="size_chart">
+  <div class="size card">
+    <div class="card-title">
+      <div class="title">{{sizeName}} Merchandise Size Preferences</div>
+    </div>
+    <ul class="chart-lable">
+      {{#each pref in preferences}}
+      <li><i class="fa fa-square {{pref.color}}"></i> {{pref.preference}}</li>
+      {{/each}}
+    </ul>
+    <div class="card-image donut-chart">
+      <canvas id="size-chart"></canvas>
+    </div>
+  </div>
+</template>
+
+<template name="special_assistance_chart">
+  <div class="size card">
+    <div class="card-title">
+      <div class="title">Special Assistance</div>
+    </div>
+    <ul class="chart-lable">
+      {{#each pref in preferences}}
+      <li><i class="fa fa-square {{pref.color}}"></i> {{pref.preference}}</li>
+      {{/each}}
+    </ul>
+    <div class="card-image donut-chart">
+      <canvas id="assistance-chart"></canvas>
+    </div>
+  </div>
+</template>
+<template name="events_chart_services">
+  <div class="card">
+    <div class="card-title">
+      <div class="title">Service Appointments</div>
+    </div>
+    <ul class="chart-lable" title="Chart Lables">
+      <li><i class="fa fa-square negative"></i> Available Slots</li>
+      <li><i class="fa fa-square positive"></i> Booked Slots</li>
+    </ul>
+    <div class="service-appointments">
+      <div class="row">
+        {{#each service in serviceList}}
+          {{> events_chart_services_single service=service}}
+        {{/each}}
+        <div class="col s12 m12 l12"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="events_chart_services_single">
+  <div class="col s12 m6 l3 card single-service">
+    <div class="card-title">
+      <div class="title">{{serviceName}}</div>
+    </div>
+    <div class="card-image bar-chart">
+      <div class="up-down">
+        <a class="serviceChart up {{serviceId}}" href="#"><i class="fa fa-chevron-up"></i></a>
+        <a class="serviceChart down {{serviceId}} inactive" href="#"><i class="fa fa-chevron-down"></i></a>
+      </div>
+      <canvas class="service_chart-{{serviceId}}"></canvas>
+    </div>
+  </div>
+</template>

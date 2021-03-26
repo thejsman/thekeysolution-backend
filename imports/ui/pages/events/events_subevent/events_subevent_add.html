@@ -1,0 +1,180 @@
+<template name="events_subevent_add">
+  <div class="add-subevent-button">
+    <div id="add-subevent-modal" class="add-subevent-page">
+      <div class="modal-content app-setting">
+        <div class="row">
+          <div class="col s7">
+            <h4>{{title}}</h4>
+            <!-- {{#with subeventInfo}} -->
+            <form class="col s12" id="add-subevent">
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="This image will appear in the App. Please ensure it is a licensed / purchased image or use one from our resources page">
+                  <input type="file" id="input-file-now" class="dropify" data-default-file="{{subevent.subEventImg}}" name="subEventImg">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Name of Event as it should appear in the App">
+                  <input id="subevent_name" type="text" name="subEventTitle" data-length="40" maxlength="40" value={{subevent.subEventTitle}}>
+                  <label class="always-active" for="subevent_name">Name of Event <i class="tooltip-icon"></i></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="date-field col s4">
+                  <label for="subEventDate">Date of Event
+                  <input type="text" class="datepicker" name="subEventDate" id="subEventDate" value="{{subevent.subEventDate}}">
+                </label>
+                </div>
+                <div class="input-field col s4">
+                  <label class="always-active" for="subEventStartTime">Event Start Time</label>
+                  <input type="text" class="timepicker" name="subEventStartTime" id="subEventStartTime" value="{{subevent.subEventStartTime}}">
+                </div>
+                <div class="input-field col s4">
+                  <label class="always-active" for="subEventEndTime">Event End Time</label>
+                  <input type="text" class="timepicker" name="subEventEndTime" id="subEventEndTime" value="{{subevent.subEventEndTime}}">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="In case of Event, choose Venue. In case of Tour, choose Start Point">
+                  <select name="subEventTab1" id="subEventTab1" class="tab-select" value={{subevent.subEventTab1}}>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Venue">Venue</option>
+                    <option value="Start Point">Start Point</option>
+                  </select>
+                  <label for="subEventTab1">Venue / Start Point <i class="tooltip-icon"></i></label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="subEventTab1Content" type="text" name="subEventTab1Content" value={{subevent.subEventTab1Content}}>
+                  <label class="always-active" for="subEventTab1Content">Venue / Start Point Details</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="In case of Event, choose Theme. In case of Tour, choose End Point ">
+                  <select name="subEventTab2" id="subEventTab2" class="tab-select" value={{subevent.subEventTab2}}>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Theme">Theme</option>
+                    <option value="End Point">End Point</option>
+                  </select>
+                  <label for="subEventTab2">Theme / End Point <i class="tooltip-icon"></i></label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="subEventTab2Content" type="text" name="subEventTab2Content" value={{subevent.subEventTab2Content}}>
+                  <label class="always-active" for="subEventTab2Content">Theme / End Point Details</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Choose which is appropriate">
+                  <select name="subEventTab3" id="subEventTab3" class="tab-select" value={{subevent.subEventTab3}}>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Dresscode">Dresscode</option>
+                    <option value="Inclusions">Inclusions</option>
+                  </select>
+                  <label for="subEventTab3">Dresscode / Inclusions <i class="tooltip-icon"></i></label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="subEventTab3Content" type="text" name="subEventTab3Content" value={{subevent.subEventTab3Content}}>
+                  <label class="always-active" for="subEventTab3Content">Dresscode / Inclusions Details</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Choose from the Destinations you have previously entered">
+                  <select id="subEventDestination" name="subEventDestination" value={{subevent.subEventDestination}}>
+                    <option value="" disabled selected>Choose your option</option>
+                    {{#each d in destinationList}}
+                    <option value="{{d}}">{{d}}</option>
+                    {{/each}}
+                  </select>
+                  <label>Destination<i class="tooltip-icon"></i></label>
+                </div>
+                <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Enter the location of the Event Venue.">
+                  <input id="subEventLocation" type="text" name="subEventLocation" value={{subevent.subEventLocation}}>
+                  <label class="always-active" for="subEventLocation">Location <i class="tooltip-icon"></i></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Insert Google Map Link for direction to the Event Venue">
+                  <input id="subEventLocationLink" type="text" name="subEventLocationLink" value={{subevent.subEventLocationLink}}>
+                  <label class="always-active" for="subEventLocationLink">Directions <i class="tooltip-icon"></i></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Add event details, agenda, or any information pertaining to this event">
+                  <textarea id="subEventDescription" data-length="200" class="materialize-textarea" name="subEventDescription" value={{subevent.subEventDescription}}></textarea>
+                  <label class="always-active" for="subEventDescription">Event Description <i class="tooltip-icon"></i></label>
+                </div>
+              </div>
+            </form>
+            <!-- {{/with}} -->
+          </div>
+          <div class="col s5" style="max-width: 450px;margin:auto;">
+            {{>app_preview_subevent info=this}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer right-align">
+        <button class="btn waves-effect waves-light" id="update_app_preview">
+          <i class="fa fa-refresh"></i>App Preview <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="All the App screens togther, for final approval from your client"></i></button>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="add-subevent">
+          <i class="material-icons left">send</i>{{buttonText}}
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- App Preview -->
+<template name="app_preview_subevent">
+  <h5 class="page-title center">Screen Preview</h5>
+  {{#with appSubeventSettings}}
+  <div class="">
+    <div class="app-preview about subevent" style="color: {{appColor2}}">
+      <header>
+        <nav style="background-color: {{appColor1}}; color: {{appColor6}};font-family: {{appHeadingFont}}; ">
+          <div class="nav-icons">
+            <i class="fa fa-angle-left"></i>
+            <i class="fa fa-bars"></i>
+          </div>
+          <div class="app-title" style="text-align: center;">EVENT DETAILS</div>
+          <div class="nav-icons right">
+            <i class="icon-notification"></i>
+            {{#if checkFeature 'Chat Option'}}
+            <i class="icon-chat"></i>
+            {{/if}}
+          </div>
+        </nav>
+      </header>
+      <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+        <div class="center">
+          <br/>
+          <div class="row" style="padding-left:20px;">
+            <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat; border: 1px solid; cursor: pointer;color: {{appColor2}} !important;font-family:{{appBodyFont}}"
+              id="event_date">{{#with subEventData}} {{subEventDate}} {{/with}}</a>
+          </div>
+        </div>
+        <div class="welcome-content">
+          <div class="welcome-image" id="event_banner" style="background-image:url('{{#with subEventData}} {{subEventImg}} {{/with}}'); font-family:{{appBodyFont}} ;"></div>
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+            {{#with subEventData}}
+              <b><h5 id="event_name">{{subEventTitle}}</h5></b>
+              <p id="event_time">{{subEventStartTime}} - {{subEventEndTime}}</p>
+              <h6 id="event_subEventTab1">{{subEventTab1}}</h6>
+              <p id="event_subEventTab1Content">{{subEventTab1Content}}</p>
+              <h6 id="event_subEventTab2">{{subEventTab2}}</h6>
+              <p id="event_subEventTab2Content">{{subEventTab2Content}}</p>
+              <h6 id="event_subEventTab3">{{subEventTab3}}</h6>
+              <p id="event_subEventTab3Content">{{subEventTab3Content}}</p>
+              <h6>Location:</h6>
+              <p id="event_subEventLocation">{{subEventLocation}}</p>
+              <h6>Description:</h6>
+              <p id="event_description">{{subEventDescription}}</p>
+            {{/with}}
+            <div class="row center-align" style="margin-top:10px;">
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}};font-family:{{appBodyFont}} ;"
+                href="javascript:">GET DIRECTION</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

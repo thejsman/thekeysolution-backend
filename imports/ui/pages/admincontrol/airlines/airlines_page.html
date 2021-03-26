@@ -1,0 +1,161 @@
+<template name="airlines_page">
+  <div class="airlines-page">
+    {{#if hasAirlines}}
+      <div class="row">
+	<div class="col s8">
+	  <h5>AIRLINES</h5>
+	</div>
+	<div class="col s4">
+	  {{> add_airline_button}}
+	</div>
+      </div>
+      <table class="centered">
+	<thead>
+	  <tr>
+	    <th>#</th>
+	    <th>Airline Name</th>
+	    <th>Country</th>
+	    <th>Airline Code</th>
+	    <th>Type</th>
+	    <th>Actions</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {{#each airlineList}}
+	    {{> airline_details_item info=this index=@index}}
+	  {{/each}}
+	</tbody>
+	{{> airline_delete_confirm}}
+	{{> airline_edit_modal}}
+      </table>
+    {{else}}
+      <div class="row">
+	<h5 class="col s6"> NO AIRLINES ADDED </h5>
+	<div class="col s4">
+	  {{> add_airline_button}}
+	</div>
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="airline_details_item">
+  <tr>
+    <th scope="row">{{indexPlusOne index}}</th>
+    <td>{{info.airlineName}}</td>
+    <td>{{info.airlineCountry}}</td>
+    <td>{{info.airlineIATA}}</td>
+    <td>{{info.airlineType}}</td>
+    <td>
+      <a class="waves-effect waves-dark btn green lighten-2 click_edit-airline-button"><i class="material-icons left">mode_edit</i>Edit</a>
+      <a class="waves-effect waves-dark btn red lighten-2 click_delete-airline-button"><i class="material-icons left">remove</i>Delete</a>
+    </td>
+  </tr>
+</template>
+
+<template name="airline_edit_modal">
+  <div class="airline-edit">
+    <div id="edit-airline-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+	{{#if airlineDetails}}
+	  {{#with airlineDetails}}
+	    <h4>Edit Airline</h4>
+	    <form class="col s12" id="edit-airline">
+	      <div class="row">
+		<div class="input-field col s12">
+		  <input id="airline_name" type="text" class="validate" name="airlineName" value={{airlineName}}>
+		  <label for="airline_name">Name</label>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="input-field col s12">
+		  <input id="airline_country" type="text" class="validate" name="airlineCountry" value={{airlineCountry}}>
+		  <label for="airline_country">Country</label>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="input-field col s12">
+		  <input id="airline_IATA" type="text" class="validate" name="airlineIATA" value={{airlineIATA}}>
+		  <label for="airline_IATA">Airline Code</label>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="input-field col s12">
+		  <input id="airline_type" type="text" class="validate" name="airlineType" value={{airlineType}}>
+		  <label for="airline_type">Type</label>
+		</div>
+	      </div>
+	    </form>
+	  {{/with}}
+	{{/if}}
+      </div>
+      <div class="modal-footer">
+	<a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+	<button class="btn waves-effect waves-light" type="submit" name="action" form="edit-airline">
+	  <i class="material-icons left">add</i>
+	  Edit
+	</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="airline_delete_confirm">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete Airline</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-airline" type="button" name="action">
+	<i class="material-icons left">remove</i>
+	Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="add_airline_button">
+  <div class="add-airline-button">
+    <a class="waves-effect waves-dark btn modal-trigger right" href="#add-airline-modal"><i class="material-icons left">add</i>Add Airline</a>
+    <div id="add-airline-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+	<h4>Add Airline</h4>
+	<form class="col s12" id="add-airline">
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="airline_name" type="text" class="validate" name="airlineName" value={{autoFillName}}>
+	      <label for="airline_name">Name</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="airline_country" type="text" class="validate" name="airlineCountry" value={{autoFillString}}>
+	      <label for="airline_country">Country</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="airline_IATA" type="text" class="validate" name="airlineIATA" value={{autoFillString}}>
+	      <label for="airline_IATA">Airline Code</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="airline_type" type="text" class="validate" name="airlineType" value={{autoFillString}}>
+	      <label for="airline_type">Type</label>
+	    </div>
+	  </div>
+	</form>
+      </div>
+      <div class="modal-footer">
+	<a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+	<button class="btn waves-effect waves-light" type="submit" name="action" form="add-airline">
+	  <i class="material-icons left">add</i>
+	  Add
+	</button>
+      </div>
+    </div>
+  </div>
+</template>

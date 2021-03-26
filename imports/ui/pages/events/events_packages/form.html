@@ -1,0 +1,137 @@
+<template name="eventPackageForm">
+  <div class="eventPackageForm">
+    <h4>{{ title }}</h4>
+    <form class="row" id="eventPackageForm">
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            id="packageName"
+            type="text"
+            name="packageName"
+            value="{{ info.packageName }}"
+          />
+          <label class="always-active" for="packageName">Package Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input
+            id="packageSequence"
+            type="number"
+            name="packageSequence"
+            value="{{ info.packageSequence }}"
+          />
+          <label class="always-active" for="packageSequence"
+            >Sequence No.</label
+          >
+        </div>
+        <div class="input-field col s6">
+          <input
+            id="packageInventory"
+            type="number"
+            name="packageInventory"
+            value="{{ info.packageInventory }}"
+          />
+          <label class="always-active" for="packageInventory"
+            >Total Inventory</label
+          >
+        </div>
+        <div class="input-field col s4">
+          <select name="packageCurrency" id="packageCurrency">
+            <option value="" selected>Select Currency</option>
+            {{#each currencies}}
+            <option value="{{ code }}">{{ code }}</option>
+            {{/each}}
+          </select>
+          <label class="always-active" for="packageCurrency" style="top : 0;"
+            >Currency</label
+          >
+        </div>
+        <div class="input-field col s4">
+          <input
+            id="packagePrice"
+            type="number"
+            name="packagePrice"
+            value="{{ info.packagePrice }}"
+          />
+          <label class="always-active" for="packagePrice">Price</label>
+        </div>
+        <div class="input-field col s4">
+          <input
+            id="packageGst"
+            type="number"
+            name="packageGst"
+            value="{{ info.packageGst }}"
+          />
+          <label class="always-active" for="packageGst">GST (%)</label>
+        </div>
+      </div>
+
+      <div class="input-field col s12">
+        <p class="section-title">Package Description</p>
+        <textarea
+          class="materialize-textarea"
+          name="description"
+          id="description"
+          cols="30"
+          rows="10"
+          value="{{ info.description }}"
+          >{{ info.description }}</textarea
+        >
+      </div>
+      <div class="input-field col s12">
+        <p class="section-title">Message to Attendee</p>
+        <textarea
+          class="materialize-textarea"
+          name="msg"
+          id="msg"
+          cols="30"
+          rows="10"
+          value="{{ info.msg }}"
+          >{{ info.msg }}</textarea
+        >
+      </div>
+      {{#if isMainPackage}}
+      <p class="section-title">
+        Package Validation - Select {{ invitationBy }}'s
+      </p>
+      <div class="row">
+        {{#each event in subeventsList}}
+        {{> events_packages_rsvp rsvp=event}}
+        {{/each}}
+      </div>
+      {{else}}
+
+      {{/if}}
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="submit">
+          {{ buttonText }}
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<!-- SubEvents List -->
+<template name="events_packages_rsvp">
+  <p class="col s4">
+    {{#if checked}}
+    <input
+      value="{{ rsvp.subEventId }}"
+      type="checkbox"
+      name="subevents[]"
+      id="i{{ rsvp.subEventId }}"
+      checked
+    />
+    {{else}}
+    <input
+      value="{{ rsvp.subEventId }}"
+      type="checkbox"
+      name="subevents[]"
+      id="i{{ rsvp.subEventId }}"
+    />
+    {{/if}}
+    <label for="i{{ rsvp.subEventId }}">{{ rsvp.subEventTitle }}</label>
+  </p>
+</template>

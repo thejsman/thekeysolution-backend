@@ -1,0 +1,487 @@
+<template name="events_add">
+  <div class="events-add">
+    <div class="row">
+      <div class="col s12">
+        <h5>Add Event</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        {{#with overallData}}
+        <ul class="collapsible" data-collapsible="accordion">
+          {{> events_add_basic_details}} {{> events_add_host_details}} {{>
+          events_add_feature_details}} {{> events_add_app_details}} {{>
+          events_file_uploads}}
+        </ul>
+        {{/with}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="event_details_change_button">
+  {{#if dataExists}}
+  <a class="waves-effect waves-light btn right change-button {{enabled}}">Edit</a>
+  {{/if}}
+</template>
+
+<template name="event_add_progress">
+  {{#if loading}}
+  <div class="progress">
+    <div class="indeterminate"></div>
+  </div>
+  {{/if}}
+</template>
+
+<template name="event_add_progress_determinate">
+  {{#if loading}}
+  <div class="progress">
+    <div class="{{type}}" style="width:{{data}}"></div>
+  </div>
+  {{/if}}
+</template>
+
+<template name="event_add_submit_button">
+  <button class="btn waves-effect waves-light {{enabled}}" type="submit" name="action">
+    Continue
+  </button>
+</template>
+
+<template name="events_file_uploads">
+  <li id="page4" class="page disabled">
+    <div class="collapsible-header">
+      <div class="col s6">
+        <i class="fa fa-upload"></i>File Uploads & Settings
+      </div>
+      <div class="col s6">
+        {{> event_details_change_button data=uploadedData pageNo=4}}
+      </div>
+    </div>
+    {{> event_add_progress_determinate data=percentUploaded}} {{#let
+    details=data}}
+    <div class="collapsible-body">
+      <form id="event-file-uploads">
+        <div class="row">
+          <div class="col s6 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="This is only meant for your viewing in the Dashboard. You can always come back and upload it whenever you wish.">
+            <input type="file" id="input-file-now" class="dropify file-eventLogo"
+              data-default-file="{{details.eventLogo}}" name="eventLogo" />
+          </div>
+          <div class="col s6 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="This is only meant for your viewing in the Dashboard. You can always come back and upload it whenever you wish.">
+            <input type="file" id="input-file-now" class="dropify file-eventBanner"
+              data-default-file="{{details.eventBackground}}" name="eventBanner" />
+          </div>
+
+        </div>
+
+        <div class="row">{{> event_add_submit_button}}</div>
+      </form>
+    </div>
+    {{/let}}
+  </li>
+</template>
+
+<template name="events_add_app_details">
+  <li id="page3" class="page disabled">
+    <div class="collapsible-header">
+      <div class="col s6"><i class="fa fa-mobile"></i>App Settings</div>
+      <div class="col s6">
+        {{> event_details_change_button data=appDetails pageNo=3}}
+      </div>
+    </div>
+    {{> event_add_progress}}
+    <div class="collapsible-body">
+      <form id="event-app-details">
+        <div class="app-features">
+          <div class="row">
+            <div class="col s12">
+              Choose from these additional features to create your app
+            </div>
+          </div>
+          <div class="row">
+            <!-- Hiding chat till further improvements -->
+
+            <!-- <div class="col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="Select this if you want to allow the guests to chat or email each other">
+              <input type="checkbox" name="selectedAppDetails[]" value="Chat Option" id="featureChatOption" />
+              <label for="featureChatOption">Guest Networking
+                <i class="tooltip-icon"></i>
+              </label>
+            </div> -->
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="Select this to write about the Host / Bride & Groom / Company in the App.">
+              <input type="checkbox" name="selectedAppDetails[]" value="About" id="featureAbout" />
+              <label for="featureAbout">About
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="Let people know the top places to visit, currency information, weather and more">
+              <input type="checkbox" name="selectedAppDetails[]" value="Destination" id="featureDestination" />
+              <label for="featureDestination">Destination Information
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="This will show Downloads section on the the App.">
+              <input type="checkbox" name="selectedAppDetails[]" value="downloads" id="featureDownloads" />
+              <label for="featureDownloads">Downloads
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="This will show up on each app as per the guest's invite status.">
+              <input type="checkbox" name="selectedAppDetails[]" value="Itinerary" id="featureItinerary" />
+              <label for="featureItinerary">Itinerary
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="Enter your teams / manager's contact information for the guests to connect with you">
+              <input type="checkbox" name="selectedAppDetails[]" value="Contact Details" id="featureContactDetails" />
+              <label for="featureContactDetails">Contact Details
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="This allows your guest to upload their air tickets directly into the App for your team to check">
+              <input type="checkbox" name="selectedAppDetails[]" value="Travel Details" id="featureTravelDetails" />
+              <label for="featureTravelDetails">Travel Details
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="This will show RSVP/Registration options on the App.">
+              <input type="checkbox" name="selectedAppDetails[]" value="RSVP" id="featureRSVP" />
+              <label for="featureRSVP">RSVP/Registration
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="This will show Speakers profile on the the App.">
+              <input type="checkbox" name="selectedAppDetails[]" value="Speakers" id="featureSpeakers" />
+              <label for="featureSpeakers">Speakers
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="This will show Sponsors profile on the the App.">
+              <input type="checkbox" name="selectedAppDetails[]" value="Sponsors" id="featureSponsors" />
+              <label for="featureSponsors">Sponsors
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="This will show Photo Share on the the App.">
+              <input type="checkbox" name="selectedAppDetails[]" value="photoShare" id="featurephotoShare" />
+              <label for="featurephotoShare">Photo Share
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+
+            <div class="input-field col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="Guest Informations to be shown in App.">
+              <select multiple name="selectedAppGuestInfo[]" id="featureGuestInfo">
+                <option value="" disabled selected>Choose your options</option>
+                <option value="guestDetails">Guest Details</option>
+                <option value="guestAddress">Guest Address</option>
+                <option value="guestPhotoID">Photo ID</option>
+                <option value="guestVisaInfo">Visa Information</option>
+                <option value="guestInsuranceInfo">
+                  Insurance Information
+                </option>
+              </select>
+              <label>Guest Information
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="input-field col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="Depending on your event type, this allows you to ask your Guests for Feedback or Wishes">
+              <select name="featureFeedbackType" value="featureFeedbackType" id="featureFeedBackOrWishList">
+                <option value="none" selected>None</option>
+                <option value="FeedBack">Feedback</option>
+                <option value="WishList">Wishes</option>
+              </select>
+              <label>Feedback or Wishes
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+
+            <div class="input-field col s4 tooltipped" data-position="top" data-delay="50"
+              data-tooltip="Allows you to add your event's social pages to the App for your guests to see & add content">
+              <select multiple name="selectedAppSocialDetails[]" id="featureSocialMedia">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Twitter">Twitter</option>
+              </select>
+              <label>Social Media
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+            <div class="input-field col s4 test-input tooltipped" data-position="top" data-delay="50"
+              data-tooltip="Select from the dropdown the information you need about the guest's preferences via the App">
+              <select multiple name="selectedAppPreferences[]" id="featurePreferences">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="Meal">Meal Preferences</option>
+                <option value="Size">Merchandise Size Option</option>
+                <option value="Special Assistance">Special Assistance</option>
+              </select>
+              <label>Guest Preferences
+                <i class="tooltip-icon"></i>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <p class="col s4">
+              <input type="checkbox" id="selectAllApp" form="not-in-this" />
+              <label for="selectAllApp">Select All</label>
+            </p>
+          </div>
+          <div class="row">{{> event_add_submit_button}}</div>
+        </div>
+      </form>
+    </div>
+  </li>
+</template>
+
+<template name="events_add_feature_details">
+  <li id="page2" class="page disabled">
+    <div class="collapsible-header">
+      <div class="col s6"><i class="fa fa-file-text"></i>Features</div>
+      <div class="col s6">
+        {{> event_details_change_button data=featureDetails pageNo=2}}
+      </div>
+    </div>
+    {{> event_add_progress}}
+    <div class="collapsible-body">
+      <form id="event-feature-details">
+        <div class="row">
+          <p class="col s4 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Select this when you need to manage inventory & assign pre-booked rooms to the guests">
+            <input type="checkbox" name="selectedFeatures[]" value="Hotel Booking" id="featureHotelBooking" />
+            <label for="featureHotelBooking">Rooms for Assignment
+              <i class="tooltip-icon"></i>
+            </label>
+          </p>
+          <!-- <p class="col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="Select this when you need to manage inventory & sell pre-booked rooms to the guests">
+            <input type="checkbox" name="selectedFeatures[]" value="Hotel Booking Paid" id="featurePaidHotelBooking"/>
+            <label for="featurePaidHotelBooking">Rooms for Sale <i class="tooltip-icon"></i></label>
+          </p> -->
+          <p class="col s4 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Select this when you need to manage inventory & assign pre-booked Airline Tickets to the guests">
+            <input type="checkbox" name="selectedFeatures[]" value="Flight Booking" id="featureFlightBooking" />
+            <label for="featureFlightBooking">Airline Ticket for Assignment
+              <i class="tooltip-icon"></i>
+            </label>
+          </p>
+          <!-- For Development use -->
+          <!-- <p class="col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="Select this when you need to manage inventory & sell packages guests">
+            <input type="checkbox" name="selectedFeatures[]" value="Packages" id="featurePackages"/>
+            <label for="featurePackages">Packages <i class="tooltip-icon"></i></label>
+          </p> -->
+          <p class="col s4 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Select this if your client is offering additonal services to guests for which appointments are required (ex: Hair & Make Up)">
+            <input type="checkbox" name="selectedFeatures[]" value="Services" id="featureServices" />
+            <label for="featureServices">Guest Services & Appointments
+              <i class="tooltip-icon"></i>
+            </label>
+          </p>
+          <p class="col s4 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Select this if you need to assign Vehicles & Drivers to your guests">
+            <input type="checkbox" name="selectedFeatures[]" value="Transport" id="featureTransport" />
+            <label for="featureTransport">Guest Logistics
+              <i class="tooltip-icon"></i>
+            </label>
+          </p>
+          <p class="col s4 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Select this if you need to manage inventory & assign giveaways from the host to guest">
+            <input type="checkbox" name="selectedFeatures[]" value="Gifts" id="featureGifts" />
+            <label for="featureGifts">Giveaways & Gifts
+              <i class="tooltip-icon"></i>
+            </label>
+          </p>
+          <div class="input-field col s4 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Choose from the list what style of RSVP best suits your event">
+            <select name="featureRSVPOption" id="featureRSVPOption" required>
+              <option value="" disabled selected>Choose your option</option>
+              <option value="RSVP Wedding">
+                RSVP Style 1: Select this to allow your guests to RSVP per
+                guest, per date, per event. (Best used for Weddings, Social,
+                Corporate Events)
+              </option>
+              <option value="RSVP Conference">
+                RSVP Style 2: Select this to allow your guests to choose from
+                multiple events (ex: breakout sessions) at the same time. (Best
+                used for Corporate & Conferences)
+              </option>
+              <option value="RSVP Registration">
+                Registration: Select this if Registration is all you require
+                (Ex: MICE tours)
+              </option>
+            </select>
+            <label>RSVP/Registration Styles
+              <i class="tooltip-icon"></i>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <p class="col s4">
+            <input type="checkbox" id="selectAll" form="not-in-this" />
+            <label for="selectAll">Select All</label>
+          </p>
+        </div>
+        <div class="row">{{> event_add_submit_button}}</div>
+      </form>
+    </div>
+  </li>
+</template>
+
+<template name="events_add_host_details">
+  <li id="page1" class="page disabled">
+    <div class="collapsible-header">
+      <div class="col s6"><i class="fa fa-building"></i>Host Details</div>
+      <div class="col s6">
+        {{> event_details_change_button data=hostDetails pageNo=1}}
+      </div>
+    </div>
+    {{> event_add_progress}} {{#let details=data}}
+    <div class="collapsible-body">
+      <form id="event-host-details">
+        <div class="row">
+          <div class="input-field col s6 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="As will appear in the email sent to guests to download App.">
+            <input id="event_host_name" type="text" name="eventHostName" value="{{details.eventHostName}}" />
+            <label class="always-active" for="event_host_name">
+              Name Of Client
+              <i class="tooltip-icon"></i>
+            </label>
+          </div>
+          <div class="input-field col s6 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="As will appear in the email sent to guests to download App. (Add designation after adding a comma)">
+            <input id="event_host_contact" type="text" name="eventHostContact" value="{{details.eventHostContact}}" />
+            <label class="always-active" for="event_host_contact">Host's Name
+              <i class="tooltip-icon"></i>
+            </label>
+          </div>
+          <div class="input-field col s6 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="For internal use / display only. Not reflected in the App.">
+            <input id="event_host_contact_number" type="text" name="eventHostContactNumber"
+              value="{{details.eventHostContactNumber}}" />
+            <label class="always-active" for="event_host_contact_number">Host's Number
+              <i class="tooltip-icon"></i>
+            </label>
+          </div>
+          <div class="input-field col s6 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="This email ID will be used to send invitations to download the App / Communicate with the guests">
+            <input id="event_host_email" type="email" name="eventHostContactEmail"
+              value="{{details.eventHostContactEmail}}" />
+            <label class="always-active" for="event_host_contact_email">Event / Host Email
+              <i class="tooltip-icon"></i>
+            </label>
+          </div>
+          <div class="col s6 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Custom email template id, if left blank default template will be used.">
+            <label class="always-active" for="event_email_template_id">Email Template ID
+              <i class="tooltip-icon"></i>
+            </label>
+            <input id="event_email_template_id" type="text" name="eventEmailTemplateId"
+              value="{{details.eventEmailTemplateId}}" />
+          </div>
+        </div>
+        <div class="row">{{> event_add_submit_button}}</div>
+      </form>
+    </div>
+    {{/let}}
+  </li>
+</template>
+
+<template name="events_add_basic_details">
+  <li id="page0" class="page">
+    <div class="collapsible-header active">
+      <div class="col s6"><i class="fa fa-feed"></i>Basic Details</div>
+      <div class="col s6">
+        {{> event_details_change_button data=basicDetails pageNo=0}}
+      </div>
+    </div>
+    {{> event_add_progress}} {{#let details=data}}
+    <div class="collapsible-body">
+      <form id="event-basic-details">
+        <div class="row">
+          <div class="input-field col s3 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="As will appear in the email and SMS sent to guests to download App. This field will be used in email subject, email body and in the SMS content.">
+            <input id="event_name" type="text" name="eventName" value="{{details.eventName}}" />
+            <label class="always-active" for="event_name">Event Name
+              <i class="tooltip-icon"></i>
+            </label>
+          </div>
+          <div class="input-field col s3">
+            <select name="eventType" id="event-type" value="{{details.eventType}}">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="wedding">Wedding</option>
+              <option value="social">Social Event</option>
+              <option value="corporate">Corporate Events</option>
+              <option value="conference">Conferences</option>
+              <option value="mice">MICE</option>
+            </select>
+            <label>Event Type</label>
+          </div>
+          <div class="col s3">
+            <div class="switch">
+              <label>
+                Domestic
+                <input type="checkbox" name="eventLocationType" id="eventLocationType"
+                  checked="{{details.eventLocationType}}" />
+                <span class="lever"></span>
+                International
+              </label>
+            </div>
+          </div>
+          <div class="input-field col s3">
+            <div class="destination-chips"></div>
+            <label for="eventDestination">Event Destination</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="event_start">Event Start Date<input id="event_start" type="text" class="datepicker"
+                name="eventStart" value="{{details.eventStart}}" /></label>
+          </div>
+          <div class="col s3">
+            <label for="event_end">Event End Date
+              <input id="event_end" type="text" class="datepicker" name="eventEnd"
+                value="{{details.eventEnd}}" /></label>
+          </div>
+          <div class="input-field col s3 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Select how your guests will be invited, for them to RSVP">
+            <select id="subevent-sorting" name="eventSubeventSorting" value="{{details.eventSubeventSorting}}">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="subevent">Sub-event</option>
+              <option value="date">Date</option>
+              <option value="destination">Destination</option>
+            </select>
+            <label>Guest Invite Grouping
+              <i class="tooltip-icon"></i>
+            </label>
+          </div>
+          <div class="col s3 tooltipped" data-position="top" data-delay="50"
+            data-tooltip="Set a date by when you need the response by the Guest via the App. After this date, the guest will need to contact you via a call">
+            <label for="event_rsvp_last">RSVP / Registration End Date
+              <i class="tooltip-icon"></i>
+              <input id="event_rsvp_last" type="text" class="datepicker" name="eventRSVPBy"
+                value="{{details.eventRSVPBy}}" />
+            </label>
+          </div>
+        </div>
+        <div class="row">{{> event_add_submit_button}}</div>
+      </form>
+    </div>
+    {{/let}}
+  </li>
+</template>

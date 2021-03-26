@@ -1,0 +1,294 @@
+@import "../../../style/fonts";
+
+#app_preview_destination_places{
+  .welcome-text{
+    p{
+      margin-top:5px;
+      margin-bottom:5px;      
+    }
+  }
+}
+.app-setting{
+  .card {
+    position: relative;
+    padding: 30px 20px;
+    h5.title {
+      margin: 0;
+      padding-bottom: 20px;
+    }
+  }
+  .destination-card{
+    .card.info-card{
+      padding: 0;
+    }
+    .info-card-action{
+      position: relative;
+      top: -10px;
+    }
+  }
+
+  // app preview
+  .app-preview.about .page-dots{
+  i{
+  color:#9e9e9e ;
+  }
+  i.selected{
+  color:#fff;
+  }
+  }
+  .row.appScreenIcons{
+  ul{
+    text-align:center;
+    width:100%;
+    li{
+      width: 32%;
+    margin-bottom: 15px;
+    display: inline-block;
+    text-align: center;
+    }
+  }
+
+  }
+  .app-preview{
+    position: relative;
+    margin: 0 auto;
+    width: 370px !important;
+    .app-body{
+      min-height: 650px;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      background: #1A0932;
+      .app-title{
+        padding: 0 20px;
+        flex: 1;
+        font-size: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+    .nav-icons {
+      // padding-right: 15px;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      justify-content: center;
+      i{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        margin:0 5px;
+        height: 40px;
+        width: 40px;
+        &.icon-back{
+          margin-right: -5px;
+        }
+      }
+      &.right{
+        i{
+          font-size: 18px;
+          border: solid 1px;
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          // margin-right: 5px;
+        }
+      }
+    }
+    .app-body{
+      position: relative;
+      height: 600px;
+      background-size: cover;
+      color: #fff;
+    }
+    .app-name{
+      text-align: center;
+      padding: 15px 0;
+      font-size: 18px;
+    }
+    .app-content{
+      .home-icon{
+        text-align: center;
+        margin-bottom: 20px;
+        [class^="icon-"]{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 30px;
+          height: 60px;
+          width: 60px;
+          border: solid 1px;
+          border-radius: 50%;
+          margin: 0 auto;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    &.general{
+      nav{
+        display: flex;
+        justify-content: space-between;
+        .back-icon{
+          display: block;
+          padding: 0 10px;
+          font-size: 30px;
+        }
+        .app-title{
+          flex: 1;
+        }
+      }
+    }
+    &.welcome{
+      .welcome-content{
+        position: relative;
+        padding: 20px;
+      }
+      .welcome-image {
+        position: relative;
+        min-height: 160px;
+        width: 100%;
+        background-position: center;
+        background-size: contain;
+        border-radius: 0px 0px 0 0;
+      }
+      .welcome-text {
+        position: relative;
+        background: red;
+        border-radius: 0 0 0px 0px;
+        padding: 10px 20px;
+      }
+    }
+    .feedback-preview{
+      i.fa.fa-star-o {
+        font-size: 18px;
+      }
+      h6 {
+        font-size: 18px;
+        margin: 15px 0;
+      }
+    }
+  }
+}
+
+.select2-css-fix{
+  label{
+    top: -40px !important;
+  }
+  .select2{
+    margin: 0;
+  }
+}
+
+.home-icon{
+  .icon{
+    border-radius: 50%;
+    font-size: 30px;
+    height: 60px;
+    padding: 10px;
+    width: 60px;
+    display: inline-block;
+  }
+}
+
+.home-icon{
+  .feature-title{
+    font-size: 10px;
+    font-family: Arima Madurai Black;
+  }
+}
+
+.welcome-image{
+  .fa-play-circle{
+    z-index: 2;
+    margin-left: 48%; 
+    margin-top: 17%;
+    font-size: 2em;
+  }
+}
+.welcome-image{
+  .fa-youtube-play{
+    z-index: 2;
+    margin-left: 48%; 
+    margin-top: 17%;
+    font-size: 2em;
+    color:#ff0000;
+  }
+}
+
+.app-body{
+  .welcome-button{
+    background-repeat:no-repeat;  
+    cursor:pointer; 
+    overflow: hidden;
+  }
+}
+
+
+.slideshowbtn{
+  margin-bottom: 10px;
+}
+
+#itinerary_preview_div > .itinerary_preview:first-child{
+  .abl-itinerary-icon{
+    &:after{
+      display: none;
+    }
+  }
+}
+.app-preview.general .icon-back{
+  display: none !important;
+}
+.destination-title{
+  font-weight: bold;
+}
+
+.preferences-preview{
+  position: relative;
+  .meal-pref-option{
+    margin-top: 15px;
+    a{
+      display: flex;
+      max-width: 200px;
+      margin: 15px auto;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      text-transform: none;
+      font-size: 12px;
+    }
+  }
+  .pref-info-statement{
+    position: relative;
+    text-align: center;
+    padding: 5px 0;
+  }
+  .preferenceRemark {
+    background: transparent; 
+    width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #fff; 
+    min-height: 120px;
+    font-size: 12px;
+  }
+}
+.preferenceStyle{
+  color: #000;
+  margin-left: -4px;
+}
+.preferenceStyleElement {
+  margin-left: 30px;
+}
+
+// Minicolors removed
+input.validate.colorpicker {
+  margin: 1em 0;
+  cursor: pointer;
+}

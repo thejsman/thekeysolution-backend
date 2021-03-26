@@ -1,0 +1,17 @@
+.mcq-options {
+  position: relative;
+
+  input {
+    max-width: 15em;
+  }
+
+  span.delete-option {
+    display: inline-flex;
+    width: 2em;
+    color: #a9a2a2;
+    height: 2em;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,80 @@
+<template name="airline_list_new">
+  <div class="form-group">
+    <input id="autocomplete2" value={{value}} autocomplete="off" type="text" placeholder="Enter an Airline. Example: Jet Airways or 9W" required />
+    <input id="airlineCode" name="airlineCode" value={{airlineIATA}} type="hidden" placeholder="Airline Code for search" />
+    <input id={{elementid}} value={{flightId}} name="flightId" type="hidden" class="value-for-db-airline">
+  </div>
+</template>
+
+<template name="events_flights_add_leg">
+  <a class="waves-effect waves-light btn modal-trigger addLegBtn" href="#add-leg-modal">Add Leg
+    <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Can add as many legs per flight as required: Ex: Patna - Del is one leg out of a Patna - Del - Dubai flight"></i>
+  </a>
+  <!-- Modal Structure -->
+  <div id="add-leg-modal" class="modal flightModal">
+    <div class="modal-content">
+      <h5>Add Flight Leg</h5>
+      <div class="flightstat">
+        <form id="search-flight">
+          {{> airline_list_new}}
+          <input autocomplete="off" type="text" name="flightNumber" placeholder="Flight Number. For example: 122" required>
+          <input autocomplete="off" type="text" class="datepicker" name="flightDate" id="flightDate" placeholder='Select date of departure of the Flight.' required>
+          <button class="btn" type="submit">Search </button>
+        </form>
+        {{#if isLoading}}
+          <div class="leg-loader">
+            {{> preloader_small}}
+          </div>
+        {{else}}
+          {{#if showRes}}
+            <div class="result">
+              {{#if flightFound}}
+                <div class="row sucess-msg-box">
+                  <div class="col s12">
+                    <h5>Select any one flight leg</h5>
+                    <div class="row">
+                      {{#each foundFlights}}
+                        <div class="row card blue-grey darken-1 white-text">
+                          <div class="col s12">
+                            <input class="leg-pnr" id="leg-pnr-input" type="text" placeholder="PNR Number">
+                          </div>
+                          <div class="col s12">
+                            <div class="row card blue-grey darken-1 white-text valign-wrapper">
+                              <div class="col s5">
+                                <h5>Departure Information</h5>
+                                <p><span class="legLabel">Airport</span>: {{departureAirportFsCode}}</p>
+                                <p><span class="legLabel">Terminal</span>: {{departureTerminal}}</p>
+                                <p><span class="legLabel">Time</span>: {{parseDateTime departureTime}}</p>
+                              </div>
+                              <div class="col s5">
+                                <h5>Arrival Information</h5>
+                                <p><span class="legLabel">Airport</span>: {{arrivalAirportFsCode}}</p>
+                                <p><span class="legLabel">Terminal</span>: {{arrivalTerminal}}</p>
+                                <p><span class="legLabel">Time</span>: {{parseDateTime arrivalTime}}</p>
+                              </div>
+                              <div class="col s2">
+                                <button class="btn select_flight">Select</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {{/each}}
+                    </div>
+                  </div>
+                </div>
+              {{else}}
+                <div class="row error-msg-box">
+                  <div class="col s12">
+                    <div class="card-panel red accent-1 white-text">
+                      Flight Not Found. Make sure you have entered correct information and try again.
+                    </div>
+                  </div>
+                </div>
+              {{/if}}
+            </div>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

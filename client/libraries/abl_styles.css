@@ -1,0 +1,145 @@
+.minicolors input[type=text].colorpicker{
+  padding-left: 40px;
+  height: 45px;
+}
+.modal.modal-fixed-footer.subevent{
+  width:80% !important;
+}
+.app-preview.subevent .welcome-text p{
+  font-size:14px !important;
+}
+.app-setting .app-preview .app-body{
+  min-height: 600px;
+  height: auto !important;
+}
+#app-general-setting i.fa-instagram.prefix{
+  color: #a45151;
+}
+#app-general-setting i.fa-facebook-square{
+  color: #3b5998;
+}
+#app-general-setting i.fa-twitter-square{
+  color: #00aced;
+}
+
+
+#app_welcome_setting  i.fa-youtube-play{
+  color:#ff0000;
+}
+
+.owl-carousel .app-preview{
+  width: 100% !important;
+}
+.owl-stage-outer .app-preview{
+  border:1px solid #e3e3e3;
+}
+.app-preview.about .welcome-text{
+  min-height: 80%;
+}
+@font-face{
+  font-family: 'key-icons';
+  src:url('/fonts/icons/key-icons.woff') format('woff'),url('/fonts/icons/key-icons.ttf') format('truetype');
+  src: url("/fonts/icons/key-icons.woff2") format("woff2");
+}
+.abl-itinerary-icon{
+  border: 1px solid;
+  padding: 10px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 24px;
+}
+.abl-itinerary-icon::after {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 1px;
+  background: transparent;
+  border: dashed 0.8px;
+  top: -22px;
+}
+.abl-itinerary-icon::first-child::after {
+  display: none;
+}
+.app-setting .welcome-image{
+  background-size: cover !important;
+  background-repeat: no-repeat; 
+}
+.admin-page .btn.abl_select{
+  background-color: #54b1aa !important;
+}
+.admin-page .btn.abl_selected{
+  background-color: #311b92 !important;
+}
+
+.app-preview.general .welcome:before {
+  content: "E";
+}
+
+.app-preview.general .couple:before{
+  content: "P";
+}
+
+.app-preview.general .location:before{
+  content: "G";
+}
+
+.app-preview.general .calendar:before{
+    content: "J";
+}
+
+.app-preview.general .notepad:before{
+  content: "I";
+}
+
+.app-preview.general .watch:before{
+  content: "M";
+}
+
+.app-preview.general .building:before{
+  content: "O";
+}
+
+.app-preview.general .key:before{
+  content: "K";
+}
+
+.app-preview.general .checkedNotepad:before{
+  content: "H";
+}
+
+.app-preview.general .call:before{
+  content: "T";
+}
+
+.app-preview.general .diary:before{
+  content: "L";
+}
+
+.app-preview.general .done:before{
+    content: "f";
+}
+
+.app-preview.general .notificationBell:before{
+  content: "h";
+}
+
+.app-preview.general .chat:before{
+  content: "U";
+}
+
+.app-preview.general .logout:before{
+  content: "d";
+}
+
+
+.icon:before {
+  font-family: "key-icons" !important;
+  -webkit-font-smoothing: antialiased;
+  -o-transform: scale(1);
+  text-rendering: optimizeLegibility;
+}

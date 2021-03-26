@@ -1,0 +1,29 @@
+<template name="events_poll_view">
+  <div class="row">
+    <div class="col s12 page-title">
+      <h5 class="">Poll - {{ poll.type }}</h5>
+      <div class="cta-group">
+          <a href="{{ editLink }}" class="btn-outline">edit</a>
+          <a class="btn-outline danger js_delete_poll">delete</a>
+          <a href="." class="waves-effect waves-light btn btn-primary"
+            >view result</a
+          >
+      </div>
+    </div>
+    <div class="col s12">Poll Type: {{ poll.type }}</div>
+    <div class="col s12">Your Question : {{ poll.question }}</div>
+    <div class="col s12">
+      <p>Options ::</p>
+      <ol>
+        {{#each option in poll.options}}
+        <li>{{ option }}</li>
+        {{/each}}
+      </ol>
+    </div>
+    {{#if poll.selectAnswer}}
+    <div class="col s12">
+      <p>Correct Answer :: {{ poll.answer }}</p>
+    </div>
+    {{/if}}
+  </div>
+</template>

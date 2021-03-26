@@ -1,0 +1,77 @@
+<template name="guest_edit_modal">
+  <div class="guest-edit">
+    <div id="edit-guest-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        {{#if guestDetails}}
+          {{#with guestDetails}}
+          <h4>Edit guest</h4>
+          <form class="row" id="edit-guest">
+    <div class="row">
+    
+           <div class="input-field col s4">
+            <input id="guestFirstName" type="text" class="active" data-length="25" name="guestFirstName" value={{guestFirstName}}>
+            <label for="guestFirstName">First Name</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="guestLastName" type="text" class="active" data-length="25" name="guestLastName" value={{guestLastName}}>
+            <label for="guestLastName">Last Name</label>
+          </div>
+        </div>
+     <div class="row">
+          <div class="input-field col s6">
+            <input id="guestAddressing" type="text" data-length="10" class="active" name="guestAddressing" value={{guestAddressing}}>
+            <label for="guestAddressing">(Nickname) How to Address in App</label>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="guestPersonalEmail" type="email" class="active" name="guestPersonalEmail" value={{guestPersonalEmail}}>
+            <label for="guestPersonalEmail">Primary Email (Invitation Mail)</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="guestOfficialEmail" type="email" class="active" name="guestOfficialEmail" value={{guestOfficialEmail}}>
+            <label for="guestOfficialEmail">Secondary Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s5">
+            <input id="guestContactNo" type="text" class="active" name="guestContactNo" value={{guestPhoneNo}} >
+            <label for="guestContactNo" >Contact Number</label>
+          </div>
+          <div class="input-field col s5">
+            <input id="guestPhoneNo" type="text" class="active" name="guestPhoneNo" value={{guestContactNo}}>
+            <label for="guestPhoneNo">Mobile Number</label>
+          </div>
+          
+        </div>
+    </form>
+          {{/with}}
+        {{/if}}
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="edit-guest">
+          <i class="material-icons left">send</i>
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="guest_delete_confirm">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete Guest</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-guest" type="button" name="action">
+        <i class="fa fa-trash"></i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>

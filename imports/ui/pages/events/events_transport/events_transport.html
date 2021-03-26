@@ -1,0 +1,219 @@
+<template name="events_transport">
+  <div class="events-transport">
+    <div class="row">
+      <div class="col s12">
+        <p><i class="tooltip-icon"></i> Add inventory of Drivers & Vehicles here</p>
+      </div>
+      <div class="col s6">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="page-title">Drivers<a class="waves-effect waves-light btn btn-primary modal-trigger" href="#add-driver-modal"><i class="material-icons left">add</i>Add Driver</a>{{> events_transport_add_driver}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <table class="col s12" style="table-layout:fixed;">
+            <thead>
+              <tr>
+                <th>Driver's Name</th>
+                <th>Driver's Mobile</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each driverList}}
+                {{> events_transport_drivers_list infodriver=this }}
+              {{/each}}
+            </tbody>
+            {{>  driver_edit_modal}}
+            {{>  driver_delete_confirm}}
+          </table>
+        </div>
+      </div>
+      <div class="col s6">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="page-title">Vehicles <a class="waves-effect waves-light btn btn-primary modal-trigger" href="#add-vehicle-modal"><i class="material-icons left">add</i>Add Vehicle</a>{{> events_transport_add_vehicle}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <table class="col s12" style="table-layout:fixed;">
+            <thead>
+              <tr>
+                <th>Vehicle Type </th>
+                <th>Registration Number</th>
+                <th>Carrying Capacity </th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each vehicleList}}
+                {{> events_transport_vehicles_list info=this }}
+              {{/each}}
+              {{>  vehicle_edit_modal}}
+              {{>  vehicle_delete_confirm}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="events_transport_drivers_list">
+  <tr>
+    <td>{{infodriver.driverName}}</td>
+    <td>{{infodriver.driverContact}}</td>
+    <td>{{infodriver.driverRemarks}}</td>
+    <td>
+      <div class="action-btn">
+        {{#if isAllowed 'edit-transport'}}
+          <a href="#" class="waves-effect btn primary click_edit-driver-button"><i class="fa fa-pencil"></i></a>
+        {{/if}}
+        {{#if isAllowed 'delete-transport'}}
+          <a href="#" class="waves-effect btn click_delete-driver-button"><i class="fa fa-trash"></i></a>
+        {{/if}}
+      </div>
+    </td>
+  </tr>
+</template>
+
+<template name="events_transport_vehicles_list">
+  <tr>
+    <td>{{info.vehicleType}}</td>
+    <td>{{info.vehicleNo}}</td>
+    <td>{{info.vehicleSeats}}</td>
+    <td>{{info.vehicleRemarks}}</td>
+    <td>
+      <div class="action-btn">
+        {{#if isAllowed 'edit-transport'}}
+          <a href="#" class="waves-effect btn primary click_edit-vehicle-button"><i class="fa fa-pencil"></i></a>
+        {{/if}}
+        {{#if isAllowed 'edit-transport'}}
+          <a href="#" class="waves-effect btn click_delete-vehicle-button"><i class="fa fa-trash"></i></a>
+        {{/if}}
+      </div>
+    </td>
+  </tr>
+</template>
+
+
+
+<template name="driver_edit_modal">
+  <div class="driver-edit">
+    <div id="edit-driver-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        {{#if driverDetails}}
+          {{#with driverDetails}}
+            <h4>Edit driver</h4>
+            <form class="col s12" id="edit-driver">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="driver_name" type="text" name="driverName" value={{driverName}}>
+                  <label class="always-active" for="driver_name">Driver's Name</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="driver_contact" type="text" name="driverContact" value={{driverContact}}>
+                  <label class="always-active" for="driver_contact">Driver's Mobile</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Any information about the driver; for ex: Can speak English.">
+                  <input id="driver_remarks" type="text" name="driverRemarks" value={{driverRemarks}}>
+                  <label class="always-active" for="driver_remarks">Remarks <i class="tooltip-icon"></i></label>
+                </div>
+              </div>
+            </form>
+          {{/with}}
+        {{/if}}
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="edit-driver">
+          <i class="material-icons left">send</i>
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="driver_delete_confirm">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete driver</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-driver" type="button" name="action">
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="vehicle_edit_modal">
+  <div class="vehicle-edit">
+    <div id="edit-vehicle-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        {{#if vehicleDetails}}
+          {{#with vehicleDetails}}
+            <h4>Edit vehicle</h4>
+            <form class="col s12" id="edit-vehicle">
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="For instance: Mercedes, SUV, Innova, Coach etc.">
+                  <input id="vehicle_type" type="text" name="vehicleType" value={{vehicleType}}>
+                  <label class="always-active" for="vehicle_type">Vehicle Type </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="vehicle_no" type="text" name="vehicleNo" value={{vehicleNo}}>
+                  <label class="always-active" for="vehicle_no">Vehicle No</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="No. of passengers this car can accomodate">
+                  <input id="vehicle_seats" type="text" name="vehicleSeats" value={{vehicleSeats}}>
+                  <label class="always-active" for="vehicle_seats">Carrying Capacity <i class="tooltip-icon"></i></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Any information about the vehicle; for ex: has carrier">
+                  <input id="vehicle_remarks" type="text" name="vehicleRemarks" value={{vehicleRemarks}}>
+                  <label class="always-active" for="vehicle_remarks">Remarks <i class="tooltip-icon"></i></label>
+                </div>
+              </div>
+            </form>
+          {{/with}}
+        {{/if}}
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="edit-vehicle">
+          <i class="material-icons left">send</i>
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="vehicle_delete_confirm">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete vehicle</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-vehicle" type="button" name="action">
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>

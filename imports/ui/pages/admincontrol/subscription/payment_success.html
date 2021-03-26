@@ -1,0 +1,198 @@
+<template name="payment_success">
+    {{#if paymentComplete }}
+    	 {{#with paymentComplete }}
+     <div class="row" id="payment-success">
+       <div class="col s12">
+         <h5>Payment Gateway Success</h5>
+       </div>
+     </div>
+
+     <div class="row">
+       <div class="col s12">
+         <h5>Purchased Plan Info</h5>
+       </div>
+     </div>
+
+      <div class="row">
+     	<div class="col s12">
+     		<span>Plan Name:</span>
+     		<span>{{this.agencyPlanName}}</span><br/>
+
+            <span>Plan Description:</span>
+            <span>{{this.agencyPlanDescription}}</span><br/>
+
+	        <span>Feature List:</span>
+	        <span>{{this.agencyPlanFeatureName}}</span><br/>  
+     	</div>
+
+	     <div class="col s12">
+	        <span>Total Number of apps purchased:</span>
+	        <span>{{this.agencyPlanNumOfAppsPurchased}}</span> &nbsp;
+
+	     </div>
+     </div>
+
+
+     <div class="row">
+	   <div class="col s12">
+	     <h5>Purchased Module Info</h5>
+       </div>
+     </div>
+
+     {{#if this.agencyModule}}
+     {{#each this.agencyModule}}
+      <div class="row">
+     	<div class="col s8">
+     		<span>Module Name:</span>
+     		<span>{{agencyModuleName}}</span><br/>
+
+        <span>Module Description:</span>
+        <span>{{agencyModuleDescription}}</span>
+      </div>
+
+        <div class="col s12">
+            <span>Total Number of modules purchased:</span>
+            <span>{{agencyModuleNumOfModulesPurchased}}</span> &nbsp;
+        </div>
+     </div>
+
+     <hr>
+     {{/each}}
+     {{else}}
+      <div class="row">
+		<h5 class="col s6"> NO MODULE SELECTED </h5>
+      </div> 
+
+     {{/if}}
+
+     <div class="row">
+       <div class="col s12">
+         {{totalPlanCost}} <br/>
+         {{{totalModuleCost}}}
+         {{TotalGST}} <br/>
+       <span>Total Cost :</span>{{TotalCost}} <br/>
+       </div>
+     </div> 
+    {{/with}}
+ {{/if}}
+      <div class="row" id="pendingPayment">
+    <h5 class="col s6"> PAYMENT Status waiting </h5>
+      </div> 
+  <div class="row hide" id="failPayment">
+    <h5 class="col s6"> PAYMENT Failure </h5>
+      </div> 
+ 
+ <div class="row" style="overflow: hidden;height: 5px;">
+ {{> invoice_success}}
+</div>
+</template>
+
+
+
+<template name="invoice_success">
+	{{#if IsOrder }}
+    {{#with IsOrder}}
+	<div id="invoice" >
+   <div class="row">
+      <div class="col s6">
+       <center><h5><b>Invoice</b></h5></center>
+      </div>  
+  <!--    <div class="col s3">
+       <img src="http://thekeysolution.com/images/thekey-logo.png" alt="Logo" style="height: 60px; width: 60px">
+      </div>  -->
+    </div>
+   <div class="row">
+     <div class="col s2">
+       <span><b>Date: {{TodayDate}}</b></span>
+     </div>
+     <div class="col s2">
+       <span><b>Order ID: {{this.orderId}}</b></span>
+     </div>
+     <div class="col s2">
+       <span><b>Payment ID: {{this.agencyPaymentId}}</b></span>
+     </div>
+   </div>  
+    <div class="row">
+     <div class="col s3">
+      <span><i><b>Sender:</b></i></span><br/>
+       <span><b>Key Solutions</b></span><br/>
+       <span>New Delhi 110293</span><br/>
+       <span>Contact- 9988776655</span>
+     </div>
+     <div class="col s3">
+      <span><i><b>Buyer:</b></i></span><br/>
+       <span><b>{{this.agencyUserInfo.name}}</b></span><br/>
+       <span>{{this.agencyBillingCompanyName}}</span><br/>
+       <span>{{this.agencyBillingAddressLine1}}</span><br/>
+       <span>{{this.agencyBillingAddressLine2}}</span><br/>
+       <span>{{this.agencyBillingCity}} {{this.agencyBillingState}} {{this.agencyBillingPinCode}}</span>
+     </div>
+   </div>
+   <div class="row">
+     <div class="col s6">
+      <table class="centered">
+        <thead>
+          <tr>
+          <th>S. No.</th>
+          <th>Object Name</th>
+          <th>HSN</th>
+          <th>GST%</th>
+          <th>Cost</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr>
+                <td>1</td>
+                <td>{{this.agencyPlanName}}</td>
+                <td></td>
+                <td>{{this.agencyPlanGstRate}}</td>
+                <td>₹ {{this.agencyPlanCostPerApp}}</td>   
+                <td>{{this.agencyPlanNumOfAppsPurchased}}</td>
+                <td>₹ {{InvoiceTotal this.agencyPlanCostPerApp this.agencyPlanNumOfAppsPurchased this.agencyPlanGstRate}}</td>
+             </tr>
+              {{#each this.agencyModule}}
+             <tr>
+                <td>{{indexPlusTwo @index}}</td>
+                <td>{{agencyModuleName}}</td>
+                <td></td>
+                <td>{{moduleGstRate}}</td>
+                <td>₹ {{moduleCostPerModule}}</td>   
+                <td>{{agencyModuleNumOfModulesPurchased}}</td>
+                <td>₹ {{InvoiceTotal moduleCostPerModule agencyModuleNumOfModulesPurchased moduleGstRate}}</td>
+             </tr>
+             {{/each}}
+        </tbody>
+       </table>
+     </div>  
+   </div>
+   <div class="row">
+    <div class="col s6">
+       <hr>
+     </div>
+   </div>
+       <div class="row">
+        <div class="col s3">
+          Total: 
+        </div>
+         <div class="col s3">
+          ₹ {{this.agencyBillingAmount}}
+        </div>
+       </div>
+<br/>
+<br/>
+     <div class="row">
+      <div class="col s4">
+      <span>Company Info 1:</span><br/>
+      <span>Company Info 1:</span><br/>
+      <span>Company Info 1:</span><br/>
+      </div>
+      <div class="col s2">
+        Authorized Signature
+      </div>
+     </div>
+</div>
+    {{/with}}
+    {{/if}}
+</template>

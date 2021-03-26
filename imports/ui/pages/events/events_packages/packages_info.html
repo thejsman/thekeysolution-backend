@@ -1,0 +1,115 @@
+<template name="events_packages_info">
+  <div class="packages-info container">
+    <h4>Basic Information</h4>
+    <form id="packagesInfoForm">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="eventName" type="text" name="eventName" value={{packageInfo.eventName}} disabled>
+          <label class="always-active" for="eventName">Event Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="start_date" type="text" name="start_date" value={{packageInfo.start_date}} disabled>
+          <label class="always-active" for="start_date">Start Date</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="end_date" type="text" name="end_date" value={{packageInfo.end_date}} disabled>
+          <label class="always-active" for="end_date">End Date</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="host_details" type="text" name="host_details" value={{packageInfo.host_details}} disabled>
+          <label class="always-active" for="host_details">Host Details</label>
+        </div>
+        <div class="input-field col s12">
+          <select name="packagesInfo_aboutPage" id="packagesInfo_aboutPage">
+            <option value="" selected>None</option>
+            {{#each aboutPages}}
+              <option value={{id}}>{{title}}</option>
+            {{/each}}
+          </select>
+          <label for="packagesInfo_aboutPage">Select data from existing about pages</label>
+        </div>
+        <div class="col s12">
+          <label for="banner_img">Banner Image</label>
+          <input type="file" id="banner_img" class="dropify" data-default-file="{{packageInfo.banner_img}}" name="banner_img">
+        </div>
+        <div class="input-field col s12">
+          <p class="section-title">Basic Description</p>
+          <textarea class="materialize-textarea" name="description" id="description" cols="30" rows="10" value={{packageInfo.description}}>{{packageInfo.description}}</textarea>
+        </div>
+        {{#if hasFeature 'Speakers'}}
+          <div class="col s12">
+            <h6 style="margin: 1.5em 0 1em 0;">Speaker section</h6>
+            {{#if packageInfo.include_speaker}}
+              <input id="include_speaker" type="checkbox" name="include_speaker" checked>
+            {{else}}
+              <input id="include_speaker" type="checkbox" name="include_speaker">
+            {{/if}}
+            <label class="always-active" for="include_speaker">Include Speaker section</label>
+          </div>
+        {{/if}}
+        {{#if hasFeature 'Sponsors'}}
+          <div class="col s12">
+            <h6 style="margin: 1.5em 0 1em 0;">Sponsor section</h6>
+            {{#if packageInfo.include_sponsor}}
+              <input id="include_sponsor" type="checkbox" name="include_sponsor" checked>
+            {{else}}
+              <input id="include_sponsor" type="checkbox" name="include_sponsor">
+            {{/if}}
+            <label class="always-active" for="include_sponsor">Include Sponsor section</label>
+          </div>
+        {{/if}}
+        <div class="col s12">
+          <p class="section-title">Terms and Conditions</p>
+          <textarea class="form-control" name="terms" id="terms" cols="30" rows="10">{{packageInfo.terms}}</textarea>
+        </div>
+        <div class="col s12">
+          <p>Venue{{#if showAddressForm}} <a class="waves-effect waves-light btn reset--address">reset</a>{{/if}}</p>
+          <div class="input-field col s12" id="venueSearch">
+            <input id="venue" type="text" name="venue" value={{packageInfo.venue}}>
+            <label class="always-active" for="venue">Search Location</label>
+          </div>
+          <table id="addressForm">
+            <tr>
+              <td class="label">Bulding Name</td>
+              <td class="wideField" colspan="3"><input class="field" id="building" value={{packageInfo.address.building}} /></td>
+            </tr>
+            <tr>
+              <td class="label">Street address</td>
+              <td class="slimField"><input class="field" id="street_number" value={{packageInfo.address.street}} /></td>
+              <td class="wideField" colspan="2"><input class="field" id="route" value={{packageInfo.address.street2}} /></td>
+            </tr>
+            <tr>
+              <td class="label">City</td>
+              <td class="wideField" colspan="3"><input class="field" id="locality" value={{packageInfo.address.city}} /></td>
+            </tr>
+            <tr>
+              <td class="label">State</td>
+              <td class="slimField"><input class="field" id="administrative_area_level_1" value={{packageInfo.address.state}} /></td>
+              <td class="label">Zip code</td>
+              <td class="wideField"><input class="field" id="postal_code" value={{packageInfo.address.pin}} /></td>
+            </tr>
+            <tr>
+              <td class="label">Country</td>
+              <td class="wideField" colspan="3"><input class="field" id="country" value={{packageInfo.address.country}} /></td>
+            </tr>
+            <tr style="display:none;">
+              <td class="label">Google Map</td>
+              <td class="wideField" colspan="3"><input type="text" id="mapurl" value={{packageInfo.address.mapurl}} /></td>
+            </tr>
+            <tr style="display:none;">
+              <td class="label">Lattitude</td>
+              <td class="slimField"><input type="text" id="lat" value={{packageInfo.address.lat}} /></td>
+              <td class="label">Longitude</td>
+              <td class="wideField"><input type="text" id="lng" value={{packageInfo.address.lng}} /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Save Packages Info
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</template>

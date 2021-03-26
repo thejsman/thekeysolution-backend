@@ -1,0 +1,9 @@
+<template name="admin_layout">
+  <div class="admin-page">
+    {{> top_navbar}}
+    <div class="content">
+      {{> Template.dynamic template=admin_content}}
+    </div>
+    {{> common_footer}}
+  </div>
+</template>

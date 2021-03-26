@@ -1,0 +1,63 @@
+{
+  "S3": {
+    "key": "AKIAJV53VQICAOCW2ZUQ",
+    "secret": "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",
+    "bucket": "tksproduction",
+    "region": "ap-southeast-1"
+  },
+  "public": {
+    "autoFillForm": true
+  },
+  "domain": "http://localhost:3010",
+  "adminUsers": [
+    {
+      "email": "admin@thekeysolution.com",
+      "password": "abc@125#",
+      "name": "SuperAdmin"
+    },
+    {
+      "email": "admin@keydisruptors.com",
+      "password": "abc@125#",
+      "name": "SuperAdmin"
+    }
+  ],
+  "mailSettings": {
+    "username": "thekeysolution",
+    "password": "Key@2018"
+  },
+  "buildServer": {
+    "url": "https://fvveyhkara.localtunnel.me/",
+    "key": "qwerqwer"
+  },
+  "smsSettings": {
+    "userName": "BlueMT",
+    "password": "blue123",
+    "sender": "THEKEY"
+  },
+  "intlSMS": {
+    "url": "www.nimbusit.co.in",
+    "userName": "t1nimbustest",
+    "password": "435453453",
+    "senderID": "STPLIT"
+  },
+  "firebase": {
+    "type": "service_account",
+    "project_id": "the-key-d295d",
+    "private_key_id": "b6c2989532aad94073da8918d68c29837f37a226",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC+wqhHyLgSKteb\n34LiazMUNC2b/5GvV1PRztX2P5phytX5u8gbE/AI8AnjjLQzLsI/yCMaLESGHkyC\nWIfT29iTjGV+upj8/1rNzI81NMmpuWHtxJywqbeCv5T0cxNuvzmFBm+zrF8eU98O\neMJ0p9C6VuojXosL59DyiIPivyUk+U7wStBsjygkh0mfHTw7rz++mo4IvcGKVCRt\nWUKirPvKeWMzVozLhO/yS+63BNPESTBoet03Il1KzolCCY7cATybgnfFjB7rnhZF\n8jrjeAgDaU/2cH0aPQs8xXW4G3D3vihXRXM0HfzI4P33rSfL+MqM90LNfHI41pZv\nIMX/HbmBAgMBAAECggEAE42FTTJUN7x/dCExW77sMeZ1RFeqWaQkWc2PHdoAG4T8\ncMggJzJgeLIN+W57LAHfdEUx3+VosqyZYATuCzeuF9Wcs6QxuUD9UDnm9eeuwgBX\n+tSb0PncbwDvJi1DcScVoL57pZmF+GhVZTjYibeHzAnLnwt6SiKdRrbaedvo1USx\nTTG8lqIwTQGQkmA0F9h3mVaW5zRC4AAQd6duGZ/c2uYRce87o5BmvWV2J7pvPz7B\nR9LbiEgdANO3VshWGf4eSq96QPueUXi+qGlQ+RiLL9W/yPZvJqSqNFtw11AG4+F4\nTlD3RvTNP+xwqyEUAysFszxTG3lEfQgAJRM/cQw5rwKBgQDmI1pjme4wISooIIob\nccX2U93+TjKd8MNvfZbUqiH7iAMMYhKzowRteRGq83d1w6vcgd0kd9aWsRhq8Qil\nw4t7Xn/VO70/FMF7wSZrhlWMk3ZxZZ/ncKtcyYLB07eC+33DvewEAEBhHaenGADr\nJpPV30jQZaXzKtRiwccFmXamCwKBgQDUMnrxKaQdhkF13vZFWlMZhVRrE0Zn3Ogr\nS8wx6InW5qP7Kgi83qT4ArzdG+LsfJWcDtq4pYwrenQMpxrn001UNvqO2zb1caQG\ndSwZDTzX1pRuAF8qqtCMeY/nopSWbrfvYfJry3Y/W/fdJkyYjn1Ba8UvZdxnmyWx\nrtwpTRDSIwKBgQDhGVdB8L//J5E6aolrSp9czq9mHEp6HZKrLGYpYLeYdXK12/96\n4UplYXQch8Mi1t708bjCAM1N266Me3H/4QI/CzFx+dqjJsQRLd1Mcrqeo2XIiKQd\nFiEmwps4xsLKRP7ARLXjO/O8iesADwRm/PbAzINGAwaMkCno5qyqF27r/QKBgQCX\n9EpL9qjap7Cqyu6KfYMyrGLmhpgNeokbsBzaxI4owWM+UjyNm9aA79z1banT9edh\nKNYCEjLNU9RU1zmSN6ORoglNUbgKjcWLBk985Rjj63rBRyzfLhFH9ylRFADZtRGs\nr/RcswfLmX1m9a02NhuGRLmhFo19+AFHO1PXk6NvBwKBgQCQhWjkng4D84Fjv9Mg\n7DxVWJ5Ng0njlP+LHQ0TtIzXYlrPLPHcJ2nS5pw0BLUNs4C9GygL/AxLkL+qpuTW\ngMPkbsNFCwmb3H1w8GV2DS1Yrijbx67IjYnkb08FZ5Uq8NyY8/1eaH8YNqejhBPV\n/9/wjyOfx3WjoiEuJn9dBOzCKQ==\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-z88qd@the-key-d295d.iam.gserviceaccount.com",
+    "client_id": "105383603394746466697",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://accounts.google.com/o/oauth2/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-z88qd%40the-key-d295d.iam.gserviceaccount.com"
+  },
+  "instamojo": {
+    "api_key": "test_2a7f331a2ac10f4ab4e539435a6",
+    "auth_token": "test_2b836360a1beb5764634432b3e2"
+  },
+  "flightStats": {
+    "appId": "9aec5eee",
+    "appKey": "11a210ec25691cfa402e6dfc2e9f9b65"
+  }
+}

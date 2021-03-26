@@ -1,0 +1,89 @@
+<template name="events_guests_export">
+  <div class="events-guests-export">
+    <div id="event-guests-export-modal" class="modal guestExportModal">
+      <div class="modal-content">
+        <h4>Export Data</h4>
+        <form id="export-guests-form">
+          <p>
+            <input type="checkbox" id="basic_guest_detail" checked="checked" name="basic_guest_detail" disabled="disabled" />
+            <label for="basic_guest_detail">Basic Guest Details</label>
+          </p>
+          <div class="col s6">
+            <p>
+              <input type="checkbox" id="detailed_guest_info" name="detailed_guest_info" />
+              <label for="detailed_guest_info">Detailed Guest Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="loggedIn_guests" name="loggedIn_guests" />
+              <label for="loggedIn_guests">Guests Login Report</label>
+            </p>
+            <p>
+              <input type="checkbox" id="password_guests" name="password_guests" />
+              <label for="password_guests">Password Report</label>
+            </p>
+            <p>
+              <input type="checkbox" id="rsvp" name="rsvp_info" />
+              <label for="rsvp">RSVP Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="flights" name="flight_info" />
+              <label for="flights">Flight Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="transport" name="transport_info" />
+              <label for="transport">Logistics Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="hotels" name="hotel_info" />
+              <label for="hotels">Hotel Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="passport" name="passport_info" />
+              <label for="passport">Photo ID Info</label>
+            </p>
+
+          </div>
+          <div class="col s6">
+            <p>
+              <input type="checkbox" id="visa" name="visa_info" />
+              <label for="visa">Visa Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="insurance" name="insurance_info" />
+              <label for="insurance">Insurance Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="special_assistance" name="special_assistance_info" />
+              <label for="special_assistance">Special Assistance</label>
+            </p>
+            <p>
+              <input type="checkbox" id="gifts" name="gifts_info" />
+              <label for="gifts">Gifts Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="merchandise" name="merchandise_info" />
+              <label for="merchandise">Merchandise</label>
+            </p>
+            <p>
+              <input type="checkbox" id="services" name="services_info" />
+              <label for="services">Services Info</label>
+            </p>
+            <p>
+              <input type="checkbox" id="food" name="food_info" />
+              <label for="food">Meal Preference</label>
+            </p>
+            <p>
+              <input type="checkbox" id="wish_feedback" name="wish_feedback_info" />
+              <label for="wish_feedback">Wishes/Feedback</label>
+            </p>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="export-guests-form">Export
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

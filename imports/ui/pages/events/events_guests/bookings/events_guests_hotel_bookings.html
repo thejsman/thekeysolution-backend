@@ -1,0 +1,318 @@
+<template name="agency_guest_hotel_add">
+  <div class="events-hotels-add">
+    <div class="row">
+      <div class="col s6">
+        <h5>
+          <a
+            href="#reserve-hotel-rooms"
+            class="btn waves-effect waves-light modal-trigger"
+            >Assign Hotel Room</a
+          >
+        </h5>
+      </div>
+    </div>
+    {{#if canBookRoom}} {{/if}}
+    <div
+      class="modal modal-fixed-footer"
+      id="reserve-hotel-rooms"
+      style="height: 75%;"
+    >
+      <div class="reserve-room modal-content">
+        <h5>Assign Hotel Room</h5>
+        <p class="small-sub-title">
+          The inventory you have added in the Hotel Inventory section will
+          appear here. The inventory will automatically reduce when a room is
+          assigned.
+        </p>
+        <form id="hotel_book_room" class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <select id="hotelName" name="hotelId" required>
+                <option value="" disabled selected>Choose Hotel</option>
+                {{#each hotelList}}
+                <option value="{{ _id }}">{{ hotelName }}</option>
+                {{/each}}
+              </select>
+              <label for="hotelName">Hotel Name</label>
+            </div>
+            <div class="input-field col s12">
+              <select id="hotelRoomCategory" name="roomId" required>
+                <option value="" disabled selected>Choose Room Category</option>
+                {{#each r in roomCategories}}
+                <option value="{{ r._id }}"
+                  >Category: {{ r.hotelRoomCategory }}, Bed Type:
+                  {{ r.hotelRoomBedType }},
+                  {{ bookSmoking(r.hotelRoomIsSmoking) }},
+                  {{ bookAdjoining(r.hotelRoomIsAdjoining) }}, -
+                  {{ bookConnecting(r.hotelRoomIsConnecting) }}</option
+                >
+                {{/each}}
+              </select>
+              <label for="hotelRoomCategory">Room Category</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <select
+                id="placeHolderRoomNumber"
+                name="placeHolderRoomNumber"
+                required
+              >
+                <option value="" disabled selected
+                  >Choose Room to Assign</option
+                >
+                {{#each rooms}}
+                <option value="{{ roomNumber }}"
+                  >Room No: {{ roomNumber }} - {{ people }} people</option
+                >
+                {{/each}}
+              </select>
+              <label for="placeHolderRoomNumber">Rooms Number</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              {{> datetimepicker id="hotelRoomFrom" type="text" name="hotelRoomFrom" label="CheckIn Date" required="true"}}
+              <!-- <label for="start_date">Start Date</label>
+              <input type="text" class="datepicker" name="start_date" id="start_date" value={{start_date}}> -->
+            </div>
+            <div class="input-field col s6">
+              {{> datetimepicker id="hotelRoomTo" type="text" name="hotelRoomTo" label="CheckOut Date" required="true"}}
+              <!-- <label for="end_date">End Date</label>
+              <input type="text" class="datepicker" name="end_date" id="end_date" value={{end_date}}> -->
+            </div>
+          </div>
+          <div class="row">
+            <p class="col s12 small-sub-title">
+              This shows you the space available in the room's inventory (if
+              it's a sharing-double room). Family members can be assigned the
+              same room directly from here.
+            </p>
+            <div id="selected-member">
+              {{#each member in familyMembers}}
+              <p class="col s4">
+                <input
+                  type="checkbox"
+                  name="selectedPeople[]"
+                  value="{{ member._id }}"
+                  id="family{{ member._id }}"
+                />
+                <label for="family{{ member._id }}">{{
+                  member.guestFirstName
+                }}</label>
+              </p>
+              {{/each}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="select-guest">
+              <input
+                id="autocomplete2"
+                type="text"
+                placeholder="Search Guests to assign room sharer"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn waves-effect waves-light"
+          type="submit"
+          name="action"
+          form="hotel_book_room"
+        >
+          Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Hotel Info -->
+<template name="events_guests_hotel_info">
+  <div class="events-guests-hotel-info">
+    {{#if hotelBookingInfo}}
+    <div class="row">
+      {{#each hotelBookingInfo}}
+      <div class="col s6">
+        {{#with hotelInfo}} {{> hotel_booking_info_card hotel=this}} {{/with}}
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="hotel_booking_info_card">
+  <div class="card">
+    {{#if isAllowed 'delete-hotel-booking'}}
+    <div class="row">
+      <a class="btn waves-effect waves-light click_delete-hotel-booking">
+        <i class="material-icons">delete</i>
+      </a>
+    </div>
+    {{/if}}
+    <div class="row">
+      <div class="col s4">
+        <p>Hotel</p>
+      </div>
+      <div class="col s8">
+        <p>{{ hotel.hotelName }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        <p>Room Info</p>
+      </div>
+      <div class="col s8">
+        <p>
+          Category: {{ hotel.bookedRoom.hotelRoomCategory }}, Bed Type:
+          {{ hotel.bookedRoom.hotelRoomBedType }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        CheckIn Date
+      </div>
+      <div class="col s8">
+        <p>{{ hotel.bookedRoom.hotelRoomFrom }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        CheckOut Date
+      </div>
+      <div class="col s8">
+        <p>{{ hotel.bookedRoom.hotelRoomTo }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        Room No (assigned by dashboard)
+      </div>
+      <div class="col s8">
+        <p>{{ hotel.bookedRoom.placeHolderRoomNumber }}</p>
+      </div>
+    </div>
+    {{#if hotel.bookedRoom.roomNumber}}
+    <div class="row">
+      <div class="col s4">
+        Room Number assigned by Hotel
+      </div>
+      <div class="col s8">
+        <p>{{ hotel.bookedRoom.roomNumber }}</p>
+      </div>
+    </div>
+    {{/if}}
+    {{#if hotel.roomInfo.hotelRoomRemarks}}
+    <div class="row">
+      <div class="col s4">
+        Hotel Room Remarks
+      </div>
+      <div class="col s8">
+        <p>{{ hotel.roomInfo.hotelRoomRemarks }}</p>
+      </div>
+    </div>
+    {{/if}}
+    <div class="row">
+      <div class="col s4">
+        Guest Name
+      </div>
+      <div class="col s8">
+        <p>{{ hotel.guestName }}</p>
+      </div>
+    </div>
+    <!-- <div class="row">
+      {{> event_update_hotel_room_number room=hotel}}
+    </div>
+
+    <div class="row">
+      {{> event_update_hotel_room_remarks room=hotel}}
+    </div> -->
+  </div>
+</template>
+
+<template name="hotelinfo_edit_modal">
+  <div class="hotelinfo-edit">
+    <div id="edit-hotelinfo-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        {{#if hotelinfoDetails}} {{#with hotelinfoDetails}}
+        <h4>Edit Hotel Room</h4>
+        <form id="edit-hotelinfo" class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <select id="hotelName" name="hotelId">
+                <option value="{{ hotelName }}" selected
+                  >Choose your option</option
+                >
+                {{#each hotelList}}
+                <option value="{{ _id }}">{{ hotelName }}</option>
+                {{/each}}
+              </select>
+              <label for="hotelName">Hotel Name</label>
+            </div>
+            <div class="input-field col s12">
+              <select id="hotelRoomCategory" name="hotelRoomId">
+                <option
+                  value="Category: {{ hotelRoomCategory }}, Type: {{
+                    hotelRoomType
+                  }}, Bed Type: {{
+                    hotelRoomBedType
+                  }}, Smoking: {{parseBool hotelRoomIsSmoking}}, Adjoining: {{parseBool hotelRoomIsAdjoining}}, Connecting: {{parseBool hotelRoomIsConnecting}}"
+                  selected
+                  >Choose your option</option
+                >
+                {{#each roomCategories}}
+                <option value="{{ hotelRoomCategory }}"
+                  >Category: {{ hotelRoomCategory }}, Type: {{ hotelRoomType }},
+                  Bed Type: {{ hotelRoomBedType }}, Smoking:
+                  {{parseBool
+                    hotelRoomIsSmoking
+
+                  }}, Adjoining: {{parseBool hotelRoomIsAdjoining}}, Connecting:
+                  {{parseBool hotelRoomIsConnecting}}</option
+                >
+                {{/each}}
+              </select>
+              <label for="hotelRoomCategory">Room Category</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input
+                id="hotel_rooms"
+                type="number"
+                class="validate"
+                name="hotelRooms"
+                value="{{ hotelRooms }}"
+                max="{{ maxRooms }}"
+              />
+              <label for="hotel_rooms">Rooms</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <!-- <label for="hotel_rooms">Available Rooms: {{availableRooms}}</label> -->
+            </div>
+          </div>
+        </form>
+        {{/with}} {{/if}}
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button
+          class="btn waves-effect waves-light"
+          type="submit"
+          name="action"
+          form="edit-hotelinfo"
+        >
+          <i class="material-icons left">send</i>
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

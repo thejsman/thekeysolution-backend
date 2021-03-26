@@ -1,0 +1,150 @@
+<!-- Add Family Member -->
+<template name="agency_guest_member_add">
+  <div class="add-guest-member-button">
+    <div id="add-guest-member-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4>Add Family Member</h4>
+        <form class="row" id="add-guest-member-form">
+          <div class="row">
+            <div class="input-field col s2">
+              <select id="guestTitle" name="guestTitle">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="Mr">Mr</option>
+                <option value="Ms">Ms</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Dr">Dr</option>
+               <!--  <option value="Kr">Kr</option>
+                <option value="Er">Er</option> -->
+                <option value="Prof">Prof</option>
+              </select>
+              <label for="guestTitle">Title</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="guestFirstName" type="text" data-length="25" name="guestFirstName" value={{autoFillName}}>
+              <label class="always-active" for="guestFirstName">First Name</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="guestLastName" type="text" data-length="25" name="guestLastName" value={{autoFillName}}>
+              <label class="always-active" for="guestLastName">Last Name</label>
+            </div>
+            <div class="input-field col s2">
+              <select id="guestGender" name="guestGender" required>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="child">Child</option>
+              </select>
+              <label for="guestGender">Gender</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <input id="guestFamilyID" type="text" disabled class="active" name="guestFamilyID" data-length="10" value={{familyid}}>
+              <label class="always-active" for="guestFamilyID">Family Id</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="guestRelation" type="text" name="guestRelation" data-length="10" value={{autoFillEmail}}>
+              <label class="always-active" for="guestRelation"> Relation with Primary Guest </label>
+            </div>
+            <div class="col s4" data-position="top" data-delay="50" data-tooltip="Enter a Family ID of your choice. Same will be applied to all companions of this Guest to link them together. Will help in assigning rooms & flights. Can not be edited.">
+              <label for="guestDOB">Date of Birth</label>
+              <input id="guestDOB" type="text" class="datepicker" name="guestDOB" value={{guest.guestDOB}}>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <p>
+                <input type="checkbox" class="filled-in" id="use-primary-email" />
+                <label for="use-primary-email">Same as Primary Email Address</label>
+              </p>
+            </div>
+            <div class="input-field col s6">
+              <input id="guestPersonalEmail" type="email" name="guestPersonalEmail" value={{autoFillEmail}}>
+              <label class="always-active" for="guestPersonalEmail">Primary Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <p>
+                <input type="checkbox" class="filled-in" id="primary-number-checkbox" />
+                <label for="primary-number-checkbox">Same as Primary Number</label>
+              </p>
+            </div>
+            <div class="input-field col s6">
+              <input id="guestContactNo" type="text" name="guestContactNo">
+              <label class="always-active" for="guestContactNo">Contact Number</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <select id="guestAddressNationality" name="guestAddressNationality">
+                <option value="India">India</option>
+                {{#each countries}}
+                  <option value="{{name}}">{{name}}</option>
+                {{/each}}
+              </select>
+              <label for="guestAddressNationality">Nationality</label>
+            </div>
+            <div class="col s12">
+              <p>
+                <input type="checkbox" class="filled-in" id="filled1" />
+                <label for="filled1">Same as Primary Address</label>
+              </p>
+            </div>
+            <div class="input-field col s12">
+              <input id="guestAddress1" type="text" name="guestAddress1" value={{address1}}>
+              <label class="always-active" for="guestAddress1">Address Line 1</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="guestAddress2" type="text" name="guestAddress2" value={{address2}}>
+              <label class="always-active" for="guestAddress2">Address Line 2</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="guestAddressCity" type="text" name="guestAddressCity" value={{addresscity}}>
+              <label class="always-active" for="guestAddressCity">City</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="guestAddressState" type="text" name="guestAddressState" value={{addressstate}}>
+              <label class="always-active" for="guestAddressState">State</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="guestAddressPincode" type="text" name="guestAddressPincode" value={{addresspin}}>
+              <label class="always-active" for="guestAddressPincode">Pincode</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="guestAddressLandmark" type="text" name="guestAddressLandmark" value={{addressland}}>
+              <label class="always-active" for="guestAddressLandmark">Landmark</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <select id="guestNearestAirport" name="guestNearestAirport">
+                <option value="" disabled selected>Choose your option</option>
+                {{#each airportiata}}
+                  <option value="1">{{airportName}}, {{airportIATA}}-{{airportCountry}}</option>
+                {{/each}}
+              </select>
+              <label>Nearest Airport</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="guestRemarks" type="text" name="guestRemarks" value={{autoFillContact}}>
+              <label class="always-active" for="guestRemarks">Remarks</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="add-guest-member-form">
+          <i class="material-icons left">add</i>Save Family Member
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

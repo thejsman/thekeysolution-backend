@@ -1,0 +1,132 @@
+@import '../../style/colors';
+
+.admin-page {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+  .content {
+    width: 100%;
+    position: relative;
+    padding-top: 10px;
+    min-height: calc(100vh - 144px);
+  }
+  main{
+    padding-left: 300px;
+  }
+
+  // Dropify Common CSS
+  .dropify-wrapper{
+
+    .dropify-message{
+      p{
+        text-align: center;
+        font-size: 16px;
+      }
+    }
+  }
+
+  // Date picker common CSS
+  .date-field{
+    position: relative;
+    margin-top: 1rem;
+    label{
+      position: absolute;
+      height: 100%;
+      top: -1rem;
+      color: #9e9e9e;
+    }
+  }
+
+  .input-field label{
+    &.active{
+      color: #9e9e9e !important;
+    }
+    &.always-active{
+      color: #9e9e9e !important;
+      transform: translateY(-14px) scale(0.8) !important;
+      transform-origin: 0 0 !important;
+    }
+  }
+  // Switch common css
+  .switch{
+    position: relative;
+    margin-top: 2rem;
+    label{
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #212121;
+      height: 100%;
+      font-size: 1rem;
+    }
+    // remove green color on selected
+    label input[type=checkbox]:checked+.lever, label input[type=checkbox]:checked+.lever:after{
+      background-color: rgba(0,0,0,0.38);
+    }
+    label input[type=checkbox]:checked+.lever:after{
+      background-color: #fff;
+    }
+  }  
+  // materilise multile select
+  ul.multiple-select-dropdown{
+    li>span>input[type="checkbox"]+label{
+        top: -10px !important;
+    }
+  }
+
+  .select-wrapper{
+    // margin-top: 7px;
+  }
+
+  // Common Select
+  .select-wrapper+label{
+    color: #9e9e9e !important;
+  }
+  // Overall btn color
+  .btn{
+    background-color: $positiveColor  !important;
+  }
+
+  // tooltip icon
+  .tooltip-icon{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    &:before{
+      content: "";
+    }
+  }
+
+  // Common Modals
+  .modal{
+    max-height: 90%;
+  }
+
+  // Common dropify label
+  label.dropify-img-label{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    max-height: 20px;
+  }
+}
+  
+  // Common Tooltip container
+  .material-tooltip{
+    max-width: 280px !important;
+    .backdrop{
+      background-color: #29244e;
+    }
+  }
+
+  // dropify touch
+  .dropify-wrapper.touch-fallback{
+    height: 200px !important;
+    max-height: 200px !important;
+    .dropify-preview .dropify-render{
+      display: initial;
+    }
+  }

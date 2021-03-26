@@ -1,0 +1,207 @@
+<template name="guest_flight_info">
+  <div class="card">
+    <div class="card-content">
+      <div class="row">
+        <div class="col s6">
+          Guest Name :::  {{guestNameVal booking.guestId}}
+        </div>
+        <div class="col s6 right-align">
+          <b>
+            {{#if booking.agencyProvided}}
+              AGENCY PROVIDED
+            {{else}}
+              INVIDUAL BOOKED
+            {{/if}}
+          </b>
+        </div>
+      </div>
+      {{#each leg in getLegs}}
+        {{#let info=(getInfo leg)}}
+          <div class="row">
+            <div class="col s4">
+              Flight No - {{info.flightNo}}
+            </div>
+            <div class="col s4">
+              PNR - <b>{{info.flightPnr}}</b>
+            </div>
+            <div class="col s4">
+              Airline - {{info.flightName}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <div class="row">
+                <div class="col s12">
+                  Departs from : {{info.dAirport}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  Departs at : {{parseDateTime info.dTime}}
+                </div>
+              </div>
+            </div>
+            <div class="col s6">
+              <div class="row">
+                <div class="col s12">
+                  Arrives at : {{info.aAirport}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  Arrives at : {{parseDateTime info.aTime}}
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/let}}
+      {{/each}}
+    </div>
+    {{#if isAllowed 'delete-flight-booking'}}
+      <a class="waves-effect waves-light btn click_remove_flight_booking"><i class="material-icons">delete</i></a>
+    {{/if}}
+  </div>
+
+</template>
+
+<!-- Guest Event Add Flight Personally -->
+<template name="agency_guest_flight_add">
+  <div class="card">
+    <div class="card-content">
+      <div class="events-flights-add">
+        <div class="row">
+          <div class="col s6">
+            <h5>Add / Assign Flight Information</h5>
+          </div>
+        </div>
+        <form id="add-flight-form" class="row">
+          <div class="col s12">
+            {{#if eventHasFlights}}
+              <div class="row">
+                <div class="switch col s12">
+                  Flight Booking Type
+                  <label>
+                    Ticket booked by Guest
+                    <input type="checkbox" id="flight_booking_type" name="agencyProvided">
+                    <span class="lever"></span>
+                    Ticket booked by Agency / Host
+                  </label>
+                </div>
+              </div>
+            {{else}}
+              <input type="checkbox" id="flight_booking_type" name="agencyProvided" checked="checked" class="hide">
+            {{/if}}
+            <div class="row">
+              <div class="col s12">
+                {{#if individualBooked}}
+                  {{> events_guests_flight_individual_booking}}
+                {{else}}
+                  {{> events_guests_flight_agency_booking}}
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col s12">
+            <button class="btn waves-effect waves-light {{submitEnabled}}" type="submit" name="action" form="add-flight-form">Save
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="events_guests_flight_agency_booking">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="autocomplete2" value={{value}} autocomplete="off" type="text" placeholder="Search - Enter PNR/Airline Name to select flight OR select flight from the dropdown list below"/>
+          <select id="guest_flight_name" name="flightId">
+            <option value="" disabled selected>Select from List</option>
+            {{#each flightList}}
+              {{#with flightLegs this}}
+                <option value={{_id}}>{{text}}</option>
+              {{/with}}
+            {{/each}}
+          </select>
+          <label>Select Flight to Assign</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <p class="col s12">Available Seats : {{availableSeats}}</p><br>
+  </div>
+
+  <div class="row">
+    <br/>
+    {{#if familyMembers }}
+      <h6>Select Family Member</h6>
+      {{#each familyMembers}}
+        {{> events_guests_flight_agency_booking_family info=this}}
+      {{/each}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="events_guests_flight_agency_booking_family">
+  <div class="col s6">
+    <div class="col s5" style="padding-top: 2em">
+      <input type="checkbox" name="guestFamilyMember[]" value="{{info._id}}" id="agencyBookingFamilyMember{{info._id}}" class="agencyBookingFamilyMemberCheckbox">
+      <label for="agencyBookingFamilyMember{{info._id}}">{{info.guestname}}</label>
+    </div>
+    <div class="input-field col s7 ">
+      <select id="agencyBookingFamilyPNR{{info._id}}" name="guestFamilyPNR[{{info._id}}]" class="agencyBookingFamilySelect">
+        <option value="" disabled selected>Choose PNR</option>
+        {{#each pnrList}}
+          <option value={{this}}>{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+</template>
+
+<template name="events_guests_flight_individual_booking_family">
+  <div class="col s12">
+    <div class="col s5" style="padding-top: 2em">
+      <input type="checkbox" name="guestFamilyMember[]" value="{{info._id}}" id="guestFamilyMember{{info._id}}" class="guestFamilyMemberCheckbox">
+      <label for="guestFamilyMember{{info._id}}">{{info.guestname}}</label>
+    </div>
+  </div>
+</template>
+
+<template name="events_guests_flight_individual_booking">
+  <div class="row">
+    <br/>
+    {{#if familyMembers }}
+      <h6>Select Family Member</h6>
+      {{#each familyMembers}}
+        {{> events_guests_flight_individual_booking_family info=this}}
+      {{/each}}
+    {{/if}}
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <div class="col s6">Enter Flight Legs</div>
+      <div class="col s6">{{> events_flights_add_leg legs=flightLegsVar}}</div>
+    </div>
+    <div class="row">
+      <div class="col s12 air-travel-info">
+        {{#with flightLegs}}
+          {{> events_flights_legs legs=flightLegs legsVar=flightLegsVar}}
+        {{/with}}
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<template name="flight_list_new">
+  <div class="form-group">
+    <input id="autocomplete2" value={{value}} autocomplete="off" type="text" placeholder="Search Flight by PNR Number or Airline Name or Flight Class"/>
+  </div>
+</template>

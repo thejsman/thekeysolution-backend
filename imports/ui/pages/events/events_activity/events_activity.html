@@ -1,0 +1,207 @@
+<template name="event_activity_record_page">
+  <div class="row">
+    <div class="col s12 tab_header">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab col s3">
+          <a class="active" href="#tab1">Workstation Activity Record</a>
+        </li>
+        <li class="tab col s3">
+          <a href="#tab2">App Activity Record</a>
+        </li>
+      </ul>
+    </div>
+    <div id="tab1" class="col s12">
+      {{> event_dashboard_activity_record}}
+    </div>
+    <div id="tab2" class="col s12">
+      {{> event_pwa_activity_record}}
+    </div>
+  </div>
+</template>
+
+<template name="event_dashboard_activity_record">
+  <div class="event-activity-record-page">
+    <div class="row">
+      <div class="col s6">
+        <h5>Workstation Activity Record</h5>
+      </div>
+      <div class="col s6">
+        <div class="event-activity-action">
+          {{#if isAllowed 'activity-record-based-on-event-export'}}
+          <a id="db-activity-export-btn" class="waves-effect waves-light btn btn-primary modal-trigger" href="#event-activity-export-modal">
+            <i class="material-icons left">add</i>Export Data</a>
+          {{/if}} {{> event_activity_export}}
+        </div>
+      </div>
+    </div>
+    {{#if getEventActivityCount}}
+    <ul class="pagination">
+      <li>
+        <a href="#" id="event-page-minus">
+          <i class="material-icons">chevron_left</i>
+        </a>
+      </li>
+      {{#each page in getEventPagination}}
+      <li class="{{page.isActive}} event-page-no">
+        <a href="#" id="{{page.pageNo}}">{{indexPlusOne page.pageNo}}</a>
+      </li>
+      {{/each}}
+      <li class="waves-effect">
+        <a id="event-page-plus" href="#!">
+          <i class="material-icons">chevron_right</i>
+        </a>
+      </li>
+    </ul>
+    {{/if}} {{#if getEventActivityCount}}
+    <div class="input-field col s12">
+      <i class="material-icons prefix">search</i>
+      <input id="search-activity" type="text" placeholder="Search activity records by agent name">
+    </div>
+    {{#if Template.subscriptionsReady}}
+    <div class="row">
+      <table class="striped" id="event_activity_record_table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Module</th>
+            <th>Sub Module</th>
+            <th>Description</th>
+            <th>Updated by</th>
+            <th>Updated on</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each eventActivityList}} {{> event_activity_details_item info=this index=@index}} {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <div class="row">
+      <h5 class="col s6">Activity Records Not Available</h5>
+    </div>
+    {{/if}} 
+    {{else}}
+    <div class="preloader-wrapper small active">
+      <div class="spinner-layer spinner-green-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    {{#if hasEventActivity}} {{/if}}
+  </div>
+</template>
+
+<template name="event_pwa_activity_record">
+  <div class="event-activity-record-page">
+    <div class="row">
+      <div class="col s6">
+        <h5> App Activity Record</h5>
+      </div>
+      <div class="col s6">
+        <div class="event-activity-action">
+          {{#if isAllowed 'activity-record-based-on-event-export'}}
+          <a id="pwa-activity-export-btn" class="waves-effect waves-light btn btn-primary modal-trigger" href="#event-pwa-activity-export-modal">
+            <i class="material-icons left">add</i>Export Data</a>
+          {{/if}} {{> event_pwa_activity_export}}
+        </div>
+      </div>
+    </div>
+    {{#if getEventPwaActivityCount}}
+    <ul class="pagination">
+      <li>
+        <a href="#" id="event-pwa-page-minus">
+          <i class="material-icons">chevron_left</i>
+        </a>
+      </li>
+      {{#each page in getEventPwaPagination}}
+      <li class="{{page.isActive}} event-pwa-page-no">
+        <a href="#" id="{{page.pageNo}}">{{indexPlusOne page.pageNo}}</a>
+      </li>
+      {{/each}}
+      <li class="waves-effect">
+        <a id="event-pwa-page-plus" href="#!">
+          <i class="material-icons">chevron_right</i>
+        </a>
+      </li>
+    </ul>
+    {{/if}} {{#if getEventPwaActivityCount}}
+    <div class="input-field col s12">
+      <i class="material-icons prefix">search</i>
+      <input id="search-activity-pwa" type="text" placeholder="Search activity records by guest name">
+    </div>
+    {{#if Template.subscriptionsReady}}
+    <div class="row">
+      <table class="striped" id="event_pwa_activity_record_table">
+        <thead>
+          <tr>
+            <th>S.No.1</th>
+            <th>Module</th>
+            <th>Sub Module</th>
+            <th>Description</th>
+            <th>Guest Info</th>
+            <th>Updated on</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each eventPwaActivityList}} {{> event_pwa_activity_details_item info=this index=@index}} {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <div class="row">
+      <h5 class="col s6">Activity Records Not Available</h5>
+    </div>
+    {{/if}} 
+    {{else}}
+    <div class="preloader-wrapper small active">
+      <div class="spinner-layer spinner-green-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    {{#if hasEventPwaActivity}} {{/if}}
+  </div>
+</template>
+
+<template name="event_activity_details_item">
+  <tr>
+    <th scope="row">
+      <center>{{PageNumbers index}}</center>
+    </th>
+    <td>{{info.activityModule}}</td>
+    <td>{{info.activitySubModule}}</td>
+    <td>{{info.activityMessage}}</td>
+    <td>{{info.activityUserInfo.name}}</td>
+    <td>{{info.activityeDateTime}}</td>
+  </tr>
+</template>
+<template name="event_pwa_activity_details_item">
+  <tr>
+    <th scope="row">
+      <center>{{PageNumbers index}}</center>
+    </th>
+    <td>{{info.activityModule}}</td>
+    <td>{{info.activitySubModule}}</td>
+    <td>{{info.activityMessage}}</td>
+    <td>{{info.activityGuestInfo.name}}
+      <small>({{info.activityGuestInfo.email}})</small>
+    </td>
+    <td>{{info.activityeDateTime}}</td>
+  </tr>
+</template>

@@ -1,0 +1,123 @@
+
+<template name="admin_control_landing">
+  <div class="events-summary">
+    <div class="events-charts">
+      <div class="row same-height">
+        <div class="col s3">
+          {{> admin_chart_users}}
+        </div>
+        <div class="col s3">
+          {{> admin_chart_guests}}
+        </div>
+        <div class="col s6">
+          <div class="card">
+            <div class="card-title">Events</div>
+            <div class="card-content">
+              <ol>
+		            {{#each event in eventsList}}
+                  <li>{{event.name}}</li>                  
+		            {{/each}}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row same-height">
+        <!-- <div class="col s3">
+             {{> admin_chart_hotels}}
+             </div>
+             <div class="col s3">
+             {{> admin_chart_flights}}
+             </div> -->
+        <div class="col s6">
+          <div class="card">
+            <div class="card-title">Agencies</div>
+            <table class="centered">
+              <thead>
+                <tr>
+                  <!-- <th>#</th> -->
+                  <th>Agency Name</th>
+                  <th>Contact Person</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each agenciesList}}
+                  <tr>
+                    <!-- <th scope="row">{{indexPlusOne index}}</th> -->
+                    <td>{{name}}</td>
+                    <td>{{contactName}}</td>
+                    <td>{{email}}</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="admin_chart_users">
+  <div class="card">
+    <div class="card-title">Agencies</div>
+    <div class="card-image">
+      <canvas id="user-chart" width="150" height="150"></canvas>
+    </div>
+    <div class="card-content">
+      <ul class="chart-lable">
+        <li><i class="fa fa-circle-o" style="color:#d70206;"></i> Active</li>
+        <li><i class="fa fa-circle-o" style="color:#f05b4f;"></i> Inactive</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<template name="admin_chart_guests">
+  <div class="card">
+    <div class="card-title">Events</div>
+    <div class="card-image">
+      <canvas id="guest-chart" width="150" height="150"></canvas>
+    </div>
+    <div class="card-content">
+      <ul class="chart-lable">
+        <li><i class="fa fa-circle-o" style="color:#d70206;"></i> Active</li>
+        <li><i class="fa fa-circle-o" style="color:#f4c63d;"></i> Closed</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+
+<template name="admin_chart_hotels">
+  <div class="card">
+    <div class="card-title">App Requests</div>
+    <div class="card-image">
+      <canvas id="room-chart" width="150" height="150"></canvas>
+    </div>
+    <div class="card-content">
+      <ul class="chart-lable">
+        <li><i class="fa fa-circle-o" style="color:#d70206;"></i> Approved</li>
+        <li><i class="fa fa-circle-o" style="color:#f05b4f;"></i> Pending</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<template name="admin_chart_flights">
+  <div class="card">
+    <div class="card-title">Top Packages</div>
+    <div class="card-image">
+      <canvas id="flight-chart" width="150" height="150"></canvas>
+    </div>
+    <div class="card-content">
+      <ul class="chart-lable">
+        <li><i class="fa fa-circle-o" style="color:#d70206;"></i> Package 1</li>
+        <li><i class="fa fa-circle-o" style="color:#f05b4f;"></i> Package 2</li>
+      </ul>
+    </div>
+  </div>
+</template>

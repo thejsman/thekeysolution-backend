@@ -1,0 +1,199 @@
+<template name="events_hotels">
+  <div class="events-hotels">
+    {{#unless Template.subscriptionsReady}}
+    <div class="leg-loader">
+      {{> preloader_small}}
+    </div>
+    {{else}}
+    <div class="row">
+      <div class="col s12">
+        <h5 class="page-title">
+          Hotels
+          <div class="pull-right">
+            {{#if loading}}
+            <div class="leg-loader">
+              {{> preloader_small}}
+            </div>
+            {{else}}
+            <a
+              class="waves-effect waves-light btn btn-primary"
+              href="{{ hotelAddPath }}"
+            >
+              <i class="material-icons left">add</i>Add Hotel
+            </a>
+            <a
+              class="waves-effect waves-light btn btn-primary"
+              id="bulkUploadHotels"
+            >
+              Bulk Upload Hotels
+            </a>
+
+            {{/if}}
+          </div>
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 hide scale-transition" id="bulkDownloadSection">
+        <div class="row">
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-title">
+                  Hotel Inventory With Rooming List Upload(Bulk)
+                  <button class="btn right" id="download-hotel-upload-sample">
+                    Download Sample
+                  </button>
+                </div>
+                <div class="flight-bulk-upload">
+                  <div class="checklist">
+                    <p>Please read the instructions below:</p>
+                    <ol>
+                      <li>
+                        Folio Numbers are system generated, please do not change
+                        any Folio numbers.
+                      </li>
+                      <li>
+                        Placeholder room numbers are used for internal purpose.
+                      </li>
+                      <li>
+                        Two guests sharing a room must have the same Placeholder
+                        room number.
+                      </li>
+                      <li>
+                        Display room numbers are the actual room number
+                        displayed to the guests and are optional.
+                      </li>
+                      <li>
+                        Remove extra guest recods without Hotel details
+                      </li>
+                      <li>
+                        Please maintain same Excel sheet for further updates.
+                      </li>
+                    </ol>
+                    <table class="flightHelp">
+                      <caption>
+                        Hotel Bulk upload fields explanation
+                      </caption>
+
+                      <tr>
+                        <th>Hotel Name</th>
+                        <th>Room Category Type</th>
+                        <th>Bed Type</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
+                        <th>Placeholder Room Number</th>
+                        <th>Display Room Number</th>
+                        <th>Room Remark</th>
+                      </tr>
+                      <td>
+                        Name of the Hotel
+                      </td>
+                      <td>Category of the room</td>
+                      <td>
+                        Bed type example: Single, Twin, Double
+                      </td>
+                      <td>
+                        Check-in date of the room in MM/DD/YYYY format.
+                      </td>
+                      <td>
+                        Check-out date of the room in MM/DD/YYYY format.
+                      </td>
+                      <td>
+                        Placeholder Room Number to group guests in rooms
+                      </td>
+                      <td>Actual room number displayed to the guest</td>
+                      <td>Room remark if any, for internal purpose.</td>
+                    </table>
+                  </div>
+                  <div class="div">
+                    Please select file to Upload.
+                  </div>
+                  <label
+                    for="bulkUpload"
+                    class="waves-effect waves-light btn btn-primary bulkUpload"
+                  >
+                    Upload Excel
+                  </label>
+                  <input type="file" id="bulkUpload" />
+                  <div class="upload-status">
+                    <ul class="collection">
+                      <li
+                        class="collection-item errors"
+                        id="flight-upload-errors-individual"
+                      ></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#each hotel in hotelList}}
+      {{> hotel_card hotel=hotel}}
+      {{/each}}
+    </div>
+    {{/unless}}
+  </div>
+</template>
+
+<template name="hotel_card">
+  <div class="col s12 m12 l4">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">{{ hotel.hotelName }}</div>
+          <div
+            class="info-card-action"
+            style="margin-top: -20px; margin-bottom: 30px;"
+          >
+            <div class="action-btn">
+              {{#if isAllowed 'edit-hotels'}}
+              <a class="waves-effect btn primary click_edit_btn">
+                <i class="fa fa-pencil"></i>
+              </a>
+              {{/if}}
+              {{#if isAllowed 'delete-hotels'}}
+              <a href="#" class="waves-effect btn primary click_delete_btn">
+                <i class="fa fa-trash"></i>
+              </a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content-bg white-text">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align">
+              <div class="flight-state">
+                <h4 class="margin">{{ hotel.hotelAddressCity }}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 m4 l4 center-align flight-state-two">
+              <div class="flight-info">
+                <h6>Total Rooms</h6>
+                <p>{{ totalRooms }}</p>
+              </div>
+            </div>
+            <div class="col s4 m4 l4 center-align">
+              <div class="flight-info">
+                <h6>Rooms Available</h6>
+                <p>{{ roomsCountData.reserved }}</p>
+              </div>
+            </div>
+            <div class="col s4 m4 l4 center-align">
+              <div class="flight-info">
+                <h6>Rooms Booked</h6>
+                <p>{{ roomsCountData.occupied }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

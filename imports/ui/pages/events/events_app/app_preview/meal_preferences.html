@@ -1,0 +1,143 @@
+<template name="app_preview_preference_meal">
+  <h5 class="center-align">Screen Preview</h5>
+  {{#with appPreferencesSettings}}
+  <div class="visa-preview app-setting preferences-preview">
+    <div class="app-preview about welcome" style="color: {{appColor2}}">
+      {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="MY PREFERENCES"}}
+      <div class="app-body" style="padding-top: 20px; background-image:url('{{appBackground}}'); color: {{appColor2}};font-family: {{appBodyFont}};">
+        <p class="center">
+          <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">Guest Name</a>
+        </p>
+        <div class="welcome-content">
+          {{#if hasAppPreferences 'Meal'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-my-details"></i> MEAL PREFERENCES</h6>
+            {{#with foodPreference}}
+            <div class="meal-pref-option">
+              {{#each preference in foodPreferences}} {{#if preference}}
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{#with appPreferencesSettings}}{{appColor2}} {{/with}}">{{preference}}</a> {{/if}} 
+             {{/each}}
+              <div class="preferenceRemark" id="meal_preferences_remarks">{{foodSectionRemarks}}</div>
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{#with appPreferencesSettings}}{{appColor2}} {{/with}}">Update</a>
+            </div>
+            {{/with}}
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Size'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-my-address"></i> MERCHANDIZE SIZE</h6>
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Special Assistance'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-id-card"></i> SPECIAL ASSISTANCE</h6>
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Special Assistance'}}
+          <div class="welcome-text" style="margin-top: 20px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+            <h6>
+              <i class="icon-my-visa"></i> SERVICE APPOINTMENTS</h6>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>
+
+<template name="app_preview_preference_size">
+  <h5 class="center-align">Screen Preview</h5>
+  {{#with appPreferencesSettings}}
+  <div class="visa-preview app-setting preferences-preview">
+    <div class="app-preview about welcome" style="color: {{appColor2}}">
+      {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="MY PREFERENCES"}}
+      <div class="app-body" style="padding-top: 20px; background-image:url('{{appBackground}}'); color: {{appColor2}};font-family: {{appBodyFont}};">
+        <p class="center">
+          <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">Guest Name</a>
+        </p>
+        <div class="welcome-content">
+          {{#if hasAppPreferences 'Meal'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-my-details"></i> MEAL PREFERENCES</h6>
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Size'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-my-address"></i> MERCHANDIZE SIZE</h6>
+            {{#with sizePreference}}
+            <p class="pref-info-statement">{{sizeSectionStatement}}</p>
+            <div class="meal-pref-option">
+              {{#each preference in sizePreferences}} {{#if preference}}
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer; color: {{#with appPreferencesSettings}}{{appColor2}} {{/with}}">{{preference}}</a> {{/if}} {{/each}}
+              <div class="preferenceRemark" id="meal_preferences_remarks">{{sizeSectionRemarks}}</div>
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer; color: {{#with appPreferencesSettings}}{{appColor2}} {{/with}}">Update</a>
+            </div>
+            {{/with}}
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Special Assistance'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-id-card"></i> SPECIAL ASSISTANCE</h6>
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Special Assistance'}}
+          <div class="welcome-text" style="margin-top: 20px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+            <h6>
+              <i class="icon-my-visa"></i> SERVICE APPOINTMENTS</h6>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>
+
+<template name="app_preview_preference_assistance">
+  <h5 class="center-align">Screen Preview</h5>
+  {{#with appPreferencesSettings}}
+  <div class="visa-preview app-setting preferences-preview">
+    <div class="app-preview about welcome" style="color: {{appColor2}}">
+      {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="MY PREFERENCES"}}
+      <div class="app-body" style="padding-top: 20px; background-image:url('{{appBackground}}'); color: {{appColor2}};font-family: {{appBodyFont}};">
+        <p class="center">
+          <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">Guest Name</a>
+        </p>
+        <div class="welcome-content">
+          {{#if hasAppPreferences 'Meal'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-my-details"></i> MEAL PREFERENCES</h6>
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Size'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-my-address"></i> MERCHANDIZE SIZE</h6>
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Special Assistance'}}
+          <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+            <h6>
+              <i class="icon-id-card"></i> SPECIAL ASSISTANCE</h6>
+            {{#with assistanceData}}
+            <p class="pref-info-statement">{{assistanceSectionStatement}}</p>
+            <div class="meal-pref-option">
+              {{#each option in assistanceData.assistanceOptions}} {{#if option}}
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{#with appPreferencesSettings}}{{appColor2}} {{/with}}">{{option}}</a> {{/if}} {{/each}}
+              <div class="preferenceRemark" id="meal_preferences_remarks">{{assistanceRemarks}}</div>
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{#with appPreferencesSettings}}{{appColor2}} {{/with}}">Update</a>
+            </div>
+            {{/with}}
+          </div>
+          {{/if}} {{#if hasAppPreferences 'Special Assistance'}}
+          <div class="welcome-text" style="margin-top: 20px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+            <h6>
+              <i class="icon-my-visa"></i> SERVICE APPOINTMENTS</h6>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

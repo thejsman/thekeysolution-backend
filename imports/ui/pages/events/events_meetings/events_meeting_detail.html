@@ -1,0 +1,82 @@
+<template name="events_meetings_details">
+  {{#with eventMeetingInfo}}
+  <div class="meeting_summary">
+    <div class="meeting-charts">
+      <div class="row">
+        <div class="col s12 m12 l8">{{> meeting_summary}}</div>
+        <div class="col s12 m12 l4">{{> meeting_host_info}}</div>
+      </div>
+    </div>
+  </div>
+  {{/with}} {{> events_meeting_manage_delete}}
+</template>
+
+<!-- Event Details -->
+<template name="meeting_summary">
+  <div class="meeting-info card" style="padding: 15px; min-height: 256px">
+    <div class="row">
+      <div class="col s12">
+        <h5>{{topic}}</h5>
+        <!-- <p class="destination">
+          <i class="fa fa-map-marker"></i>{{eventDestination}}
+        </p>-->
+        <p class="duration">
+          <i class="fa fa-calendar-check-o"></i>{{formatDate start_time}}
+        </p>
+      </div>
+      <div class="col s12 right-align">
+        <!-- {{#if isAllowed 'edit-meeting'}} -->
+        <a
+          id="btnEditMeeting"
+          class="waves-effect waves-light btn"
+          style="background-color: #29244e !important"
+          ><i class="material-icons">edit</i></a
+        >
+        <!-- {{/if}} -->
+        <a
+          id="btnDeleteMeeting"
+          class="waves-effect waves-light btn"
+          style="background-color: #54b1aa !important"
+          href="#"
+          ><i class="fa fa-trash"></i
+        ></a>
+      </div>
+    </div>
+    <div style="">{{> meeting_agenda}}</div>
+  </div>
+</template>
+
+<!-- Event Features -->
+<template name="meeting_agenda">
+  <div class="description">
+    <p class="title">Agenda</p>
+    <p>{{agenda}}</p>
+  </div>
+</template>
+
+<!-- Host Info -->
+<template name="meeting_host_info">
+  <div class="card host-info" style="padding: 15px; min-height: 256px">
+    <h5>Host Details</h5>
+    <p>Meeting Id : {{meetingId}}</p>
+    <p>Passcode : {{password}}</p>
+  </div>
+</template>
+
+<!--
+meetingId: { type: String },
+  eventId: { type: String },
+  host_id: { type: String },
+  host_email: { type: String },
+  topic: { type: String },
+  type: { type: Number, defaultValue: 1 },
+  start_time: { type: String },
+  status: { type: String },
+  timezone: { type: String },
+  agenda: { type: String },
+  created_at: { type: String },
+  start_url: { type: String },
+  join_url: { type: String },
+  password: { type: String, defaultValue: "12345" },
+  duration: { type: Number, defaultValue: 1 },
+-->

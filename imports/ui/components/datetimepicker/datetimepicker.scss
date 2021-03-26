@@ -1,0 +1,15 @@
+.datetime-wrap {
+    
+    #hidden {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+    }
+}
+.datetimepicker-fix {
+	width: 90%;
+	cursor: pointer;
+}

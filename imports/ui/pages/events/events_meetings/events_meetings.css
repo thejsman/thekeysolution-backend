@@ -1,0 +1,59 @@
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grid-container {
+  display: inline-flex;
+  column-gap: 11px;
+  width: 100%;
+}
+
+.grid-container > div {
+  text-align: center;
+  font-size: 30px;
+  width: 100%;
+}
+
+.info {
+  text-align: center;
+  font-size: 20px !important;
+}
+
+.item a {
+  width: 100%;
+}
+
+.datetimeinfo {
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 500px) {
+  .item {
+    grid-area: 1 / span 4 / 2 / 4;
+  }
+}
+
+#activateMeeting label{
+  color:  white !important;
+}
+#activateMeeting input[type="checkbox"]:checked+label:before {
+  top: -4px;
+  left: -5px;
+  width: 12px;
+  height: 22px;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid white !important;
+  border-bottom: 2px solid  white !important;
+  -webkit-transform: rotate(40deg);
+  transform: rotate(40deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}

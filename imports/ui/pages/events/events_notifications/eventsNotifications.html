@@ -1,0 +1,256 @@
+<template name="app_notification_settings">
+  {{#if pageReady}}
+  <div class="app-setting">
+    <div class="row">
+      <div class="col s12">
+        <h5 class="page-title">
+          Notification Section
+          <a
+            class="waves-effect waves-light btn btn-primary"
+            href="{{addNotificationPath}}"
+            ><i class="material-icons left">add</i>Add Custom Notification</a
+          >
+        </h5>
+        {{> app_notification_setting_delete}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">{{> app_notification_setting_list}}</div>
+    </div>
+  </div>
+  {{else}}
+  <div class="preloader-wrapper small active">
+    <div class="spinner-layer spinner-green-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>
+
+<template name="notifications_user_list">
+  <div class="input-field col s12 select2-css-fix">
+    <label for="{{id}}"
+      >Enter Guest Name (Type out Guest's name here. Add as many as
+      required.)</label
+    >
+    <select
+      id="{{id}}"
+      name="notificationUserList[]"
+      class="select2"
+      multiple="multiple"
+    >
+      {{#each guest in guestList}}
+      <option id="{{guest._id}}" value="{{guest._id}}">
+        {{guest.guestFirstName}} {{guest.guestLastName}} - (Folio No:
+        {{guest.folioNumber}})
+      </option>
+      {{/each}}
+    </select>
+  </div>
+</template>
+
+<!-- Delete Notifications -->
+<template name="app_notification_setting_delete">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete Notification</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button
+        class="btn waves-effect waves-light red lighten-2 click_delete-driver"
+        type="button"
+        name="action"
+      >
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="notification_settings_user_list">
+  <div class="modal" id="user-list-modal">
+    <div class="modal-content">
+      {{#each user in userList}}
+      <p>{{user}}</p>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<!-- List of Notifications-->
+<template name="app_notification_setting_list">
+  {{> notification_settings_user_list}} {{#if notificationList}}
+  <div class="itinerary-list">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>
+            Time
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="The date / time of when this notification was sent last"
+            ></i>
+          </th>
+          <th>
+            Sent Counter
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="No. of times this notification has been sent"
+            ></i>
+          </th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>
+            Guests Counter
+            <i
+              class="tooltip-icon"
+              data-position="top"
+              data-delay="50"
+              data-tooltip="No. of Guests selected"
+            ></i>
+          </th>
+          <th></th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each notif in notificationList}} {{> app_notification_setting_item
+        notif=notif index=@index}} {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{/if}}
+</template>
+
+<template name="app_notification_setting_item">
+  <tr class="{{isScheduled}}">
+    <td>{{indexPlusOne index}}</td>
+    <td>{{parseTime notif.notificationTime}}</td>
+    <td style="text-align: center">{{notif.notificationCount}}</td>
+    <td style="max-width: 280px">{{notif.notificationTitle}}</td>
+    <td style="max-width: 280px">{{notif.notificationDescription}}</td>
+    <td
+      style="text-align: center"
+      class="guest-count modal-trigger"
+      href="{{canOpen}}"
+    >
+      {{guestCount}}
+    </td>
+    <td>
+      {{#if notificationEdit}}
+      <div class="action-btn">
+        <a href="#" class="waves-effect btn primary edit-notification"
+          ><i class="fa fa-pencil"></i
+        ></a>
+        <a href="#" class="waves-effect btn delete-notification"
+          ><i class="fa fa-trash"></i
+        ></a>
+      </div>
+      {{/if }}
+    </td>
+    <td>
+      <div class="col s12">
+        <a
+          class="waves-effect waves-light btn modal-trigger"
+          id="sendReSend"
+          href="#scheduleNofication"
+          >{{buttonText}}</a
+        >
+        {{> scheduleNofication}}
+      </div>
+    </td>
+  </tr>
+</template>
+
+<template name="scheduleNofication">
+  <div class="modal" id="scheduleNofication">
+    <div class="modal-content">
+      <div class="tab-title">
+        <ul class="tabs">
+          <li class="tab"><a class="active" href="#now">Send Now</a></li>
+          <li class="tab"><a href="#schedule">Schedule for later</a></li>
+        </ul>
+        <div class="cross-btn modal-close">x</div>
+      </div>
+      <div id="now" class="tab-content">
+        <div class="info-text">Send this notification instantly .</div>
+        <a class="send-notification waves-effect waves-light btn btn-primary"
+          >Send Now</a
+        >
+      </div>
+      <div id="schedule" class="tab-content">
+        {{#if isScheduled}}
+        <div class="scheduled">
+          This notification is already Scheduled for {{ notifInfo.scheduledTime
+          }}
+          <a href="#" class="btn btn-primary cancel-schedule"
+            >Cancel Schedule</a
+          >
+        </div>
+        {{else}}
+        <form id="scheduleForm">
+          <div class="input-field col s12">
+            <input
+              value=""
+              placeholder="Search for Timezones"
+              class="validate"
+              type="text"
+              id="selectTimeZone"
+              name="selectTimeZone"
+            />
+            <label class="always-active" for="selectTimeZone"
+              >Select Timezone</label
+            >
+          </div>
+          <div class="col s12">
+            <input type="hidden" id="timeZone" />
+            {{#each timezone in showTimeZone}}
+            <div
+              class="timezone-card"
+              data-utc="{{timezone.utc}}"
+              data-timezone="{{timezone.value}}"
+              data-abbr="{{timezone.abbr}}"
+            >
+              <p class="name">
+                {{timezone.value}} <span>{{timezone.abbr}}</span>
+              </p>
+              <p class="description">{{timezone.text}}</p>
+            </div>
+            {{/each}}
+          </div>
+          <div class="date-field col s12">
+            {{> datetimepicker id="scheduledTime" type="text"
+            name="scheduledTime" label="Select Date and Time"}}
+          </div>
+          <div class="col s12">
+            <p>
+              * Note - Scheduled notification will get processed at an interval
+              of 15 minutes, for example, all notifications scheduled at 05:05,
+              05:10, 05:14 will get processed at 05:00.
+            </p>
+          </div>
+          <button style="margin-top: 2em" type="submit" class="btn btn-primary">
+            Schedule
+          </button>
+        </form>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

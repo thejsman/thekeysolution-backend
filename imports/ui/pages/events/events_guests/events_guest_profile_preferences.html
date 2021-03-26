@@ -1,0 +1,64 @@
+<template name="guest_profile_preference">
+  <div class="guest-profile-preference">
+    <form id="guest-profile-preference">
+      <div class="row">
+        {{#if foodList}}
+          <div class="col s4">
+            <div class="input-field col s12">
+              <select name="foodPreference" id="foodPreference">
+                <option value="" disabled selected>Choose Choose Meal Preference</option>
+                {{#each foodType in foodList}}
+                  <option value="{{foodType}}">{{foodType}}</option>
+                {{/each}}
+              </select>
+              <label>Choose Meal Preference </label>
+            </div>
+            <div class="input-field col s12">
+              <input id="foodPreferencesRemark" type="text" name="foodPreferencesRemark" value={{foodPreferencesRemark}}>
+                <label class="always-active" for="foodPreferencesRemark">{{foodPreferencesLabel}}</label>
+            </div>
+          </div>
+        {{/if}}
+        {{#if sizeList}}
+          <div class="col s4">
+            <div class="input-field col s12">
+              <select name="sizePreference" id="sizePreference">
+                <option value="" disabled selected>Choose Merchandize Size Preference</option>
+                {{#each sizeType in sizeList}}
+                  <option value="{{sizeType}}">{{sizeType}}</option>
+                {{/each}}
+              </select>
+              <label>Merchandize Size Preference</label>
+            </div>
+            <div class="input-field col s12">
+                 <input id="sizePreferenceRemark" type="text" name="sizePreferenceRemark" value={{sizePreferenceRemark}}>
+              <label class="always-active" for="sizePreferenceRemark">{{sizePreferenceLabel}}</label>
+            </div>
+          </div>
+        {{/if}}
+        {{#if specialList}}
+          <div class="col s4">
+            <div class="input-field col s12">
+              <select multiple name="specialAssistance" id="specialAssistance">
+                <option value="" disabled selected>Choose Special Assistance</option>
+                {{#each ass in specialList}}
+                  <option value={{ass}}>{{ass}}</option>
+                {{/each}}
+              </select>
+              <label>Special Assistance</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="specialPreferencesRemark" type="text" name="specialAssistanceRemark" value={{specialPreferencesRemark}}>
+              <label class="always-active" for="specialPreferencesRemark">{{specialPreferencesLabel}}</label>
+            </div>
+          </div>
+        {{/if}}
+        <div class="col s12">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Manually Update
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>

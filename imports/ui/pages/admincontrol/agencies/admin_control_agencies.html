@@ -1,0 +1,201 @@
+<template name="admin_control_agencies_page">
+  <div class="admin-control-agencies">
+    <div class="section agency-list">
+	{{> control_agency_list}}
+    </div>
+    <div class="section invited-agency-list">
+      {{> invited_agency_list}}
+    </div>
+  </div>
+</template>
+
+<template name="invited_agency_list">
+  {{#if hasInvitations}}
+    <div class="row">
+      <h5 class="col s10">INVITED AGENCIES</h5>
+      <div class="col s2">
+				{{> invite_agency_button}}
+      </div>
+    </div>
+    <table>
+      <thead>
+	<tr>
+	  <th>#</th>
+	  <th>Agency Name</th>
+	  <th>Email Id</th>
+	  <th>Contact Name</th>
+	  <th>Contact Number</th>
+	  <th>Token</th>
+	  <th>Resend Invitation</th>
+	  <th>Actions</th>
+	</tr>
+      </thead>
+      <tbody>
+	{{#each invitedAgencyList}}
+	  {{> invited_agency_item info=this index=@index}}
+	{{/each}}
+      </tbody>
+    </table>
+    {{> cancel_invitation_button}}
+  {{else}}
+    <h5>No agencies in the invite list</h5>
+    {{> invite_agency_button}}
+  {{/if}}
+</template>
+
+<template name="invited_agency_item">
+  <tr>
+    <th scope="row">{{indexPlusOne index}}</th>
+    <td>{{info.name}}</td>
+    <td>{{info.email}}</td>
+    <td>{{info.username}}</td>
+    <td>{{info.contactNumber}}</td>
+    <td>{{info.token}}</td>
+    <td><a class="waves-effect waves-light btn lighten-2 click_resend-invitation-button">Resend</a></td>
+    <td>
+      <a class="waves-effect waves-dark btn red lighten-2 click_cancel-invitation-button"><i class="material-icons left">remove</i>Cancel</a>
+    </td>
+  </tr>
+</template>
+
+<template name="control_agency_list">
+  {{#if agencyList}}
+    <div class="row">
+      <h5 class="col s10">AGENCIES</h5>
+    </div>
+    <table>
+      <thead>
+	<tr>
+	  <th>#</th>
+	  <th>Agency Name</th>
+	  <th>Contact Person</th>
+	  <th>Contact No</th>
+	  <th>Email Id</th>
+	  <th>Total Events</th>
+	  <th>Requested</th>
+	  <th>Total Users</th>
+	  <th>Remarks</th>
+	</tr>
+      </thead>
+      <tbody>
+	{{#each agencyList}}
+	  <tr>
+	    <th scope="row">{{indexPlusOne @index}}</th>
+	    <td>{{name}}</td>
+	    <td>{{contactName}}</td>
+	    <td>{{contactNumber}}</td>
+	    <td>{{email}}</td>
+	    <td><a href={{eventsPath _id}}>{{eventsCount _id}}</a></td>
+	    <td><a href={{eventsRequestedPath _id}}>{{requested _id}}</a></td>
+	    <td><a href={{userPath _id}}>{{userCount _id}}</a></td>
+	    <td></td>
+	  </tr>
+	{{/each}}
+      </tbody>
+    </table>
+    <div class="divider"></div>
+  {{/if}}
+</template>
+
+<template name="cancel_invitation_button">
+  <div id="cancel-modal" class="modal">
+    <div class="modal-content">
+      <h4>Cancel Agency Invitation</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_cancel-button" type="button" name="action">
+	<i class="material-icons left">remove</i>
+	Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="invite_agency_button">
+  <div class="invite-agency-button">
+    <a class="waves-effect waves-dark btn modal-trigger inAgbtn" href="#invite-agency-modal"><i class="material-icons left">add</i>Invite Agency</a>
+    <div id="invite-agency-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+	<h4>Invite Agency</h4>
+	<form class="col s12" id="invite-agency">
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="first_name" type="text" class="validate" name="name" value={{autoFillName}}>
+	      <label for="first_name">Agency Name</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="email" type="email" class="validate" name="email" value={{autoFillEmail}}>
+	      <label for="email">Email</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="contactNo" type="text" class="validate" name="contactNumber" value={{autoFillContact}}>
+	      <label for="contactNo">Contact Number</label>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="input-field col s12">
+	      <input id="contectName" type="text" class="validate" name="username" value={{autoFillPersonName}}>
+	      <label for="contactName">Contact Name</label>
+	    </div>
+		</div>
+		<div class="row">
+	    <div class="input-field col s8">
+	      <select id="agencyPlanId"  class="validate" name="agencyPlanId"  placeholder="Select Plan">
+					<option value="">Select a plan </option>
+					{{ #each agencyPlans  }}
+					<option value="{{ _id }}" >{{ planName }}</option>
+					{{ /each }}
+					</select>
+	      <label for="assignedPlan">Assign Plan</label>
+			</div>
+			<div class="input-field col s4">
+					<select id="agencyPlanNumOfAppsPurchased"  class="validate" name="agencyPlanNumOfAppsPurchased"  placeholder="Select No. of app">
+						<option value="">Select App Count</option>
+						{{ #each agencyPlansNoOfApp  }}
+						<option value="{{ agencyPlansNoOfApp[@index] }}" >{{ agencyPlansNoOfApp[@index] }}</option>
+						{{ /each }}
+						</select>
+					<label for="assignedPlan">No. of Apps</label>
+				</div>
+		</div>
+		<div class="row">
+				<div class="input-field col s8">
+						<select id="agencyModules"  class="" name="agencyModules[]" multiple="multiple" placeholder="Select Module">
+							<option value="">Select Module</option>
+							{{ #each agencyModules  }}
+							<option value="{{ _id }}" >{{ moduleName }}</option>
+							{{ /each }}
+							</select>
+						<label for="agencyModules">Assign Modules</label>
+					</div>
+					
+		</div>
+	  <!-- <div class="row">
+	       <div class="input-field col s12">
+	       <select  name="packageId">
+	       <option value="" disabled selected>Choose your option</option>
+	       {{#each getPackages}}
+	       <option value="{{_id}}">Name:{{packagesName}} || Price:{{packagesPrice}} || Duration:{{packagesDuration}} || Apps:{{packagesNoOfApps}}</option>
+	       {{/each}}
+	       </select>
+	       <label>Choose Package</label>
+	       </div>
+	       </div> -->
+	</form>
+      </div>
+      <div class="modal-footer">
+	<a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+	<button class="btn waves-effect waves-light" type="submit" name="action" form="invite-agency">
+	  <i class="material-icons left">add</i>
+	  Invite
+	</button>
+      </div>
+    </div>
+  </div>
+</template>

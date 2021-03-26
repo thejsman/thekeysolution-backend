@@ -1,0 +1,40 @@
+<template name="agency_assigned_module">
+        {{#if agencyList}}
+          <div class="row">
+            <h5 class="col s10">AGENCIES ASSIGNED MODULES </h5>
+          </div>
+          <table>
+            <thead>
+          <tr>
+            <th>#</th>
+            <th>Agency Name</th>
+            <th>Date</th>
+            <th>Module Name</th>
+            <th>Number of Modules</th>
+            <th>Modules Remaining</th>
+            
+          </tr>
+            </thead>
+            <tbody>
+          {{  #each agencyList }}
+          {{ #let mIndex=@index agency=this }}
+          
+          
+                {{ #each agencyModule }}
+            <tr>
+              <th scope="row">{{ getIncrement 1 }}</th>
+              <td>{{ agency.name }}</td>
+              <td>{{ agency.planPurchaseDateTime }}</td>
+              <td>{{ agencyModuleName }}</td>
+              <td>{{ agencyModuleNumOfModulesPurchased }}</td>
+              <td>{{ moduleRemainingCount this }}</td>
+             
+            </tr>
+
+            {{  /each}}  {{ /let }} {{  /each}}
+            </tbody>
+          </table>
+          <div class="divider"></div>
+        {{/if}}
+      </template>
+      

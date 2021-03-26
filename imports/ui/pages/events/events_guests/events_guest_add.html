@@ -1,0 +1,273 @@
+<template name="events_guest_add">
+  <div class="events-guest-add">
+    <div class="row">
+      <div class="col s6">
+        <h5>{{title}}</h5>
+      </div>
+    </div>
+    {{#let guest=guestInfo}}
+    <form class="row" id="add-guest-form">
+      <div class="row">
+        <div class="input-field col s2">
+          <select id="guestTitle" name="guestTitle" required>
+            <option value="" disabled selected>Choose your option</option>
+            <option value="Mr">Mr</option>
+            <option value="Ms">Ms</option>
+            <option value="Dr">Dr</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Prof">Prof</option>
+          </select>
+          <label for="guestTitle">Title *</label>
+        </div>
+        <div class="input-field col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="Mandatory field ">
+          <input id="guestFirstName" type="text" data-length="25" name="guestFirstName" value={{guest.guestFirstName}} required>
+          <label class="always-active" for="guestFirstName">First Name
+            <i class="tooltip-icon"></i>
+          </label>
+        </div>
+        <div class="input-field col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="Mandatory field">
+          <input id="guestLastName" type="text" data-length="25" name="guestLastName" value={{guest.guestLastName}} required>
+          <label class="always-active" for="guestLastName">Last Name *
+            <i class="tooltip-icon"></i>
+          </label>
+        </div>
+        <div class="input-field col s2">
+          <select id="guestGender" name="guestGender" value={{guest.guestGender}} required>
+            <option value="" disabled selected>Choose your option</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="child">Child</option>
+          </select>
+          <label for="guestGender">Gender</label>
+        </div>
+      </div>
+      <div class="row">
+        {{#if guestIsPrimary}}
+        <div class="input-field col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="If there is no input, the App will use the First Name of Guest ">
+          <input id="guestAddressing" type="text" data-length="10" name="guestAddressing" value={{guest.guestAddressing}}>
+          <label class="always-active" for="guestAddressing">(Nickname) How to Address in App
+            <i class="tooltip-icon"></i>
+          </label>
+        </div>
+        {{/if}}
+        <div class="input-field col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="Enter a Family ID of your choice. or Employee Code from Corporate. Same will be applied to all companions of this Guest to link them together. Will help in assigning rooms & flights. Can not be edited.">
+          <input id="familyID" type="text" name="guestFamilyID" data-length="10" value={{guest.guestFamilyID}} required>
+          <label class="always-active" for="familyID">Family ID*
+            <i class="tooltip-icon"></i>
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="guestDOB">Date of Birth</label>
+          <input id="guestDOB" type="text" class="datepicker" name="guestDOB" value={{guest.guestDOB}}>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="The invitation to download the App will be sent to this email ID. Mandatory field">
+          <input id="guestPersonalEmail" type="email" name="guestPersonalEmail" value={{guest.guestPersonalEmail}} style="text-transform: lowercase;" required>
+          <label class="always-active" for="guestPersonalEmail">Primary Email (Invitation email)*
+            <i class="tooltip-icon"></i>
+          </label>
+        </div>
+        {{#if guestIsPrimary}}
+        <div class="input-field col s6">
+          <input id="guestOfficialEmail" type="email" name="guestOfficialEmail" value={{guest.guestOfficialEmail}}>
+          <label class="always-active" for="guestOfficialEmail">Secondary Email</label>
+        </div>
+        {{/if}}
+      </div>
+      <div class="row">
+        <div class="input-field col s12 guest-nationality">
+          <select id="guestAddressNationality" name="guestAddressNationality" value={{guest.guestAddressNationality}}>
+            <option value="India" selected>India</option>
+            {{#each countries}}
+            <option value="{{name}}">{{name}}</option>
+            {{/each}}
+          </select>
+          <label for="guestAddressNationality">Nationality</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="guestAddress1" type="text" class="materialize-textarea" name="guestAddress1" value={{guest.guestAddress1}}>
+          <label class="always-active" for="guestAddress1">Address Line 1</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="guestAddress2" type="text" class="materialize-textarea" name="guestAddress2" value={{guest.guestAddress2}}>
+          <label class="always-active" for="guestAddress2">Address Line 2</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="guestAddressCity" type="text" name="guestAddressCity" value={{guest.guestAddressCity}}>
+          <label class="always-active" for="guestAddressCity">City</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="guestAddressState" type="text" name="guestAddressState" value={{guest.guestAddressState}}>
+          <label class="always-active" for="guestAddressState">State</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="guestAddressPincode" type="text" name="guestAddressPincode" value={{guest.guestAddressPincode}}>
+          <label class="always-active" for="guestAddressPincode">Pincode</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="guestAddressLandmark" type="text" name="guestAddressLandmark" value={{guest.guestAddressLandmark}}>
+          <label class="always-active" for="guestAddressLandmark">Landmark</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s1">
+          <input id="guestPhoneCode" type="text" name="guestPhoneCode" value="{{guest.guestPhoneCode}}" placeholder="+91" required>
+        </div>
+        <div class="input-field col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="All SMS Notifications will be sent on this number. Mandatory Field">
+          <input id="guestContactNo" type="text" name="guestContactNo" value={{guest.guestContactNo}} required>
+          <label class="always-active" for="guestContactNo">Mobile Number*
+            <i class="tooltip-icon"></i>
+          </label>
+        </div>
+        {{#if guestIsPrimary}}
+        <div class="col s2">
+          <p>
+            <input type="checkbox" class="filled-in" id="filled" />
+            <label class="always-active" for="filled">Same as Mobile number</label>
+          </p>
+        </div>
+        <div class="input-field col s5">
+          <input id="guestPhoneNo" type="text" name="guestPhoneNo" value={{contactno}}>
+          <label class="always-active" for="guestPhoneNo">Contact Number</label>
+        </div>
+        {{/if}}
+      </div>
+      {{#if guestIsPrimary}}
+      <div class="row">
+        <div class="input-field col s6">
+          <select id="guestNearestAirport" name="guestNearestAirport" value={{guest.guestNearestAirport}}>
+            <option value="" disabled selected>Choose your option</option>
+            {{#each airportiata}}
+            <option value="{{_id}}">{{airportName}}, {{airportIATA}}-{{airportCountry}} </option>
+            {{/each}}
+          </select>
+          <label>Nearest Airport</label>
+        </div>
+        <div class="col s6">
+          <div class="row">
+            <div class="switch tooltipped" data-position="top" data-delay="50" data-tooltip="If Companion is allowed, Guest can add 1 companion themselves via the App. Or companions / family members can be added manually by you on the Dashboard.">
+              <label>
+                Cannot bring companion
+                <input type="checkbox" name="canBringCompanion" id="canBringCompanion" checked={{guest.canBringCompanion}}>
+                <span class="lever"></span>
+                Can bring companion
+              </label>
+            </div>
+          </div>
+          <div class="row" id="freeFlightTicketDiv">
+            <div id="flightSwitch" class="switch tooltipped" data-position="top" data-delay="50" data-tooltip="Select 'Flight for Sale' if Guest needs to purchase flight tickets via the App and Select 'Free Ticket' if Guest will be assigned a ticket">
+              <label>
+                Flight - Ticket For Sale
+                <input type="checkbox" name="freeFlightTicket" id="freeFlightTicket" checked={{guest.freeFlightTicket}}>
+                <span class="lever"></span>
+                Free Ticket
+              </label>
+            </div>
+          </div>
+          <div class="row" id="freeHotelRoomDiv">
+            <div id="hotelSwitch" class="switch tooltipped" data-position="top" data-delay="50" data-tooltip="Select 'Hotel Room for Sale' if Guest needs to purchase hotel rooms via the App and Select 'Free Room' if Guest will be assigned a room">
+              <label>
+                Hotel - Room For Sale
+                <input type="checkbox" name="freeHotelRoom" id="freeHotelRoom" checked={{guest.freeHotelRoom}}>
+                <span class="lever"></span>
+                Free Room
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s4">
+          <input id="guestSecretaryName" type="text" name="guestSecretaryName" value={{guest.guestSecretaryName}}>
+          <label class="always-active" for="guestSecretaryName">Secretary Name</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="guestSecretaryContactNo" type="text" name="guestSecretaryContactNo" value={{guest.guestSecretaryContactNo}}>
+          <label class="always-active" for="guestSecretaryContactNo">Secretary Contact No.</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="guestSecretaryEmail" type="text" name="guestSecretaryEmail" value={{guest.guestSecretaryEmail}}>
+          <label class="always-active" for="guestSecretaryEmail">Secretary Email ID</label>
+        </div>
+      </div>
+      {{/if}}
+      <div class="row">
+        <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Any specific remarks about the Guest for reference.">
+          <input id="guestRemarks" type="text" name="guestRemarks" value={{guest.guestRemarks}}>
+          <label class="always-active" for="guestRemarks">Remarks
+            <i class="tooltip-icon"></i>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="add-guest-form">{{buttonText}}
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+    {{/let}}
+  </div>
+</template>
+
+<template name="events_guest_member_info">
+  <tr>
+    <td>{{member.guestmembername}}</td>
+    <td>{{member.guestmemberemail}}</td>
+    <td>{{member.guestmemberphone}}</td>
+    <td>{{member.guestFamilyID}}</td>
+    <td>
+      <a class="waves-effect waves-light btn click_remove-member">
+        <i class="material-icons left">cloud</i>Remove</a>
+    </td>
+  </tr>
+</template>
+
+
+
+
+<template name="events_guest_add_member">
+  <div class="events-guest-add-member">
+    <a class="waves-effect waves-light btn modal-trigger" href="#add-guests-modal">Add Members</a>
+  </div>
+  <div id="add-guests-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Add Guest Family</h4>
+      <form class="col s12" id="add-new-guest-member">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="first_name" type="text" name="guestmembername" value={{autoFillName}}>
+            <label class="always-active" for="first_name">Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" name="guestmemberemail" value={{autoFillEmail}}>
+            <label class="always-active" for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="contactNo" type="text" name="guestmemberphone" value={{autoFillContact}}>
+            <label class="always-active" for="contactNo">Contact Number</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="contactNo" type="text" name="guestFamilyID" value={{autoFillContact}}>
+            <label class="always-active" for="contactNo">Family Id</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-guest-member">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</template>

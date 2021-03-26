@@ -1,0 +1,24 @@
+<template name="activity_export">
+  <div class="activity-export">
+    <div id="activity-export-modal" class="modal">
+      <div class="modal-content">
+        <h4>Export Data</h4>
+        <form id="export-activity-form">
+          <div class="col s6">
+            <label for="start_date">Start Date</label>
+            <input type="text" class="datepicker" name="start_date" id="start_date" value={{start_date}}>
+          </div>
+          <div class="col s6">
+            <label for="start_date">End Date</label>
+            <input type="text" class="datepicker" name="end_date" id="end_date" value={{end_date}}>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="export-activity-form">Export
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

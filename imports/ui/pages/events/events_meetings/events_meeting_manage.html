@@ -1,0 +1,159 @@
+<template name="events_meeting_manage">
+  {{#if pageReady}}
+  <div class="app-setting">
+    <div class="row">
+      <div class="col s12">
+        <h5 class="page-title">
+          Meeting Section
+          <a
+            class="waves-effect waves-light btn btn-primary"
+            href="{{addMeetingPath}}"
+            ><i class="material-icons left">add</i>Add Meeting</a
+          >
+        </h5>
+        {{> events_meeting_manage_delete}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          {{#each eventMeeting in eventMeetingList}} {{> single_event_meeting
+          eventMeeting=eventMeeting}} {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{else}}
+  <div class="preloader-wrapper small active">
+    <div class="spinner-layer spinner-green-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>
+
+<template name="single_event_meeting">
+  <div class="col s12 m12 l4">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">{{eventMeeting.topic}}</div>
+          <div id="activateMeeting">
+            <input
+              type="checkbox"
+              id="{{eventMeeting._id}}"
+              class="btnActivatMeeting"
+              checked="{{eventMeeting.activateMeeting}}"
+              disabled="{{startEndMeeting eventMeeting.status}}"
+            />
+            <label for="{{eventMeeting._id}}">Activate Meeting</label>
+          </div>
+
+          <div class="info-card-action">
+            <div class="action-btn">
+              <!-- {{#if isAllowed 'subevents-edit'}} -->
+
+              <a class="btn primary" id="btnEditMeeting">
+                <i class="fa fa-pencil"></i>
+              </a>
+              <!-- {{/if}} {{#if isAllowed 'subevents-delete'}} -->
+              <a class="btn primary" id="btnDeleteMeeting">
+                <i class="fa fa-trash"></i>
+              </a>
+
+              <!--
+            <a class="btn primary" id="btnViewMeeting">
+                <i class="fa fa-eye"></i>
+              </a> -->
+
+              <!-- {{/if}} -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content-bg white-text">
+        <div class="card-content">
+          <div class="row">
+            <div class="col-12">
+              <div style="min-height: 91px">
+                <p class="margin description">{{eventMeeting.agenda}}</p>
+              </div>
+              <div style="margin: 8px 0 0 0; padding: 5px 0">
+                <p>
+                  <b>Start</b> <br />
+                  {{formatDate eventMeeting.start_time}}
+                </p>
+                <p>
+                  <b>Created At</b> <br />
+                  {{formatDate eventMeeting.created_at}}
+                </p>
+              </div>
+              <div class="grid-container">
+                <div class="item" style="width: 100%">
+                  {{#if startEndMeeting eventMeeting.status}}
+                  <a
+                    id="btnEndMeeting"
+                    class="waves-effect waves-light btn btn-danger"
+                    disabled="{{isDisableButton eventMeeting.activateMeeting}}"
+                    >End Meeting</a
+                  >
+                  {{else}}
+                  <a
+                    id="btnStartMeeting"
+                    class="waves-effect waves-light btn btn-primary"
+                    target="_blank"
+                    href="{{eventMeeting.start_url}}"
+                    disabled="{{isDisableButton eventMeeting.activateMeeting}}"
+                    >Start Meeting</a
+                  >
+                  {{/if}}
+                  
+                </div>
+              </div>
+
+              <div class="grid-container">
+                <div class="item" style="width: 100%">
+                  <a
+                    id="btnSendMeetingInvite"
+                    class="waves-effect waves-light btn btn-primary"
+                  >
+                    {{checkInviteStatus eventMeeting.invitationSentStatus }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Delete Notifications -->
+<template name="events_meeting_manage_delete">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete Event Meeting</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button
+        class="btn waves-effect waves-light red lighten-2 btnModalDelete"
+        type="button"
+        name="action"
+      >
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>

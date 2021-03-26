@@ -1,0 +1,92 @@
+<template name="events_flights_bulk_upload">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Group Inventory Flight Assignment(Bulk) <button class="btn right" id="download-flight-sample"> Download Sample</button></div>
+          <div class="flight--bulk-upload">
+            <div class="checklist">
+              <p>Please read the instructions below:</p>
+              <ol>
+                <li>Folio Numbers are system generated, please do not change any Folio numbers.</li>
+                <li>PNR Number is mandatory.</li>
+                <li>Do not add or remove any column.</li>
+                <li>Remove the row of the Guests for whom you are not assigning any Flight.</li>
+              </ol>
+            </div>
+            <div class="div">
+              Please select file to Upload.
+            </div>
+            <form action="#">
+              <div class="row">
+                <input class="btn" type="file" id="xxx">
+              </div>
+            </form>
+            <div class="upload-status">
+              <ul class="collection">
+                <li class="collection-item errors" id="flight-upload-errors"></li>
+              </ul>
+              <!-- <div id="flight-upload-errors" class="errors"> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Non-Group - Upload Individual Flights(Bulk) <button class="btn right" id="download-flight-individual-sample"> Download Sample</button></div>
+          <div class="flight--bulk-upload">
+            <div class="checklist">
+                <p>Please read the instructions below:</p>
+                <ol>
+                  <li>Folio Numbers are system generated, please do not change any Folio numbers.</li>
+                  <li>PNR Number, Departure & Arrival City, Flight Number are mandatory.</li>
+                  <li>For multiple flights for same guest, duplicate the existing row and change data.</li>
+                  <li>Remove the row of the Guests for whom you are not assigning any Flight.</li>
+                </ol>
+                <table class="flightHelp">
+                  <caption>Bulk upload fields explanation</caption>
+                  <tr>
+                  <th>LegDepCity</th>
+                  <th>LegArrCity</th>
+                  <th>LegDepDate</th>
+                  <th>LegDepTime</th>
+                  <th>LegArrDate</th>
+                  <th>LegArrTime</th>
+                  <th>LegAirlineCode</th>
+                  <th>LegFlightNo</th>
+                  <th>LegClass</th>
+                  <th>LegPNR</th>  
+                </tr>                          		
+                  <td>Departure city Airport code, for example: DEL, BOM, MAA. </td>
+                  <td>Arrival city Airport code for, example: DEL, BOM, MAA. </td>
+                  <td>Date of departure of flight in DD-MM-YYYY format, for example: 02-10-2018</td>
+                  <td>Time of departure of flight in HH:MM 24 hour format, for example: 14:15</td>
+                  <td>Date of arrival of flight in DD-MM-YYYY format, for example: 02-10-2018</td>
+                  <td>Time of arrival of flight in HH:MM 24 hour format, for example: 14:15</td>
+                  <td>Fligth carrier code, for example: 9W for Jet Airways</td>
+                  <td>Fligth number, for example 122, 331</td>
+                  <td>Class of service, for example: Business, Economy</td>
+                  <td>PNR number of the flight.</td>
+              </table>
+              </div>
+              <div class="div">
+                Please select file to Upload.
+              </div>
+            <form action="#">
+              <div class="row">
+                <input class="btn" type="file" id="upload-individual-excel">
+              </div>
+            </form>
+            <div class="upload-status">
+              <ul class="collection">
+                <li class="collection-item errors" id="flight-upload-errors-individual"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

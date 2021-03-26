@@ -1,0 +1,45 @@
+.common-footer{
+	position: relative;
+	min-height: 80px;
+	padding: 0 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #f3f3f3;
+	border-top: 1px solid #e4e4e4;
+	color: #777;
+	.footer-links{
+		ul{
+			li{
+				display: inline-block;
+				a{
+					padding: 0 15px;
+					color: #777;
+					&:hover, &:active{
+						color: #333;
+					}
+				}
+			}
+		}
+	}
+}
+
+.about-us{
+	.page-title {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+	}
+	.page-content{
+		font-size: 18px;
+	}
+}
+
+p.tnc-title {
+	font-weight: 600;
+	margin-top: 2em;
+	display: inline-block;
+	margin-bottom: 0;
+	border-bottom: solid 2px;
+	padding-right: 5px;
+}

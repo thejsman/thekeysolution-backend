@@ -1,0 +1,247 @@
+<template name="app_add_destination_settings">
+  <div class="events-destination-add">
+    <div id="add-destination-modal">
+      <div class="modal-content">
+        {{#let details=destinationDetails}}
+        <form id="add-new-destination">
+          <div class="row">
+            <!-- Tab titles -->
+            <div class="col s12">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab col s3">
+                  <a class='active' href="#overview">Overview
+                    <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Add a brief generic introduction about the Destination"></i>
+                  </a>
+                </li>
+                <li class="tab col s3">
+                  <a href="#travel">Getting There
+                    <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Add details about the Destination"></i>
+                  </a>
+                </li>
+                <li class="tab col s3 ">
+                  <a href="#dos">Travel Tips
+                    <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Add a few Travelers Tips or basic local language greetings."></i>
+                  </a>
+                </li>
+                <li class="tab col s3">
+                  <a href="#places">Places To Visit</a>
+                </li>
+              </ul>
+            </div>
+            <!-- Section #1 -->
+            <div id="overview" class="col s12">
+              <div class="col s12 row">
+                <div class="col s8 row">
+                  <div class="row">
+                    <div class="input-field col s12 main-image-holder">
+                      <input type="file" id="main-image" class="dropify" data-default-file="{{details.mainImage}}" name="mainImage">
+                      <label class="dropify-img-label" for="mainImage">Destination Image 1, Max : 1 Mb, 1200 x 520, Format: JPEG</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <select id="destination-location" name="basicInfo[destinationName]" value={{details.basicInfo.destinationName}}>
+                        <option value="" disabled selected>Choose your option</option>
+                        {{#each d in destinationList}}
+                        <option value="{{d}}">{{d}}</option>
+                        {{/each}}
+                      </select>
+                      <label>Destination Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <textarea class="materialize-textarea" name="basicInfo[aboutDestination]" rows="8" cols="40" value={{details.basicInfo.aboutDestination}}></textarea>
+                      <label class="always-active" for="aboutDestination">Destination Details</label>
+                    </div>
+                    <div class="col s12">
+                      <center>
+                        <button class="btn waves-effect waves-light" type="button" id="destination_overview_preview">
+                          <i class="fa fa-refresh"></i>App Preview</button>
+                      </center>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s4 row app-setting">
+                  {{>app_preview_destination_overview}}
+                </div>
+              </div>
+            </div>
+            <!-- Section #2 -->
+            <div id="travel" class="col s12">
+              <div class="row col s12">
+                <div class="row col s8">
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="switch">
+                        <label>
+                          Don't include Getting there
+                          <input type="checkbox" name="otherDetailsInclude" id="otherDetailsInclude" checked={{otherDetailsInclude}}>
+                          <span class="lever"></span>
+                          Include Getting there
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row hide" id="getting_there_div">
+                    <div class="input-field col s12">
+                      <input type="file" id="input-file-now" class="dropify" data-default-file="{{details.otherDetailsImage}}" name="otherDetailsImage">
+                      <label class="dropify-img-label" for="otherDetailsImage">Destination Image 2, Max : 1 Mb, 1200 x 520, Format: JPEG</label>
+                    </div>
+                    <div class="input-field col s6">
+                      <input id="destinationAirport" type="text" name="otherDetails[destinationAirportName]" value={{details.otherDetails.destinationAirportName}}>
+                      <label class="always-active" for="destinationAirport">Nearest Airport</label>
+                    </div>
+                    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="For ex: IST (UTC +5:30) for Indian Time Zone">
+                      <input id="destinationTimezone" type="text" name="otherDetails[destinationTimezone]" value={{details.otherDetails.destinationTimezone}}>
+                      <label class="always-active" for="destinationTimezone">Time Zone
+                        <i class="tooltip-icon"></i>
+                      </label>
+                    </div>
+                    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Only input the number">
+                      <input id="destinationWeatherMax" type="text" name="otherDetails[destinationWeatherMax]" value={{details.otherDetails.destinationWeatherMax}}>
+                      <label class="always-active" for="destinationWeatherMax">Max Temp (in *C)
+                        <i class="tooltip-icon"></i>
+                      </label>
+                    </div>
+                    <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Only input the number">
+                      <input id="destinationWeatherMin" type="text" name="otherDetails[destinationWeatherMin]" value={{details.otherDetails.destinationWeatherMin}}>
+                      <label class="always-active" for="destinationWeatherMin">Min Temp (in *C)
+                        <i class="tooltip-icon"></i>
+                      </label>
+                    </div>
+                    <h5>Currency</h5>
+                    {{#each currency in details.otherDetails.destinationCurrency}}
+                    <div class="input-field col s4">
+                      <input id="destinationCurrencyRate{{indexPlusOne @index}}" type="text" name="otherDetails[destinationCurrency][][rate]" value={{currency.rate}}>
+                      <label class="always-active" for="destinationCurrencyRate{{indexPlusOne @index}}">Currency Rate</label>
+                    </div>
+                    <div class="input-field col s4">
+                      <input id="destinationCurrencyFrom{{indexPlusOne @index}}" type="text" name="otherDetails[destinationCurrency][][from]" value={{currency.from}}>
+                      <label class="always-active" for="destinationCurrencyFrom{{indexPlusOne @index}}">Currency From</label>
+                    </div>
+                    <div class="input-field col s4">
+                      <input id="destinationCurrencyTo{{indexPlusOne @index}}" type="text" name="otherDetails[destinationCurrency][][to]" value={{currency.to}}>
+                      <label class="always-active" for="destinationCurrencyTo{{indexPlusOne @index}}">Currency To</label>
+                    </div>
+                    {{/each}}
+                    <div class="input-field col s12">
+                      <center>
+                        <button class="btn waves-effect waves-light" type="button" id="destination_travel_preview">
+                          <i class="fa fa-refresh"></i>App Preview</button>
+                      </center>
+                    </div>
+                  </div>
+                </div>
+                <div class="row col s4 app-setting">
+                  {{>app_preview_destination_travel}}
+                </div>
+              </div>
+            </div>
+
+            <!-- Section #3 -->
+            <div id="dos" class="col s12">
+              <div class="row col s12">
+                <div class="row col s8">
+                  <div class="col s12">
+                    <div class="switch">
+                      <label>
+                        Don't include Travel Tips
+                        <input type="checkbox" name="destinationTipsInclude" id="destinationTipsInclude" checked={{destinationTipsInclude}}>
+                        <span class="lever"></span>
+                        Include Travel Tips
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row col s8 hide" id="dos_and_donts_div">
+                  <div class="input-field col s12">
+                    <input type="file" id="input-file-now" class="dropify" data-default-file="{{details.tipsImage}}" name="tipsImage">
+                    <label class="dropify-img-label" for="tipsImage">Destination Image 3, Max : 1 Mb, 1200 x 520, Format: JPEG</label>
+                  </div>
+                  <div class="input-field col s12">
+                    {{#each dos in details.destinationTips.destinationDos}}
+                    <div class="input-field col s12">
+                      <input id="destinationDos{{indexPlusOne @index}}" type="text" name="destinationTips[destinationDos][]" value={{dos}}>
+                      <label class="always-active" for="destinationDos{{indexPlusOne @index}}">Content #{{indexPlusOne @index}}</label>
+                    </div>
+                    {{/each}}
+                  </div>
+                  <div class="input-field col s12">
+                    {{#each donts in details.destinationTips.destinationDonts}}
+                    <div class="input-field col s12">
+                      <input id="destinationDonts{{indexPlusOne @index}}" type="text" name="destinationTips[destinationDonts][]" value={{donts}}>
+                      <label class="always-active" for="destinationDonts{{indexPlusOne @index}}">Content #{{indexPlusFour @index}}</label>
+                    </div>
+                    {{/each}}
+                  </div>
+                  <div class="input-field col s12">
+                    <center>
+                      <button class="btn waves-effect waves-light" type="button" id="destination_dos_preview">
+                        <i class="fa fa-refresh"></i>App Preview</button>
+                    </center>
+                  </div>
+                </div>
+                <div class="row col s4 app-setting">
+                  {{> app_preview_destination_dos}}
+                </div>
+              </div>
+            </div>
+
+            <!-- Section #4 -->
+            <div id="places" class="col s12">
+              <div class="col s8">
+                <div class="col s12">
+                  <div class="switch">
+                    <label>
+                      Don't include places to visit
+                      <input type="checkbox" name="placesToVisitInclude" id="placesToVisitInclude" checked={{placesToVisitInclude}}>
+                      <span class="lever"></span>
+                      Include places to visit
+                    </label>
+                  </div>
+                  <br/>
+                </div>
+              </div>
+              <div class="col s8 hide" id="places_to_visit_div">
+                {{#each place in details.placesToVisit.destinationPlacesToVisit}}
+                <div class="input-field col s4 place_to_visit{{indexPlusOne @index}}">
+                  <input type="file" id="input-file-now" class="dropify" data-default-file="{{getImage details (indexPlusOne @index)}}" name="placesToVisitImage{{indexPlusOne @index}}">
+                  <label class="dropify-img-label" for="input-file-now">Image of Place, Max : 1 Mb, 1200 x 520, Format: JPEG</label>
+                </div>
+                <div class="col s8">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="destinationPlacesToVisitTitle{{indexPlusOne @index}}" type="text" name="placesToVisit[destinationPlacesToVisit][][title]"
+                        value={{place.title}}>
+                      <label class="always-active" for="destinationPlacesToVisitTitle{{indexPlusOne @index}}">Name of Place</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <textarea class="materialize-textarea" name="placesToVisit[destinationPlacesToVisit][][description]" rows="8" cols="40" id="destinationPlaceToVisitDescription{{indexPlusOne @index}}"
+                        value={{place.description}}></textarea>
+                      <label class="always-active" for="destinationPlaceToVisitDescription{{indexPlusOne @index}}">Description of Place</label>
+                    </div>
+                  </div>
+                </div>
+                {{/each}}
+                <div class="input-field col s12">
+                  <center>
+                    <button class="btn waves-effect waves-light" type="button" id="destination_place_preview">
+                      <i class="fa fa-refresh"></i>App Preview</button>
+                  </center>
+                </div>
+              </div>
+              <div class="col s4 app-setting">
+                {{> app_preview_destination_places details=details}}
+              </div>
+            </div>
+          </div>
+        </form>
+        {{/let}}
+      </div>
+      <div class="modal-footer right-align">
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-destination">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

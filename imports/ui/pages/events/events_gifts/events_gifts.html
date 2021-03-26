@@ -1,0 +1,61 @@
+<template name="events_gifts">
+  <div class="events-gifts">
+    <div class="row">
+      <div class="col s12">
+	      <h5 class="page-title">Giveaways & Gifts<a class="waves-effect waves-light btn btn-primary modal-trigger" href="#add-gift-modal" id="add-gift-button"><i class="material-icons left">add</i>Add New <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Add inventory of gifts / giveaways here"></i></a>{{> events_gifts_add}}</h5>
+      </div>
+    </div>
+    <div class="row">
+      {{#each gift in giftList}}
+	      {{> gift_card gift=gift}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<!-- gift-card NEW -->
+<template name="gift_card">
+  <div class="col s12 m12 l4">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">
+            {{gift.giftName}}
+          </div>
+          <div class="info-card-action">
+            <div class="action-btn">
+              {{#if isAllowed 'edit-gifts'}}
+                <a href="#add-gift-modal" class="waves-effect btn primary modal-trigger" id="edit-gift">
+                  <i class="fa fa-pencil"></i>
+                </a>
+              {{/if}}
+              {{#if isAllowed 'delete-gifts'}}
+                <a href="#" class="waves-effect btn primary" id="delete-gift">
+                  <i class="fa fa-trash"></i>
+                </a>
+              {{/if}}
+            </div>
+          </div>
+          <p class="info-card-date">&#160;</p>
+        </div>
+      </div>
+      <div class="card-content-bg white-text">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align card-top-content">
+              <h5></h5>
+            </div>
+            <div class="col s6 m6 l6 center-align">
+              <h6>Total</h6>
+              <p class="small">{{gift.giftQuantity}}</p>
+            </div>
+            <div class="col s6 m6 l6 center-align">
+              <h6>Available</h6>
+              <p class="small">{{giftsAvailable}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

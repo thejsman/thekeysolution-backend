@@ -1,0 +1,40 @@
+<template name="events_assistances">
+  <div class="assistances-page">
+    <h4 class="page-title">Assistance Preference</h4>  
+    <div class="row">
+      <div class="col s6">
+        {{#let ass=assistanceData}}
+          <form class="col s12" id="edit-assistance">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="assistanceSectionStatement" type="text" name="assistanceSectionStatement" value={{ass.assistanceSectionStatement}}>
+                <label class="always-active" for="assistanceSectionStatement">Add your question / comment here</label>
+              </div>
+            </div>
+            {{#each option in ass.assistanceOptions}}
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="assistanceOption{{@index}}" type="text" name="assistanceOptions[]" value={{option}}>
+                  <label class="always-active" for="assistanceOption{{@index}}">Assistance #{{indexPlusOne @index}}</label>
+                </div>
+              </div>
+            {{/each}}      	
+            <div class="row">
+              <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="For ex: Please mention specific assistance requirements, if any">
+                <input id="assistanceRemark" type="text" name="assistanceRemarks" value={{ass.assistanceRemarks}}>
+                <label class="always-active" for="assistanceRemark">Remarks Box Statement  <i class="tooltip-icon"></i></label>
+              </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action" form="edit-assistance">
+              <i class="material-icons left">send</i>
+              Submit
+            </button>
+          </form>
+        {{/let}}
+      </div>
+      <div class="col s6">
+        {{> app_preview_preference_assistance}}
+      </div>
+    </div>
+  </div>
+</template>

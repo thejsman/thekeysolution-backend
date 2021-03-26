@@ -1,0 +1,76 @@
+<template name="events_hotels_rooms">
+  <div class="modal" id="events-hotel-rooms">
+    <div class="modal-content">
+      <form id="reserve-rooms" class="row">
+        <div
+          class="input-field col s12 tooltipped"
+          data-position="top"
+          data-delay="50"
+          data-tooltip="Write the number of Rooms of this category reserved for Guests"
+        >
+          <input id="room-total-number" type="number" max="{{ maxRooms }}" />
+          <label class="always-active" for="room-total-number"
+            >No. of Rooms Reserveed for Guests <i class="tooltip-icon"></i
+          ></label>
+        </div>
+        <div class="col s12">
+          <button
+            class="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            Reserve
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+      <div style="overflow:auto">
+        <table id="hotel-room-list">
+          <thead>
+            <tr>
+              <td>System defined Room Number</td>
+              <td>Hotel assigned Room Number</td>
+              <td>Assigned To(with Folio No)</td>
+              <!-- <td>Beds Remaining</td> -->
+              <td>
+                Unreserve
+                <i
+                  class="tooltip-icon"
+                  data-position="top"
+                  data-delay="50"
+                  data-tooltip="Click here to remove the room from the reserved inventory. Unreserving a room would remove it from the Guest's allocation too."
+                ></i>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each room in bookedRoomList}}
+            <tr>
+              <td>{{ room.placeHolderRoomNumber }}</td>
+              <td>{{ room.roomNumber }}</td>
+              <td>
+                {{#if room.guestId}}
+                <a
+                  href="/events/{{ eventId }}/guests/profile/{{ room.guestId }}"
+                  >{{ room.guest.guestFirstName }} -
+                  {{ room.guest.folioNumber }}</a
+                ><br />
+                {{/if}}
+              </td>
+              <td>
+                {{#unless room.guestId }}
+                <a
+                  class="waves-effect waves-light btn unreserve-button"
+                  id="{{ room._id }}"
+                  >Unreserve</a
+                >
+                {{/unless}}
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>

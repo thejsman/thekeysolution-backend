@@ -1,0 +1,491 @@
+<template name="agency_subscription">
+  <div class="agency-subscription" id="subscription_template_div">
+  	{{#if IsAgency }}
+  	  {{#with IsAgency}}
+        <div class="row">
+          <div class="col s12">
+            <h5>Active Plan</h5>
+          </div>
+        </div>
+        <div class="row single-plan card-panel" style="max-width: 600px;">
+          <div class="col s12">
+            <h5 class="plan-name">{{this.agencyPlanName}}</h5>
+            <p class="plan-description">{{this.agencyPlanDescription}}</p>
+            <h6>Features Included : </h6>
+            <ul class="plan-features">
+              {{#if hasFeature}}
+                {{#each featureList info._id}}
+                  <li><i class="fa fa-check"></i> {{this.featureDescription}}</li>
+                {{/each}}
+              {{/if}}
+            </ul>
+          </div>
+          <div class="col s4">
+            <div class="cost-per-app">
+              Apps Purchased: <span>{{this.agencyPlanNumOfAppsPurchased}}</span>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="cost-per-app">
+              Apps Generated: <span>{{this.agencyPlanAppsGenerated}}</span>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="cost-per-app">
+              Apps Remaining:<span>{{#with appsRemaining this.agencyPlanNumOfAppsPurchased this.agencyPlanAppsGenerated}} {{this}} {{/with}}</span>
+            </div>
+          </div>
+        </div>
+        <!-- @MB TODO : Delete this later -->
+        <!-- <div class="row">
+          <div class="col s12">
+            <span>Plan Name:</span>
+            <span>{{this.agencyPlanName}}</span><br/>
+            <span>Plan Description:</span>
+            <span>{{this.agencyPlanDescription}}</span><br/>
+            <span>Feature List:</span>
+            <span>{{this.agencyPlanFeatureName}}</span><br/>
+          </div>
+          <div class="col s12">
+            <span>Total Number of apps purchased:</span>
+            <span>{{this.agencyPlanNumOfAppsPurchased}}</span> &nbsp;
+
+            <span>Apps generated:</span>
+            <span>{{this.agencyPlanAppsGenerated}}</span> &nbsp;
+
+            <span>Apps remaining:</span>
+            {{#with appsRemaining this.agencyPlanNumOfAppsPurchased this.agencyPlanAppsGenerated}}
+            <span>{{this}}</span>
+            {{/with}}        
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col s12">
+            <h5>Active Modules</h5>
+          </div>
+        </div>
+        <div class="row">
+          {{#each this.agencyModule}}
+            <div class="col s4">
+              <div class="row">
+                <div class="col s12">
+                  <h5 class="plan-name">{{agencyModuleName}}</h5>
+                  <p class="plan-description">{{agencyModuleDescription}}</p>
+                </div>
+                <div class="col s4">
+                  <div class="cost-per-app">
+                    Modules Purchased: <span>{{agencyModuleNumOfModulesPurchased}}</span>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="cost-per-app">
+                    Modules Used: <span>{{agencyModuleAppsGenerated}}</span>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="cost-per-app">
+                    Modules Remaining:<span>{{#with appsRemaining agencyModuleNumOfModulesPurchased agencyModuleAppsGenerated}} {{this}} {{/with}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- @MB TODO : Delete this later -->
+            <!-- <div class="col s12">
+              <span>Module Name:</span>
+              <span>{{agencyModuleName}}</span><br/>
+
+              <span>Module Description:</span>
+              <span>{{agencyModuleDescription}}</span>
+            </div>
+            <div class="col s12">
+              <span>Total Number of modules purchased:</span>
+              <span>{{agencyModuleNumOfModulesPurchased}}</span> &nbsp;
+
+              <span>Modules generated:</span>
+              <span>{{agencyModuleAppsGenerated}}</span> &nbsp;
+
+              <span>Modules remaining:</span>
+              {{#with appsRemaining agencyModuleNumOfModulesPurchased agencyModuleAppsGenerated}}
+                <span>{{this}}</span>
+              {{/with}}
+            </div> -->
+          {{/each}}
+        </div>
+      {{/with}}
+
+      <form id="agency-order" >
+        {{#if hasPlan}}  
+          <div class="row">
+	          <div class="col s12">
+	            <h5>Available Plans (Choose One)</h5>
+            </div>
+          </div>
+          <div class="row">
+            {{#each planList}}
+              <div class="col s4">
+                {{> subscription_purchase_plan info=this}}
+              </div>
+            {{/each}}
+          </div>
+          {{else}}
+            <div class="row">
+              <h5 class="col s6"> NO PLAN AVAILABLE </h5>
+            </div> 
+          {{/if}}
+          {{#if hasModule}}
+            <div class="row">
+              <div class="col s12">
+                <h5>Available Modules</h5>
+              </div>
+            </div>
+            <div class="row">
+              {{#each moduleList}}
+                <div class="col s4">
+                  {{> subscription_module_template info=this}}
+                </div>
+              {{/each}}
+            </div>	
+          {{else}}
+            <div class="row">
+              <h5 class="col s6"> NO MODULE AVAILABLE </h5>
+            </div> 
+          {{/if}}
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action" form="agency-order"> CONTINUE </button>
+          </div> 
+      </form>
+    {{/if}}
+  </div>
+  <div class="row" id="subscription_billing_info_template_div" >
+    {{> subscription_billing_info}}
+  </div>
+  <div class="row" id="subscription_summary_template_div" >
+    {{> subscription_summary}}
+  </div>  
+</template>
+
+<template name="subscription_module_template">
+	<div class="row single-module card-panel" id={{info._id}}>    
+	 	<div class="col s12">
+      <h5 class="plan-name">{{info.moduleName}}</h5>
+      <p class="plan-description">{{info.moduleDescription}}</p>
+	 	</div>
+		<div class="input-field col s6">
+      <input type="number" min="1" class="subscription_num_of_modules"  value={{agencyModuleNumOfAppsPurchased}}>
+      <label class="always-active" for="subscription_num_of_module">Number of Module</label>
+	 	</div>
+    <div class="col s6">
+      <div class="cost-per-app">
+        Cost per Module <span>₹ {{info.moduleCostPerModule}}.00</span>
+      </div>
+	 	</div>
+		<div class="row">
+      <div class="col s12">
+			  <button class="btn waves-effect waves-light agency_purchase_module_submit" type="button"> SELECT </button>
+      </div>
+		</div>
+	</div>
+</template>
+
+<template name="subscription_purchase_plan">
+	<div class="row single-plan card-panel" id={{info._id}}>    
+	 	<div class="col s12">
+      <h5 class="plan-name">{{info.planName}}</h5>
+      <p class="plan-description">{{info.planDescription}}</p>
+      <h6>Features Included : </h6>
+      <ul class="plan-features">
+        {{#if hasFeature}}
+          {{#each featureList info._id}}
+            <li><i class="fa fa-check"></i> {{this.featureDescription}}</li>
+          {{/each}}
+        {{/if}}
+      </ul>
+	 	</div>
+    <div class="input-field col s6">
+      <select name="agencyPlanNumOfAppsPurchased[]" class="subscription_num_of_apps" value={{agencyPlanNumOfAppsPurchased}}>
+        {{#each NumberOfAppList info._id}}
+          {{> subscription_num_of_app val=this}}    
+        {{/each}}
+      </select>
+      <label for="subscription_num_of_apps">Number of Apps</label>
+		</div>
+	  <div class="col s6">
+      <div class="cost-per-app">
+        Cost per app: <span>₹ {{info.planCostPerApp}}.00</span>
+      </div>
+	 	</div>
+	  <div class="row">
+      <div class="col s12">
+        <button class="btn waves-effect waves-light agency_purchase_plan_submit" type="button" > SELECT </button>
+      </div>
+	  </div>  
+	</div>
+</template>
+
+<template name="subscription_num_of_app">
+		<option value={{val}}>{{val}}</option>
+</template>
+
+<template name="subscription_billing_info">
+    <div class="row">
+       <div class="col s12">
+         <h5>Billing Information</h5>
+       </div>
+    </div>
+    <form id="agency-subscription-billing">  
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="subscription_company_name" type="text" class="validate" name="agencyBillingCompanyName" value={{agencyBillingCompanyName}} >
+        <label class="always-active" for="subscription_company_name">Company Name</label>
+      </div>
+        <div class="input-field col s6">
+        <input id="subscription_address_line1" type="text" class="validate" name="agencyBillingAddressLine1" value={{agencyBillingAddressLine1}}>
+        <label class="always-active" for="subscription_address_line1">Address Line 1</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="subscription_address_line2" type="text" class="validate" name="agencyBillingAddressLine2" value={{agencyBillingAddressLine2}}>
+        <label class="always-active" for="subscription_address_line2">Address Line 2</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input id="subscription_city" type="text" class="validate" name="agencyBillingCity" value={{agencyBillingCity}}>
+        <label class="always-active" for="subscription_city">City</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="subscription_state" type="text" class="validate" name="agencyBillingState" value={{agencyBillingState}}>
+        <label class="always-active" for="subscription_state">State</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input id="subscription_pin_code" type="text" class="validate" name="agencyBillingPinCode" value={{agencyBillingPinCode}}>
+        <label class="always-active" for="subscription_pin_code">Pin Code</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="subscription_pan_number" type="text" class="validate" name="agencyBillingPANNumber" value={{agencyBillingPANNumber}}>
+        <label class="always-active" for="subscription_pan_number">PAN Number</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input id="subscription_gst_number" type="text" class="validate" name="agencyBillingGSTNumber" value={{agencyBillingGSTNumber}}>
+        <label class="always-active" for="subscription_gst_number">GST Number</label>
+      </div>
+    </div>  
+
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="button" id="subscription_billing_info_form_back"> BACK </button>
+      <button class="btn waves-effect waves-light" type="submit" name="action" form="agency-subscription-billing"> SAVE AND CONTINUE </button>   
+    </div>
+   </form>
+</template>  
+
+<template name="current_plan">
+  <div class="current-plan card">
+    <h6 class="page-title">Current Plan Info</h6>
+    <div class="plan-info">
+      {{this.agencyPlanName}}<br>
+      {{this.agencyPlanDescription}}<br>
+      <b>Features : </b> {{this.agencyPlanFeatureName}}
+    </div>
+    <div class="no-apps">
+      <span>Total Number of apps purchased:</span>
+      <span>{{this.agencyPlanNumOfAppsPurchased}}</span> &nbsp;
+
+      <span>Apps generated:</span>
+      <span>{{this.agencyPlanAppsGenerated}}</span> &nbsp;
+
+      <span>Apps remaining:</span>
+      {{#with appsRemaining this.agencyPlanNumOfAppsPurchased this.agencyPlanAppsGenerated}}
+        <span>{{this}}</span>
+      {{/with}}  
+    </div>
+  </div>
+</template>
+
+<!-- Last screen :: Billing Info -->
+
+<template name="subscription_summary">
+  {{#if showModal }}
+    <div class="row">
+      <div class="col s12">
+        <h5>Billing Summary</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h5>Selected Plan</h5>
+      </div>
+      <div class="col s12">
+        {{#if hasSelectedPlan}} 
+          {{#with SelectedPlanList}}
+            <div class="col s4">
+              <div class="row single-plan card-panel">    
+                <div class="col s12">
+                  <h5 class="plan-name">{{this.agencyPlanName}}</h5>
+                  <p class="plan-description">{{this.agencyPlanDescription}}</p>
+                  <h6>Features Included : </h6>
+                  <ul class="plan-features">
+                    <!-- {{#if hasFeature}}
+                      {{#each featureList info._id}}
+                        <li><i class="fa fa-check"></i> {{this.featureDescription}}</li>
+                      {{/each}}
+                    {{/if}} -->
+                  </ul>
+                </div>
+                <div class="input-field col s6">
+                  <select name="agencyPlanNumOfAppsPurchased[]" class="subscription_num_of_apps" value={{agencyPlanNumOfAppsPurchased}}>
+                    <!-- {{#each NumberOfAppList info._id}}
+                      {{> subscription_num_of_app val=this}}    
+                    {{/each}} -->
+                  </select>
+                  <label for="subscription_num_of_apps">Number of Apps</label>
+                </div>
+                <div class="col s6">
+                  <div class="cost-per-app">
+                    Cost per app: <span>₹ {{this.agencyPlanCostPerApp}}.00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <button class="btn waves-effect waves-light agency_purchase_plan_submit" type="button" > UPDATE </button>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          {{/with}}
+          {{else}}
+            <div class="row">
+              <h6 class="col s6 card-panel"> No Plan Selected </h6>
+            </div> 
+        {{/if}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h5>Selected Modules</h5>
+      </div>
+    </div>
+    <div class="row">
+      {{#if hasSelectedModule}}
+        {{#each hasSelectedModule}}
+          <div class="col s4">
+            <div class="row single-module card-panel">    
+              <div class="col s12">
+                <h5 class="plan-name">{{this.agencyModuleName}}</h5>
+                <p class="plan-description">{{this.agencyModuleDescription}}</p>
+              </div>
+              <div class="input-field col s6">
+                <input type="number" min="1" class="subscription_num_of_modules"  value={{this.agencyModuleNumOfModulesPurchased}}>
+                <label class="always-active" for="subscription_num_of_module">Number of Module</label>
+              </div>
+              <div class="col s6">
+                <div class="cost-per-app">
+                  Cost per Module <span>₹ {{this.agencyModuleCostPerModule}}.00</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <button class="btn waves-effect waves-light agency_purchase_module_submit" type="button"> UPDATE </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      {{else}}
+        <div class="row">
+          <h6 class="col s6">No Module Selected</h6>
+        </div> 
+      {{/if}}
+    </div>
+    <div class="row card-panel">
+      <div class="col s12">
+        <h5>Amount Payable</h5>
+      </div>
+      <div class="col s12">
+        {{#if hasSelectedPlan}} 
+          {{#with SelectedPlanList}}
+            <table class="striped">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>No of Apps</th>
+                  <th>Cost per App</th>
+                  <th>GST</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{this.agencyPlanName}}</td>
+                <td>{{this.agencyPlanNumOfAppsPurchased}}</td>
+                <td>{{this.agencyPlanCostPerApp}}</td>
+                <td>GST </td>
+                <td>Total Amt.</td>
+              </tr>
+            </tbody>
+          </table>
+          {{/with}}
+        {{/if}}
+        <div style="margin-top: 50px;">
+          <h5>Modules</h5>
+        </div>
+        {{#if hasSelectedModule}}
+          <table class="striped">
+              <thead>
+                <tr>
+                  <th>Module</th>
+                  <th>Quantity</th>
+                  <th>Unit Cost</th>
+                  <th>GST</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+            <tbody>
+              {{#each hasSelectedModule}}
+                <tr>
+                  <td>{{this.agencyModuleName}}</td>
+                  <td>{{this.agencyModuleNumOfModulesPurchased}}</td>
+                  <td>{{this.agencyModuleCostPerModule}}</td>
+                  <td>GST </td>
+                  <td>Total Amt.</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        {{/if}}
+      </div>
+      <div class="col s12" style="margin-top: 50px;">
+        <h5>Total Amount Payable : 8888888</h5>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="billing-summary card-panel">
+        <div class="col s12">
+          <span>Total Apps Cost :</span>{{totalPlanCost}}
+        </div>
+        <div class="col s12">
+          <span>Module Cost </span>
+          {{{totalModuleCOst}}}
+        </div>
+        <div class="col s12">
+          <span>Total GST :</span>{{TotalGST}} <br/>
+          <span>Total Cost :</span>{{TotalCost}} <br/>
+        </div>
+      </div>    
+    </div> -->
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="button" id="subscription_summary_form_back"> BACK </button>
+      <button class="btn waves-effect waves-light" type="button" id="subscription_summary_submit" >
+        PAY
+      </button>
+    </div>
+ {{/if}}
+</template>

@@ -1,0 +1,27 @@
+import SimpleSchema from "simpl-schema";
+
+export const FileGuestSchema = new SimpleSchema({
+  ["Title"]: { type: String, optional: true },
+  ["First Name"]: String,
+  ["Last Name"]: { type: String, optional: true },
+  ["Family ID"]: { type: String, optional: true },
+  ["Is Primary"]: { type: String, optional: true },
+  ["Nickname"]: { type: String, optional: true },
+  ["Date of birth"]: { type: String, optional: true },
+  ["Gender"]: { type: String, optional: true },
+  ["Primary Email"]: { type: String },
+  ["Country Code"]: { type: String, optional: true },
+  ["Contact Number"]: { type: String, optional: true },
+  ["Address Line 1"]: { type: String, optional: true },
+  ["Address Line 2"]: { type: String, optional: true },
+  ["City"]: { type: String, optional: true },
+  ["State"]: { type: String, optional: true },
+  ["Pincode"]: { type: String, optional: true },
+  ["Country"]: { type: String, optional: true },
+  ["Landmark"]: { type: String, optional: true },
+  ["Nearest Airport"]: { type: String, optional: true },
+  ["Secretary Name"]: { type: String, optional: true },
+  ["Secretary Email"]: { type: String, optional: true },
+  ["Secretary Contact"]: { type: String, optional: true },
+  ["Remark"]: { type: String, optional: true },
+});

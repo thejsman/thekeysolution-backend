@@ -1,0 +1,91 @@
+<template name="events_rooms">
+  <div class="rooms-page">
+   	<h4 class="page-title">Room Preference</h4>
+   	{{#if roomList}}
+  	  {{#with roomList}}
+       	<form class="col s12" id="edit-room">
+      	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomSectionStatement" type="text" class="validate" name="roomSectionStatement" value={{roomSectionStatement}}>
+              <label for="roomSectionStatement">Section Statement</label>
+            </div>
+      	  </div>
+      	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomOption1" type="text" class="validate" name="roomOption1" value={{roomOption1}}>
+              <label for="roomOption1">Option 1</label>
+            </div>
+      	  </div>
+      	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomOption2" type="text" class="validate" name="roomOption2" value={{roomOption2}}>
+              <label for="roomOption2">Option 2</label>
+            </div>
+      	  </div>
+      	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomOption3" type="text" class="validate" name="roomOption3" value={{roomOption3}}>
+              <label for="roomOption3">Option 3</label>
+            </div>
+      	  </div>
+      	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomRemark" type="text" class="validate" name="roomRemark" value={{roomRemark}}>
+              <label for="roomRemark">Remarks Statement</label>
+            </div>
+      	  </div>
+      	  <button class="btn waves-effect waves-light {{isEnabled}}" type="submit" name="action" form="edit-room">
+          	<i class="material-icons left">send</i>
+          	Submit
+          </button>
+      	</form>
+  	{{/with}}
+  	{{else}}
+      {{> events_rooms_add info=this}}
+  	{{/if}}
+  </div>
+</template>
+
+
+<template name="events_rooms_add">
+   <div class="row">
+	<div class="col s12">
+	  <form class="col s12" id="add-room">
+	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomSectionStatement" type="text" class="validate" name="roomSectionStatement" value={{autoFillString}}>
+              <label for="roomSectionStatement">Section / Statement</label>
+            </div>
+	  </div>
+	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomOption1" type="text" class="validate" name="roomOption1" value={{autoFillString}}>
+              <label for="roomOption1">Option 1</label>
+            </div>
+	  </div>
+	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomOption2" type="text" class="validate" name="roomOption2" value={{autoFillString}}>
+              <label for="roomOption2">Option 2</label>
+            </div>
+	  </div>
+	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomOption3" type="text" class="validate" name="roomOption3" value={{autoFillString}}>
+              <label for="roomOption3">Option 3</label>
+            </div>
+	  </div>
+	  <div class="row">
+            <div class="input-field col s12">
+              <input id="roomRemark" type="text" class="validate" name="roomRemark" value={{autoFillString}}>
+              <label for="roomRemark">Remarks</label>
+            </div>
+	  </div>
+	  <button class="btn waves-effect waves-light {{isEnabled}}" type="submit" name="action" form="add-room">
+	<i class="material-icons left">send</i>
+	.Submit.
+      </button>
+	</form>
+	</div>
+      </div>
+</template>

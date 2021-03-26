@@ -1,0 +1,7 @@
+<template name="colorPicker">
+  <div class="color-picker">
+    <div class="picker-label">{{pickerLabel}}</div>
+    <div class="picker-input picker-input-{{pickerId}}" style="background-color: {{color}}">{{color}}</div>
+    <input type="hidden" name="{{pickerId}}" id="{{pickerId}}" value="{{color}}">
+  </div>
+</template>

@@ -1,0 +1,28 @@
+import SimpleSchema from 'simpl-schema';
+
+export const UpdatedAgencySchema = new SimpleSchema({
+   agencyId: { type: String },
+   agencyPlanId: { type: String },
+   agencyPlanName: { type: String },
+   agencyPlanDescription: { type: String },
+   agencyPlanFeatureList: { type : Array },
+  'agencyPlanFeatureList.$': String,
+   agencyPlanFeatureName: { type : String },
+   agencyPlanNumOfAppsPurchased:{ type: Number, min:0 },
+   agencyPlanAppsGenerated:{ type: Number, min:0, defaultValue:0 },
+   agencyBillingCompanyName: { type : String, optional: true },
+   agencyBillingAddressLine1: { type : String, optional: true },
+   agencyBillingAddressLine2: { type : String, optional: true },
+   agencyBillingCity: { type : String, optional: true },
+   agencyBillingState: { type : String, optional: true },
+   agencyBillingPinCode: { type : String, optional: true },
+   agencyBillingPANNumber: { type : String, optional: true },
+   agencyBillingGSTNumber: { type : String, optional: true },
+   agencyModule : { type : Array },
+  'agencyModule.$': Object,
+  'agencyModule.$.agencyModuleId': { type: String },
+  'agencyModule.$.agencyModuleName': { type: String },
+  'agencyModule.$.agencyModuleDescription': { type: String },
+  'agencyModule.$.agencyModuleNumOfModulesPurchased': { type: Number, min:0 },
+  'agencyModule.$.agencyModuleAppsGenerated': { type: Number, min:0, defaultValue:0 },
+});

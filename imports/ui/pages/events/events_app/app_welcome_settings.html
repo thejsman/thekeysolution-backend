@@ -1,0 +1,180 @@
+<template name="app_welcome_settings">
+  {{#with appData}}
+  <div class="app-setting">
+    <h5 class="title">
+      Welcome Screen
+      <i
+        class="tooltip-icon"
+        data-position="top"
+        data-delay="50"
+        data-tooltip="The content on this screen can be for Save the Date, an Invite or even a Welcome message from the Host."
+      ></i>
+    </h5>
+    <div class="row">
+      <div class="col s8">
+        <div class="row card">
+          <form id="app_welcome_setting" method="post" class="col s12">
+            <div class="row">
+              <div class="col s6" id="welcomeImageDiv">
+                <label
+                  >Welcome Image - landscape, Max : 1 Mb, 1200 x 520, Format:
+                  JPEG</label
+                >
+                <input
+                  type="file"
+                  class="dropify"
+                  data-default-file="{{ appData.welcomeImage }}"
+                  name="welcomeImage"
+                  data-max-file-size="1M"
+                  data-allowed-formats="landscape"
+                  data-allowed-file-extensions="jpg"
+                />
+              </div>
+              {{#unless isDefaultAppBackground}}
+              <div
+                class="col s6 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="Leave blank if 'Default for all pages' has been selected in the Design settings."
+                id="welcomeBackgroundDiv"
+              >
+                <label
+                  >Welcome Background - portrait, Max : 1 Mb, 1080 x 1920,
+                  Format: JPEG</label
+                >
+                <input
+                  type="file"
+                  class="dropify"
+                  data-default-file="{{ appData.welcomeBackground }}"
+                  name="welcomeBackground"
+                  data-max-file-size="1M"
+                  data-allowed-formats="portrait"
+                  data-allowed-file-extensions="jpg"
+                />
+              </div>
+              {{/unless}}
+            </div>
+            <div class="row">
+              <div
+                class="input-field col s12 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="This is the heading of this page"
+              >
+                <input
+                  name="welcomeTitle"
+                  id="welcomeTitle"
+                  type="text"
+                  class="validate"
+                  value="{{ appData.welcomeTitle }}"
+                />
+                <label class="always-active" for="first_name"
+                  >Screen Title</label
+                >
+              </div>
+              <div
+                class="input-field col s12 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="The App will auto add Dear (Guest's Name) before the message."
+              >
+                <textarea
+                  id="textarea1"
+                  name="welcomeMessage"
+                  class="materialize-textarea"
+                  cols="10"
+                  value="{{ appData.welcomeMessage }}"
+                ></textarea>
+                <label class="always-active" for="textarea1"
+                  >Message <i class="tooltip-icon"></i
+                ></label>
+              </div>
+
+              <div
+                class="input-field col s6 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="The start and end color can be different for a beautiful gradient or enter the same color for a solid background behind the text"
+              >
+                {{> colorPicker pickerLabel="Gradient Start Color" pickerId="appColor3" color=appColor3 }}
+              </div>
+              <div
+                class="input-field col s6 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="The start and end color can be different for a beautiful gradient or enter the same color for a solid background behind the text"
+              >
+                {{> colorPicker pickerLabel="Gradient End Color" pickerId="appColor4" color=appColor4 }}
+              </div>
+            </div>
+            <div class="row">
+              <div
+                class="input-field col s8 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="Incase you wish to use a Video, please insert the Youtube link here. The video will open in the App itself."
+              >
+                <i class="fa fa-youtube-play prefix"></i>
+                <input
+                  name="welcomeVideo"
+                  id="welcomeVideo"
+                  type="text"
+                  class="validate"
+                  value="{{ appData.welcomeVideo }}"
+                />
+                <label class="always-active" for="welcomeVideo"
+                  >Youtube Video URL <i class="tooltip-icon"></i
+                ></label>
+              </div>
+            </div>
+            <!-- <div class="row">
+              {{#if hasFeedback}}
+          <h5>Feedback</h5>
+          {{#each question in feedbackQuestions}}
+          <div class="input-field col s12">
+            <input placeholder="Feedback question {{indexPlusOne @index}}" name="feedbackQuestions[]" id="feedback{{indexPlusOne @index}}" type="text" class="validate" value={{question}}>
+            <label for="feedback{{indexPlusOne @index}}">Feedback Question {{indexPlusOne @index}}</label>
+          </div>
+          {{/each}}
+              {{else}}
+          <h5>Wishes</h5>
+          <label for="wishesQuestion">Wishes Question</label>
+          <input placeholder="Wishes question" name="wishesQuestion" id="wishesQuestion" type="text" class="validate" value={{wishesQuestion}}>
+              {{/if}}
+            </div> -->
+            <!-- <div class="row">
+              <h5>Others</h5>
+              <div class="input-field col s12">
+          <input placeholder="Visa Question" name="visaQuestion" id="visaQuestion" type="text" class="validate" value={{visaQuestion}}>
+          <label for="visaQuestion">Visa Question</label>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="input-field col s12">
+                <button
+                  class="btn waves-effect waves-light"
+                  type="submit"
+                  name="action"
+                >
+                  Save
+                  <i class="material-icons right">send</i>
+                </button>
+                <button
+                  class="btn waves-effect waves-light"
+                  type="button"
+                  id="update_welcome_preview"
+                >
+                  <i class="fa fa-refresh"></i> Screen Preview
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col s4">
+        {{>app_preview_welcome}}
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

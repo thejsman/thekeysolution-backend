@@ -1,0 +1,23 @@
+span.deleteSubSection {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  top: 0;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.is-hidden{
+  display: none;
+}
+
+.notify-user-option {
+  position: relative;
+  margin: 1em 0 2em 0;
+  span {
+    padding-right: 2em;
+  }
+}

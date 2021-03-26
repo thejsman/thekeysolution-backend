@@ -1,0 +1,99 @@
+<template name="photo_share">
+  <div class="photo_share">
+    <div class="filter-options">
+      <div class="row">
+        <div class="input-field col s3">
+          <select multiple id="photoFeatured">
+            <option value="" disabled selected>Select option</option>
+            <option value="featured">Featured</option>
+            <option value="notFeatured">Guest Shared</option>
+          </select>
+          <label>Filter Images</label>
+        </div>
+        <div class="input-field col s3">
+          <select multiple id="photoStatus">
+            <option value="" disabled selected>Select option</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+          </select>
+          <label>Status</label>
+        </div>
+        <div class="input-field col s3">
+          <select multiple id="photoSticky">
+            <option value="" disabled selected>Select option</option>
+            <option value="sticky">Sticky</option>
+            <option value="nonSticky">Non Sticky</option>
+          </select>
+          <label>Sticky Images</label>
+        </div>
+        <div class="col s3">
+          <a href={{newPhotoRoute}} class="btn">Add New</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="legends">
+        <ul>
+          <li>Published: <i class="fa fa-check" aria-hidden="true"></i></li>
+          <li>Draft: <i class="fa fa-times" aria-hidden="true"></i></li>
+          <li>Featured: <i class="fa fa-star" aria-hidden="true"></i></li>
+          <li>Sticky: <i class="fa fa-thumb-tack" aria-hidden="true"></i></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      {{#if totalPhotos}}
+      <ul class="pagination">
+        <li><a href="#" id="page-minus"><i class="material-icons">chevron_left</i></a></li>
+        {{#each page in getPagination}}
+          <li class="{{page.isActive}} page-no"><a href="#" id="{{page.pageNo}}">{{indexPlusOne page.pageNo}}</a></li>
+        {{/each}}
+        <li class="waves-effect"><a id="page-plus" href="#!"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+    {{/if}}
+    </div>
+    <div class="row">
+      {{#each photo in photos}}
+        {{> single_photo photo=photo}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="single_photo">
+  <figure class="col s12 m4 xl3">
+    <div class="image">
+      <img src={{photo.url}} alt="xxx">
+      <div class="img-options">
+        <div class="top-options">
+          <div class="action-btn">
+            <a class="waves-effect btn primary click_edit_btn">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a href="#" class="waves-effect btn primary click_delete_btn">
+              <i class="fa fa-trash"></i>
+            </a>
+          </div>
+        </div>
+        <div class="extra-info">
+          <p>{{#if isPublished photo.status}} <i class="fa fa-check" aria-hidden="true" title="Published"></i> {{else}} <i class="fa fa-times" aria-hidden="true" title="Draft"></i> {{/if}}</p>
+          <p>{{#if photo.sticky }} <i class="fa fa-thumb-tack" aria-hidden="true" title="Sticky"></i> {{/if}}</p>
+          <p>{{#if photo.featured }} <i class="fa fa-star" aria-hidden="true" title="Featured"></i> {{/if}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="image-info">
+      <div class="uploader">
+        <div class="uploaded-by">
+          <i class="fa fa-user"></i> {{author photo.createdBy}}
+        </div>
+        <div class="uploaded-at">
+          <i class="fa fa-clock-o"></i> {{parseTime photo.createdAt}}
+        </div>
+      </div>
+      <div class="caption">
+        {{photo.caption}}
+      </div>
+    </div>
+  </figure>
+</template>

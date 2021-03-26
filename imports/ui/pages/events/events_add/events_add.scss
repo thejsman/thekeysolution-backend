@@ -1,0 +1,46 @@
+@import '../../../style/colors';
+
+.events-add {
+  padding: 1rem;
+  .page {
+    .progress {
+      margin: 0;
+    }
+  }
+  .collapsible {
+    li {  
+      &.disabled {
+        .collapsible-header {
+          .change-button {
+            pointer-events: auto;
+            display: inline-block;
+          }
+        }
+        .progress {
+          display: none;
+        }
+      }
+      .collapsible-header {
+        padding: 10px;
+        background: $negativeColor;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        pointer-events: auto;
+        color: #fff;
+        .change-button {
+          display: none;
+        }
+      }
+      .collapsible-body{
+        background: rgba(221, 221, 221, 0.7);
+        padding: 10px 20px;
+      }
+    }
+  }
+
+  // switch fix
+  .switch label{
+    position: relative;
+    left: 0 !important;
+  }
+}

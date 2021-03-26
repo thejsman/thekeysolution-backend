@@ -1,0 +1,221 @@
+<template name="events_guest2">
+  <div class="events-guest2">
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header active"><i class="fa fa-user"></i>Guest Profile</div>
+        <div class="collapsible-body">{{> guest2_profile}}</div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-users"></i>Family Details</div>
+        <div class="collapsible-body">{{> family_details}}</div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-plane"></i>Flight</div>
+        <div class="collapsible-body">{{> guest2_flight}}</div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-hotel"></i>Hotel</div>
+        <div class="collapsible-body">{{> guest2_hotel}}</div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-feed"></i>Service Appointments</div>
+        <div class="collapsible-body"><span>N.A.</span></div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-gift"></i>Gift</div>
+        <div class="collapsible-body">{{> guest2_gift}}</div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-car"></i>Transfer</div>
+        <div class="collapsible-body"><span>N.A.</span></div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-hotel"></i>Preferences</div>
+        <div class="collapsible-body"><span>N.A.</span></div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<!-- Guest Profile Info -->
+<template name="guest2_profile">
+  <div class="guest2-profile">
+    <div class="row">
+      <div class="col s4">
+        <div class="guest-photo">
+          <img src="https://randomuser.me/api/portraits/women/50.jpg" alt="Sanya Sharma">
+          <span class="full-name">Ms. Sanya Sharma</span>
+          <span class="nick-name">(kitty)</span>
+        </div>
+      </div>
+      <div class="col s8">
+        <div class="guest-details">
+          <ul>
+            <li>
+              <i class="fa fa-phone"></i>
+              <div class="title">Contact No.</div>
+              <div>9876567890</div>
+            </li>
+            <li>
+              <i class="fa fa-envelope"></i>
+              <div class="title">Email</div>
+              <div class="value">sanya@yahoomail.com</div>
+            </li>
+            <li>
+              <i class="fa fa-map-marker"></i>
+              <div class="title">Address</div>
+              <div class="value">C-35, C-Block, Marlviye Nagar, <br>New Delhi, India 110017</div>
+            </li>
+            <li>
+              <i class="fa fa-plane"></i>
+              <div class="title">Nearest Airport</div>
+              <div class="value">Indira Gandhi International Airport</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Family -->
+<template name="family_details">
+  <div class="family-details">
+    <div class="row">
+      <div class="col s6">Family ID : 0089787</div>
+      <div class="col s6"><a href="#" class="btn">Add Member</a></div>
+    </div>
+    <div class="row">
+      <table class="col s6">
+        <thead>
+          <tr>
+    	      <th>Name</th>
+    	      <th>Relation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+        	  <td>Mr. Vishal Sharma</td>
+        	  <td>Father</td>
+        	  <td>
+              <div class="action-btn">
+                <a href="#" class="waves-effect btn primary click_edit-driver-button"><i class="fa fa-pencil"></i></a>
+                <a href="#" class="waves-effect btn click_delete-driver-button"><i class="fa fa-trash"></i></a>
+              </div>
+            </td>
+        	</tr>
+          <tr>
+        	  <td>Mrs. Shalini Sharma</td>
+        	  <td>Mother</td>
+        	  <td>
+              <div class="action-btn">
+                <a href="#" class="waves-effect btn primary click_edit-driver-button"><i class="fa fa-pencil"></i></a>
+                <a href="#" class="waves-effect btn click_delete-driver-button"><i class="fa fa-trash"></i></a>
+              </div>
+            </td>
+        	</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
+
+<!-- Flight -->
+<template name="guest2_flight">
+  <div class="guest2-flight">
+    <div class="row">
+      <div class="col s12">
+        <a class="btn right" href="#">Add Hotel</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        <div class="flight-card-guest">
+          PNR No. 3456788765456
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Hotel -->
+<template name="guest2_hotel">
+  <div class="guest2-hotel">
+    <div class="row">
+      <div class="col s12">
+        <a class="btn right" href="#">Add Hotel</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        <ul class="card">
+          <li>
+            <div class="title">Hotel</div>
+            <div class="value">The Taj</div>
+          </li>
+          <li>
+            <div class="title">Hotel Address</div>
+            <div class="value">Plot No 48D, D Block,<br> Saket, New Delhi 110017</div>
+          </li>
+          <li>
+            <div class="title">Room Category</div>
+            <div class="value">Superior</div>
+          </li>
+          <li>
+            <div class="title">Room Type</div>
+            <div class="value">Twin</div>
+          </li>
+          <li>
+            <div class="title">Bed Type</div>
+            <div class="value">Twin</div>
+          </li>
+          <li>
+            <div class="title">Capacity (Max/Assigned)</div>
+            <div class="value">(2/1)</div>
+          </li>
+          <li>
+            <div class="title">Room No (DB)</div>
+            <div class="value">5</div>
+          </li>
+          <li>
+            <div class="title">Room No (Actual)</div>
+            <div class="value">206</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Gift -->
+<template name="guest2_gift">
+  <div class="guest2-gift">
+    <div class="row">
+      <div class="col s12">
+        <a class="btn right" href="#">Add Gift</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        <ul class="card">
+          <li>
+            <div class="title">Gift</div>
+            <div class="value">Watch</div>
+          </li>
+          <li>
+            <div class="title">Date</div>
+            <div class="value">July 16, 2017</div>
+          </li>
+          <li>
+            <div class="title">Time</div>
+            <div class="value">8:40 AM</div>
+          </li>
+          <li>
+            <div class="title">Remarks</div>
+            <div class="value">should be in sexy package</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>

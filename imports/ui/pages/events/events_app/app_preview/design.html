@@ -1,0 +1,144 @@
+<!-- App Preview -->
+<template name="general_preview">
+  <div class="app-preview appPreview">
+    <h5 class="page-title center">Screen Preview</h5>
+    {{#with appBaseSettings}}
+      <div class="appPreview__container">
+        {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=appShortName}}
+        <div class="app-body appPreview__body" style="background-image:url('{{appBackground}}'); color: {{appColor2}};">
+          <div class="app-name" style="font-family: {{ appHeadingFont}}; color: {{appColor2}}; ">
+            <h5>{{ appName }}</h5>
+          </div>
+          <div class="app-content" style="font-family: {{ appBodyFont}};">
+            <div class="row appScreenIcons">
+              <ul>
+                <li>
+                  <div class="home-icon col s12">
+                    {{#if eventType 'wedding'}}
+                    <div class="icon-namaste bigIcon icon-white"></div>
+                    {{else}}
+                    <div class="icon-handshake bigIcon icon-white"></div>
+                    {{/if}}
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">WELCOME</div>
+                  </div>
+                </li>
+                {{#if checkFeature 'About'}}
+                <li>
+                  <div class="home-icon col s12">
+                    {{#if eventType 'wedding'}}
+                    <div class="icon-bride-and-groom bigIcon icon-white"></div>
+                    {{else}}
+                    <div class="icon-manager bigIcon icon-white"></div>
+                    {{/if}}
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">{{aboutUsTitle}} </div>
+                  </div>
+                </li>
+                {{/if}}
+                {{#if checkFeature 'Destination'}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-destination bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">DESTINATION</div>
+                  </div>
+                </li>
+                {{/if}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-event-details bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">EVENT DETAILS</div>
+                  </div>
+                </li>
+                {{#if checkFeature 'Speakers'}}
+                <li>
+                    <div class="home-icon col s12">
+                      <div class="icon-fa fa fa-microphone bigIcon icon-white"></div>
+                      <div class="feature-title" style="font-family: {{ appBodyFont}};">SPEAKERS</div>
+                    </div>
+                  </li>
+                {{/if}}
+                {{#if checkFeature 'RSVP'}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-rsvp-and-registration bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">{{rsvpTitle}}</div>
+                  </div>
+                </li>
+                {{/if}}
+                {{#if checkFeature 'Itinerary'}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-itinerary bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">ITINERARY</div>
+                  </div>
+                </li>
+                {{/if}}
+                {{#if checkFeature 'Sponsors'}}
+                <li>
+                    <div class="home-icon col s12">
+                      <div class="icon-fa fa fa-star bigIcon icon-white"></div>
+                      <div class="feature-title" style="font-family: {{ appBodyFont}};">SPONSORS</div>
+                    </div>
+                  </li>
+                {{/if}}
+               {{#if checkGuestInformation}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-my-info bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">MY INFORMATION</div>
+                  </div>
+                </li>
+              {{/if}}
+                {{#if checkFeature 'Travel Details'}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-travel-details bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">TRAVEL DETAILS</div>
+                  </div>
+                </li>
+                {{/if}}
+                {{#if checkGuestPreferences}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-my-preferences bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">MY PREFERENCES</div>
+                  </div>
+                </li>
+                {{/if}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-my-summary bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">MY SUMMARY</div>
+                  </div>
+                </li>
+                {{#if checkFeedback}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-wishes bigIcon icon-white"></div>
+                    <div class="feature-title">{{wish_title}}</div>
+                  </div>
+                </li>
+                {{/if}}
+                {{#if checkSocial}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-fa fa fa-share-square bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">SOCIAL</div>
+                  </div>
+                </li>
+                {{/if}}
+                {{#if checkFeature 'Contact Details'}}
+                <li>
+                  <div class="home-icon col s12">
+                    <div class="icon-contact-us bigIcon icon-white"></div>
+                    <div class="feature-title" style="font-family: {{ appBodyFont}};">CONTACT US</div>
+                  </div>
+                </li>
+                {{/if}}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/with}}
+  </div>
+</template>

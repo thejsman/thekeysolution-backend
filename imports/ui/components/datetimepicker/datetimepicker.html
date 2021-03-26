@@ -1,0 +1,11 @@
+<template name="datetimepicker">
+  <div class="datetime-wrap">
+    <input id={{id}} type={{type}} class="validate datetime" name={{name}} value={{formatDate value}}>
+    <div id="hidden">
+      <input type="text" id="date"/>
+      <input type="text" id="time"/>
+    </div>
+    <label for={{id}} class="datetimepicker-fix">{{label}}</label>
+    <div class="outlet"></div>
+  </div>
+</template>

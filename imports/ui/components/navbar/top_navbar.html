@@ -1,0 +1,44 @@
+<template name="top_navbar">
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper dark-primary-color">
+      <ul class="left">
+        <li class="logo"><a href={{homeRoute}}><img src="/img/thekey-logo.png" alt="The-key"></a></li>
+        <li id="ham-menu"><i class="fa fa-bars"></i></li>
+        <li>{{> breadcrumbs}}</li>
+      </ul>
+      <ul class="right">
+        <!-- Add Current User Name on dashboard -->
+        <li><a href="/control/profile">Hi {{currentUserName}} !</a></li>
+        {{#if showAdmin}}
+          <li><a href="/control">Admin Panel</a></li>
+        {{/if}}
+        <li>
+          <a id="logout-button">Log Out</a>
+        </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
+</template>
+
+<template name="breadcrumbs">
+  <nav class="breadcrumbs">
+    <div class="nav-wrapper">
+      <div class="col s12">
+      {{#each Breadcrumb}}
+        {{#if equals url eventRoute }}
+          <li><a href="{{url}}" class="breadcrumb">{{title}}</a></li>
+          <li><a href={{eventSummaryPath}}>{{eventName}}</a></li>
+        {{else}}
+          {{#if eventSummary}}
+          <!-- Leave blank -->
+          {{else}}
+            <li><a href="{{url}}" class="breadcrumb">{{title}}</a></li>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+      </div>
+    </div>
+  </nav>
+</template>

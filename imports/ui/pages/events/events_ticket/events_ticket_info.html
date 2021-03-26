@@ -1,0 +1,132 @@
+<template name="events_ticket_info">
+  <div class="event-ticket-info">
+    <div class="row">
+      <div class="col s4">
+        <h5 class="page-title">Entry Ticket</h5>
+      </div>
+      <div class="col s8 right-align">
+        <a class="waves-effect waves-light btn click_edit-button"> <i class="material-icons">mode_edit</i></a>
+        <a class="waves-effect waves-light btn click_delete-button"> <i class="material-icons">delete</i></a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="ticket-info card p20">
+        <div class="card-content">
+          <h6>Ticket Name</h6>
+          <p>Ticket Cost</p>
+          <p>GST Rate</p>
+        </div>
+      </div>
+      <a href={{inclusionPath}} class="waves-effect waves-light btn btn-primary"><i class="material-icons left">add</i>Add New Inclusion</a>
+    </div>
+    <div class="row">
+      {{> ticket_inclusion_card}}
+      {{> ticket_inclusion_card}}
+      {{> ticket_inclusion_card}}
+      {{> ticket_inclusion_card}}
+      {{> ticket_inclusion_card}}
+    </div>
+    <div class="row">
+      <div class="col s8">
+        <h4>Tickets</h4>  
+      </div>
+      <div class="col s4 right-align">
+        {{> events_ticket_no_add}}
+      </div>
+      <div class="col s12">
+        {{> ticket_list}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Inclution Cards -->
+<template name="ticket_inclusion_card">
+  <div class="col s4">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-title">
+          Inclusion Title
+          <div class="action-btn">
+            <a class="waves-effect btn"><i class="fa fa-pencil"></i></a>
+            <a class="waves-effect btn"><i class="fa fa-trash"></i></a>
+          </div>
+        </div>
+        <p>Inclusion Location, New Delhi, India</p>
+        <p>Sunday, 05 Apr, 2018, 10:00 AM to 05:00 PM</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Add Incluion -->
+<template name="ticket_inclusion">
+  <form action="">
+    <div class="row">
+      <h4 class="page-title">Add New Incluion</h4>
+      <div class="input-field col s12">
+        <input id="inclusionName" type="text" name="inclusionName" value={{inclusionName}}>
+        <label class="always-active" for="inclusionName">Inclusion Name 1</label>
+      </div>
+      <div class="input-field col s12">
+        <input id="inclusionAddress" type="text" name="inclusionAddress" value={{inclusionAddress}}>
+        <label class="always-active" for="inclusionAddress">Inclusion Address </label>
+      </div>
+      <div class="input-field col s12">
+        <input id="inclusionTime" type="text" name="inclusionTime" value={{inclusionTime}}>
+        <label class="always-active" for="inclusionTime">Inclusion Date & Time</label>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-ticket">Save
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</template>
+
+<!-- Ticket List -->
+<template name="ticket_list">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Ticket ID</th>
+        <th>Booked By</th>
+        <th class="right-align">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0</td>
+        <td>9989998989</td>
+        <td>EMaiolkl</td>
+        <td>
+          <div class="action-btn">
+            <a class="waves-effect btn"><i class="fa fa-download"></i></a>
+            <a class="waves-effect btn center-btn"><i class="fa fa-pencil"></i></a>
+            <a class="waves-effect btn"><i class="fa fa-trash"></i></a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
+<!-- Add ticket -->
+<template name="events_ticket_no_add">
+  <form id="events-ticket-add">
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="tickets" type="number">
+        <label class="always-active" for="tickets">No of Tickets</label>
+      </div>
+      <div class="col s6">
+        <button class="btn waves-effect waves-light" type="submit" form="events-ticket-add">Add Tickets
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </form>
+</template>
+  

@@ -1,0 +1,131 @@
+<template name="events_list">
+
+  <div class="events-list">
+    <div class="row">
+      <div class="col s4">
+        <div class="input-field" style="margin-right: 20px;">
+          <input id="search_event_list" type="search" class="validate" placeholder="Search Events">
+          <label class="label-icon" for="search_event_list"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </div>
+      <div class="col s8">
+        <div class="row">
+          <div class="input-field col s4">
+            <select multiple id="event-option">
+              <option value="" disabled selected>Select option</option>
+              <option value="active">Active</option>
+              <option value="closed">Closed</option>
+            </select>
+            <label>Event Status</label>
+          </div>
+          <div class="input-field col s4">
+            <select multiple id="event-type">
+              <option value="" disabled selected>Select option</option>
+              <option value="wedding">Wedding/Social</option>
+              <option value="mice">MICE</option>
+              <option value="corporate">Corporate</option>
+            </select>
+            <label>Event Type</label>
+          </div>
+          <div class="input-field col s4">
+            <select multiple id="event-location">
+              <option value="" disabled selected>Select option</option>
+              <option value="domestic">Domestic</option>
+              <option value="international">International</option>
+            </select>
+            <label>Event Location</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h5>Active Events {{agencyName}} ({{totalEvents}})</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="row same-height">
+          {{#if isAllowed 'add-events'}}
+            <div class="col s12 m6 l4 xl3">
+              {{> add_event_card}}
+            </div>
+          {{/if}}
+          {{#each eventsList}}
+            <div class="col s12 m6 l4 xl3">
+              {{> event_data_card}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h5>Closed Events ({{totalClosedEvents}})</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="row same-height">
+          {{#each closedeventsList}}
+            <div class="col s12 m6 l4 xl3">
+              {{> event_data_card}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="preloader-wrapper small active">
+      <div class="spinner-layer spinner-green-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+  </div> -->
+
+</template>
+
+<template name="add_event_card">
+  <div class="card add-event-card click_add-event-button">
+    <div class="card-image">
+      <img class="card-background" src="/img/addevent.jpg">
+      <span class="card-title">ADD EVENT</span>
+      <a class="card-logo btn-large btn-floating halfway-fab waves-light red"><i class="material-icons">add</i></a>
+    </div>
+    <div class="card-content">
+      <p>Click here to add another event</p>
+      <p></p>
+    </div>
+  </div>
+</template>
+
+<template name="event_data_card">
+  <div class="card">
+    <div class="card-image">
+      <img class="card-background" src={{uploadedData.uploadedURLS.eventBackground}}>
+      <span class="event-type {{basicDetails.eventType}}">{{getEventType basicDetails.eventType}}</span>
+      <span class="card-title">{{basicDetails.eventName}}</span>
+      <a class="card-logo btn-large btn-floating halfway-fab"><img src={{uploadedData.uploadedURLS.eventLogo}}></a>
+    </div>
+    <div class="card-content">
+      <p class="date"><i class="fa fa-calendar-check-o"></i> {{getDuration basicDetails.eventStart basicDetails.eventEnd}}</p>
+      <p class="location"><i class="fa fa-map-marker"></i> {{basicDetails.eventDestination}}</p>
+    </div>
+  </div>
+  {{#if isAllowed 'superadmin'}}
+    {{#if appRequested}}
+      <div class="row">
+        <div class="col s6">
+          APP REQUESTED
+        </div>
+      </div>
+    {{/if}}
+  {{/if}}
+</template>

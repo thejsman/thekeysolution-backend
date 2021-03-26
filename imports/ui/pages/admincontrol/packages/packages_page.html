@@ -1,0 +1,419 @@
+<!-- TODO @ MB : DELETE THIS LATER -->
+<template name="packages_page">
+  <div class="package-page">
+    {{#if hasPackages}}
+      <div class="row">
+        <div class="col s8">
+          <h5>Packages</h5>
+        </div>
+        <div class="col s4 right-align">
+          <a class="waves-effect waves-dark btn modal-trigger right" href="/control/packages/new"><i class="material-icons left">add</i>Add Package</a>
+        </div>
+      </div>
+      <table class="centered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Package Name</th>
+            <th>Min. Apps</th>
+            <th>Max. Apps</th>
+            <th>Cost per App</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each packageList}}
+            {{> package_details_item info=this index=@index}}
+          {{/each}}
+        </tbody>
+        {{> package_delete_confirm}}
+        {{> package_edit_modal}}
+      </table>
+    {{else}}
+      <div class="row">
+        <h5 class="col s6"> NO PACKAGES ADDED </h5>
+        <div class="col s4">
+          {{> add_package_button}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+
+<template name="package_details_item">
+  <tr>
+    <th scope="row">{{indexPlusOne index}}</th>
+    <td>{{info.packagesName}}</td>
+    <td>{{info.packagesMinApp}}</td>
+    <td>{{info.packagesMaxApp}}</td>
+    <td>{{info.packagesCostPerApp}}</td>
+    <td>
+      <a class="waves-effect waves-dark btn green lighten-2 click_edit-package-button"><i class="material-icons left">mode_edit</i>Edit</a>
+      <a class="waves-effect waves-dark btn red lighten-2 click_delete-package-button"><i class="material-icons left">remove</i>Delete</a>
+    </td>
+  </tr>
+</template>
+
+<template name="package_edit_modal">
+  <div class="package-edit">
+    <div id="edit-package-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        {{#if packageDetails}}
+          {{#with packageDetails}}
+            <h4>Edit Package</h4>
+            <form class="col s12" id="edit-package">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="packagesName" type="text" class="validate" name="packagesName" value={{packagesName}}>
+                  <label for="packagesName">Package Name</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="packagesDuration" type="text" class="validate" name="packagesDuration" value={{packagesDuration}}>
+                  <label for="packagesDuration">Package Duration(No. Of Days)</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="packagesPrice" type="text" class="validate" name="packagesPrice" value={{packagesPrice}}>
+                  <label for="packagesPrice">Package Price</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="packagesNoOfApps" type="text" class="validate" name="packagesNoOfApps" value={{packagesNoOfApps}}>
+                  <label for="packagesNoOfApps">No. Of Apps</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="packagesLeadPeriod" type="text" class="validate" name="packagesLeadPeriod" value={{packagesLeadPeriod}}>
+                  <label for="packagesLeadPeriod">Lead Period</label>
+                </div>
+              </div>
+            </form>
+          {{/with}}
+        {{/if}}
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="edit-package">
+          <i class="material-icons left">add</i>
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="package_delete_confirm">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete Package</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-package" type="button" name="action">
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="add_package_button">
+  <div class="add-package-button">
+    
+    <div id="add-package-modal" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4>Add Package</h4>
+        <form class="col s12" id="add-package">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="packagesName" type="text" class="validate" name="packagesName" value={{autoFillName}}>
+              <label for="packagesName">Package Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="packagesDuration" type="text" class="validate" name="packagesDuration" value={{autoFillName}}>
+              <label for="packagesDuration">Package Duration</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="packagesPrice" type="text" class="validate" name="packagesPrice" value={{autoFillName}}>
+              <label for="packagesPrice">Package Price</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="packagesNoOfApps" type="text" class="validate" name="packagesNoOfApps" value={{autoFillName}}>
+              <label for="packagesNoOfApps">No. Of Apps</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="packagesLeadPeriod" type="text" class="validate" name="packagesLeadPeriod" value={{autoFillName}}>
+              <label for="packagesLeadPeriod">Lead Period</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="add-package">
+          <i class="material-icons left">add</i>
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Add New Package -->
+<template name="package_add">
+  <div class="package-add">
+    <h5>Add New Package</h5>
+    <form id="add-new-package">
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Name
+        </div>
+        <div class="input-field col s8">
+          <input placeholder="Enter plan name" name="packagesName" id="packagesName" type="text" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Description
+        </div>
+        <div class="input-field col s8">
+          <textarea style="height:auto;" name="packagesDescription" id="packagesDescription" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Features
+        </div>
+        <div class="col s8">
+          <div class="row">
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature1"/>
+              <label for="feature1">Feature1</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature2"/>
+              <label for="feature2">Feature2</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature3"/>
+              <label for="feature3">Feature3</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature4"/>
+              <label for="feature4">Feature4</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature5"/>
+              <label for="feature5">Feature5</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature6"/>
+              <label for="feature6">Feature6</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Cost per app
+        </div>
+        <div class="input-field col s2">
+          <input name="packagesCostPerApp" id="packagesCostPerApp" type="number" class="validate">
+        </div>
+        <div class="col s4 form-label right-align">
+          GST Rate (%)
+        </div>
+        <div class="input-field col s2">
+          <input name="packagesGstRate" id="packagesGstRate" type="number" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Number of Apps
+        </div>
+        <div class="input-field col s1">
+          <input name="packagesMinApp" id="packagesMinApp" type="number" class="validate">
+          <label for="packagesMinApp">Min.</label>
+        </div>
+        <div class="input-field col s1">
+          <input name="packagesMaxApp" id="packagesMaxApp" type="number" class="validate">
+          <label for="packagesMaxApp">Max.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Staus
+        </div>
+        <div class="col s8 switch">
+          <label>
+            Inactive
+            <input type="checkbox">
+            <span class="lever"></span>
+            Active
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Availability
+        </div>
+        <div class="col s8 switch">
+          <label>
+            All Agencies
+            <input type="checkbox">
+            <span class="lever"></span>
+            Specific Agencies
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Sequence Number
+        </div>
+        <div class="input-field col s1">
+          <input value="1" name="packagesSequence" id="packagesSequence" type="number" class="validate">
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+  </div>
+</template>
+
+<!-- Edit Package -->
+<template name="package_edit">
+  <div class="package-edit">
+    <h5>Edit Package</h5>
+    <form id="edit-package">
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Name
+        </div>
+        <div class="input-field col s8">
+          <input placeholder="Enter plan name" name="packagesName" id="packagesName" value={{packagesName}} type="text" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Description
+        </div>
+        <div class="input-field col s8">
+          <textarea style="height:auto;" name="packagesDescription" id="packagesDescription" value={{packagesDescription}} cols="30" rows="10"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Features
+        </div>
+        <div class="col s8">
+          <div class="row">
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature1"/>
+              <label for="feature1">Feature1</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature2"/>
+              <label for="feature2">Feature2</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature3"/>
+              <label for="feature3">Feature3</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature4"/>
+              <label for="feature4">Feature4</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature5"/>
+              <label for="feature5">Feature5</label>
+            </div>
+            <div class="col s4">
+              <input type="checkbox" class="filled-in" id="feature6"/>
+              <label for="feature6">Feature6</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Cost per app
+        </div>
+        <div class="input-field col s2">
+          <input name="packagesCostPerApp" id="packagesCostPerApp" value={{packagesCostPerApp}} type="number" class="validate">
+        </div>
+        <div class="col s4 form-label right-align">
+          GST Rate (%)
+        </div>
+        <div class="input-field col s2">
+          <input name="" id="packagesGstRate" value={{packagesGstRate}} type="number" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Number of Apps
+        </div>
+        <div class="input-field col s1">
+          <input id="packagesMinApp" type="number" value={{packagesMinApp}} class="validate">
+          <label for="packagesMinApp">Min.</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="packagesMaxApp" type="number" class="validate">
+          <label for="packagesMaxApp">Max.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Staus
+        </div>
+        <div class="col s8 switch">
+          <label>
+            Inactive
+            <input type="checkbox">
+            <span class="lever"></span>
+            Active
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Plan Availability
+        </div>
+        <div class="col s8 switch">
+          <label>
+            All Agencies
+            <input type="checkbox">
+            <span class="lever"></span>
+            Specific Agencies
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 form-label">
+          Sequence Number
+        </div>
+        <div class="input-field col s1">
+          <input value="1" id="packagesSequence" type="number" class="validate">
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+  </div>
+</template>

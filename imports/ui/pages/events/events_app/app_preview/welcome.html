@@ -1,0 +1,27 @@
+<!-- App Preview -->
+<template name="app_preview_welcome">
+  <h5 class="page-title center">Screen Preview</h5>
+ {{#with appWelcomeSettings}}
+   <div class="app-preview welcome" style="color: {{appColor2}}">
+    {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=welcomeTitle}}
+     <div class="app-body" style="background-image:url('{{backgroundUrl}}'); color: {{appColor2}}">
+       <div class="welcome-content">
+         <!-- <center><h5 style="font-family: {{appHeadingFont}}" id="app_welcome_title">{{welcomeTitle}}</h5></center> -->
+         <div class="welcome-image" style="margin-top: 20px; background-image:url('{{welcomeImage}}'); font-family: {{fontActualName appHeadingFont}}">
+           {{#if checkVideo welcomeVideo}}   
+           <i class="fa fa-youtube-play"></i>
+             {{/if}}
+         </div>
+         <div class="welcome-text" style="font-family: {{appBodyFont}}; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+           <p >Dear Guest,</p>
+           <p id="app_welcome_message" style="white-space:pre-line;">
+             {{welcomeMessage}}
+           </p>
+         </div>
+       </div>
+       <center>   
+     </center>
+     </div>
+   </div>
+ {{/with}}
+</template>

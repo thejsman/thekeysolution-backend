@@ -1,0 +1,136 @@
+<template name="activity_record_page">
+  <div class="activity-record-page">
+    <div class="row">
+      <div class="col s6">
+        <h5>Activity Record</h5>
+      </div>
+      <div class="col s6">
+        <div class="activity-action">
+          {{#if isAllowed 'activity-export'}}
+            <a class="waves-effect waves-light btn btn-primary modal-trigger" href="#activity-export-modal"><i class="material-icons left">add</i>Export Data</a>
+          {{/if}}
+          {{#if isAllowed 'activity-record-delete'}}
+            <a class="waves-effect waves-light btn btn-primary modal-trigger" id="activity-record-delete-modal" href="#activity-delete-modal"><i class="fa fa-trash left"></i>Delete</a>
+          {{/if}}
+          {{> activity_export}}
+          {{> activity_delete_confirm}}
+        </div>
+      </div>
+    </div>
+    {{#if getActivityCount}}
+      <ul class="pagination">
+        <li><a href="#" id="page-minus"><i class="material-icons">chevron_left</i></a></li>
+        {{#each page in getPagination}}
+          <li class="{{page.isActive}} page-no"><a href="#" id="{{page.pageNo}}">{{indexPlusOne page.pageNo}}</a></li>
+        {{/each}}
+        <li class="waves-effect"><a id="page-plus" href="#!"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+    {{/if}}
+    {{#if getActivityCount}}
+      <div class="row">
+        <table class="centered" id="activity_record_table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Module</th>
+            <th>SubModule</th>
+            <th>Event</th>
+            <th>Message</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Date / Time</th>
+          </tr>
+        </thead>
+        <tbody>
+    <!--    <tr>
+          <td ></td>
+          <td>
+                <div class="input-field">
+                    <input id="search_activity_module" type="search" class="validate" placeholder="Module">
+                    <label class="label-icon" for="search_activity_module"><i class="material-icons">search</i></label>
+                </div>
+          </td>
+          <td>
+                  <div class="input-field">
+                    <input id="search_activity_submodule" type="search" class="validate" placeholder="Sub Module">
+                    <label class="label-icon" for="search_activity_submodule"><i class="material-icons">search</i></label>
+                  </div>
+          </td>
+          <td>
+                  <div class="input-field">
+                    <input id="search_activity_event" type="search" class="validate" placeholder="Event">
+                    <label class="label-icon" for="search_activity_event"><i class="material-icons">search</i></label>
+                  </div>
+          </td>
+          <td>
+                  <div class="input-field">
+                    <input id="search_activity_message" type="search" class="validate" placeholder="Message">
+                    <label class="label-icon" for="search_activity_message"><i class="material-icons">search</i></label>
+                  </div>
+          </td>
+          <td>
+                  <div class="input-field">
+                    <input id="search_activity_user" type="search" class="validate" placeholder="User">
+                    <label class="label-icon" for="search_activity_user"><i class="material-icons">search</i></label>
+                  </div>
+          </td>
+          <td>
+                  <div class="input-field">
+                    <input id="search_activity_user_email" type="search" class="validate" placeholder="Email">
+                    <label class="label-icon" for="search_activity_user_email"><i class="material-icons">search</i></label>
+                  </div>
+          </td>
+          <td>
+              <div class="input-field">
+              <input id="search_activity_date" type="search" class="datepicker" placeholder="Date">
+              <label  class="label-icon" for="search_activity_date"><i class="material-icons">search</i></label>
+            </div>
+          </td>
+        </tr>  --> 
+        {{#each activityList}}
+          {{> activity_details_item info=this index=@index}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div> 
+  {{else}}
+    <div class="row">
+      <h5 class="col s12"> Activity Records not available </h5>
+    </div>
+  {{/if}}
+
+ {{#if hasActivity}}
+   
+ {{/if}}
+  </div>
+</template>
+
+<template name="activity_delete_confirm">
+  <div id="activity-delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete All Activity Logs</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-activity" type="button" name="action">
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+
+<template name="activity_details_item">
+  <tr>
+    <th scope="row"><center>{{PageNumbers index}}</center></th>
+    <td>{{info.activityModule}}</td>
+    <td>{{info.activitySubModule}}</td>
+    <td>{{info.activityEvent}}</td>
+    <td>{{info.activityMessage}}</td>
+    <td>{{info.activityUserInfo.name}}</td>
+    <td>{{info.activityUserInfo.email}}</td>
+    <td>{{info.activityeDateTime}}</td>
+  </tr>
+</template>

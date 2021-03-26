@@ -1,0 +1,105 @@
+<template name="guest_profile_transport_card">
+  <div class="col s4">
+    <div class="card">
+      <div class="card-content">
+        <h5>{{booking.driverName}}, {{booking.vehicleType}}</h5>
+        <div class="row">
+          <div class="col s12">
+            {{booking.type}}
+          </div>
+          <div class="col s12">
+            {{booking.from}} to {{booking.to}}
+          </div>
+        </div>
+      </div>
+      <div class="card-action">
+        {{#if isAllowed 'edit-transport-booking'}}
+          <a id="edit-transport" href="#guest-profile-transport-modal" class="modal-trigger btn waves-effect waves-light"><i class="material-icons">edit</i></a>
+        {{/if}}
+        {{#if isAllowed 'delete-transport-booking'}}
+          <a id="delete-transport" class="btn waves-effect waves-light"><i class="material-icons">delete</i></a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="guest_profile_transport">
+  <div class="guest-profile-transport">
+    <div class="row tranport-list">
+      {{#each booking in bookingList}}
+	      {{> guest_profile_transport_card booking=booking}}
+      {{/each}}
+    </div>
+    <div class="row">
+      <a href="#guest-profile-transport-modal" class="modal-trigger btn waves-effect waves-light" id="add-transport-modal">
+        <i class="material-icons">add</i>
+        Assign
+      </a>
+    </div>
+    <div class="modal" id="guest-profile-transport-modal" style="height: 600px;">
+      <div class="modal-content">
+	      {{#let booking=bookingInfo}}
+          <form id="guest-profile-transport">
+            <div class="row">
+              <h5>{{title}}</h5>
+            </div>
+            <div class="row">
+              <div class="input-field col s4">
+                <select name="transportType" required id="transportType">
+                  <option value="" disabled selected>Transport Options</option>
+                  <option value="dedicated">Dedicated</option>
+                  <option value="pool">Pool</option>
+                </select>
+                <label>Transport Type</label>
+              </div>
+              <div class="input-field col s4">
+                <select name="vehicleId" required id="vehicleId">
+                  <option value="" disabled selected>Transport Options</option>
+                  {{#each vehicle in vehicleList}}
+                    <option value="{{vehicle._id}}">{{vehicle.vehicleType}}</option>
+                  {{/each}}
+                </select>
+                <label>Select Vehicle</label>
+              </div>
+              <div class="input-field col s4">
+                <select name="driverId" required id="driverId">
+                  <option value="" disabled selected>Select Driver</option>
+                  {{#each driver in driverList}}
+                    <option value="{{driver._id}}">{{driver.driverName}}</option>
+                  {{/each}}
+                </select>
+                <label>Select Driver</label>
+              </div>
+              <div class="col s3">
+                <label for="transportStartDate">Start Date</label>
+                <input id="transportStartDate" type="text" class="datepicker" name="transportStartDate" required value={{booking.transportStartDate}}>
+              </div>
+              <div class="col s3">
+                <label for="transportStartTime">Start Time</label>
+                <input id="transportStartTime" type="text" class="timepicker" name="transportStartTime" required value={{booking.transportStartTime}}>
+              </div>
+              <div class="col s3">
+                <label for="transportEndDate">End Date</label>
+                <input id="transportEndDate" type="text" class="datepicker" name="transportEndDate" required value={{booking.transportEndDate}}>
+              </div>
+              <div class="col s3">
+                <label for="transportEndTime">End Time</label>
+                <input id="transportEndTime" type="text" class="timepicker" name="transportEndTime" required value={{booking.transportEndTime}}>
+              </div>
+              <div class="input-field col s12">
+                <input type="text" id="guestTansportRemarks" name="transportRemarks" value={{booking.transportRemarks}}>
+                <label class="always-active" for="guestTansportRemarks">Guest Remarks</label>
+              </div>
+              <div class="col s12">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Add
+                  <i class="material-icons right">add</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        {{/let}}
+      </div>
+    </div>
+  </div>
+</template>

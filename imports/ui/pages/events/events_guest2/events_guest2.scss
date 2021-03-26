@@ -1,0 +1,65 @@
+.app_body2 .events-guest2{
+  position: relative;
+  ul.collapsible{
+    .collapsible-header{
+      padding: 30px 15px;
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .collapsible-body {
+      padding: 15px;
+    }
+  }
+}
+// Guest Details List
+.guest-details-list{
+  position: relative;
+  ul li{
+    display: flex;
+    padding: 10px 0;
+    i{
+      padding-top: 3px;
+      width: 35px;
+      text-align: center;
+    }
+    .title{
+      font-weight: 600;
+      width: 150px;
+    }
+    .value{
+
+    }
+  }
+  ul.card{
+    padding: 20px;
+  }
+}
+// Guest Profile
+.guest2-profile {
+  position: relative;
+  .guest-photo{
+    padding: 10px 20px;
+    span{
+      display: block;
+    }
+  }
+  .guest-details {
+    @extend .guest-details-list;
+  }
+
+}
+
+// Guest Flight
+.guest2-flight{
+
+}
+
+// Hotel
+.guest2-hotel{
+  @extend .guest-details-list;
+}
+
+// Gift
+.guest2-gift{
+  @extend .guest-details-list;
+}

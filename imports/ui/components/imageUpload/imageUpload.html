@@ -1,0 +1,17 @@
+<template name="imageUpload">
+  <div class="image-upload-wrapper" id="{{dropifyId}}">
+    <label style="font-size: 14px;">
+      <span style="font-weight: 600;">{{labelTitle}}</span>
+      {{labelText}}
+      </label>
+    <input
+      type="file"
+      class="dropify"
+      data-default-file={{defaultImage}}
+      name={{imageName}}
+      data-max-file-size={{maxFileSize}}
+      data-allowed-formats={{imageFormat}}
+      data-allowed-file-extensions={{imageExtension}}
+    />
+  </div>
+</template>

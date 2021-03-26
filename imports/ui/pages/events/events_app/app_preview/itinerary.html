@@ -1,0 +1,35 @@
+<template name="app_preview_itinerary">
+  <h5 class="page-title center">Screen Preview</h5>
+  {{#with appItinerarySettings}}
+  <div class="app-preview welcome" style="color: {{appColor2}}">
+    {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="ITINERARY"}}
+    <div class="app-body" style="background-image:url('{{itineraryPreviewBackground}}'); color: {{appColor2}};padding-top: 10px;max-height:420px; overflow-y:scroll;">
+      <div>
+        <div class="row center-align" style="padding-left:20px;">
+          <a class=" btn " id='selected_date' style="background-color: Transparent!important; background-repeat: no-repeat; border: 1px solid; cursor: pointer;color: {{appColor2}} !important; font-family:{{appBodyFont}}">DATE 1</a>
+          <a class=" btn " id='other_date1' style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}; font-family:{{appBodyFont}}">DATE 2</a>
+        </div>
+      </div>
+      <div class="welcome-content" style="padding: 2px 10px;">
+        <div id="itinerary_preview_div" style=" margin-bottom:10px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appItinerarySettings.appColor3}}, {{appItinerarySettings.appColor4}});padding-top:10px;padding-bottom:10px;font-family:{{appBodyFont}}">
+          {{#each itineraryList }} {{#if checkItineraryIndex @index}}
+          <div class="row s12 itinerary_preview">
+            <div class="col s2">
+              <i class="{{symbol selectIcon}} abl-itinerary-icon"></i>
+            </div>
+            <div class="col s10">
+              <div>
+                {{startTime}} - {{endTime}}
+              </div>
+              <div>
+                {{description}}
+              </div>
+            </div>
+          </div>
+          {{/if}} {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

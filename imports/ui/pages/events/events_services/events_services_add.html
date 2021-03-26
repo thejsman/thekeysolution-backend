@@ -1,0 +1,44 @@
+<template name="events_services_add_form">
+  <div id="event-services-add" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <div class="modal-title col s12">
+          <h5>{{title}}</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          {{#let serviceInfo=serviceDetails}}
+            <form id="add-service-form" class="row">
+              <div class="col s12 input-field tooltipped" data-position="top" data-delay="50" data-tooltip="For ex: Hair Styling, Spa Services">
+                <input id="serviceName" type="text" name="serviceName" value={{serviceInfo.serviceName}}>
+                <label class="always-active" for="serviceName">Service Name <i class="tooltip-icon"></i></label>
+              </div>
+              <div class="col s12 input-field">
+                <input id="serviceDesc" type="text" name="serviceDescription" value={{serviceInfo.serviceDescription}}>
+                <label class="always-active" for="serviceDesc">Service Description</label>
+              </div>
+            </form>
+          {{/let}}
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" type="submit" name="action" form="add-service-form">Submit
+	      <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</template>
+
+<template name="events_services_providers_info">
+  <tr>
+    <td>{{provider.serviceProviderName}}</td>
+    <td>{{provider.serviceProviderContact}}</td>
+    <td>{{provider.serviceAvailable}}</td>
+    <td>{{provider.singleServiceSlot}}</td>
+    <td>80</td>
+    <td>10:00 AM - 4:30 PM</td>
+    <td><a class="waves-effect waves-light btn click_remove-provider"><i class="material-icons left">cloud</i>Remove</a></td>
+  </tr>
+</template>

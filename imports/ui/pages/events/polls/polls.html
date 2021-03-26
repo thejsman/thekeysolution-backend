@@ -1,0 +1,43 @@
+<template name="events_polls">
+  <div class="row">
+    <div class="col s12 page-title">
+      <h5 class="">Polls</h5>
+      <a href="{{ newPoll }}" class="waves-effect waves-light btn btn-primary"
+        >create poll</a
+      >
+    </div>
+    <div class="col s12">
+      {{#if isLoading}}
+      isLoading ....
+      {{else}}
+      <div class="row">
+        {{#each poll in polls}}
+          {{> poll_card poll=poll}}
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="poll_card">
+  <div class="col s12 m6 l4 xl3 card-one">
+    <div class="card-inner  cursor-pointer js_link_view_poll">
+      <p class="card-tag {{#if poll.active}} active {{/if}}">{{#if poll.active}} active {{else}} not-active {{/if}}</p>
+      <h3 class="card-title">{{ poll.type }}</h3>
+      <div class="card-content">
+        <p>
+          <i class="fa fa-question-circle"></i>
+          {{ poll.question }}
+        </p>
+        <p>
+          <i class="fa fa-star"></i>
+          Multiple Options {{#if poll.multipleAnswer }} allowed (max {{ poll.maxAnswer }}){{ else }}  not allowed.{{/if}}
+        </p>
+      </div>
+      <div class="card-arrow">
+        <i class="fa fa-angle-double-right"></i>
+      </div>
+    </div>
+  </div>
+</template>

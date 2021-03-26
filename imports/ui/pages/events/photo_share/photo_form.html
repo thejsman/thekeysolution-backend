@@ -1,0 +1,52 @@
+<template name="photo_form">
+  <div class="photo_form">
+    <div class="container">
+      <h4>{{title}}</h4>
+      <form id="photoForm" name="photoForm">
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12 main-image-holder">
+                <input type="file" id="main-image" class="dropify" data-default-file="{{photo.url}}" name="url" data-max-file-size="1M">
+                <label class="dropify-img-label" for="url">Featured Image: Format: JPEG, Max : 1 Mb </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea class="materialize-textarea" name="caption" rows="8" cols="40" value={{photo.caption}}></textarea>
+                <label class="always-active" for="caption">Image Caption</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="status" name="status" value="{{photo.status}}">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="published">Published</option>
+                  <option value="draft">Draft</option>
+                </select>
+                <label>Status</label>
+              </div>
+              <div class="col s6 checkbox-wrapper">
+                <input type="checkbox" name="sticky" id="sticky" />
+                <label for="sticky">Sticky</label>
+              </div>
+              {{#if moveToFeatured}}
+                <div class="col s12 checkbox-wrapper">
+                  <input type="checkbox" name="featured" id="featured" />
+                  <label for="featured">Move this image to featured section</label>
+                </div>
+              {{else}}
+                <input type="checkbox" name="featured" id="featured" checked hidden/>
+              {{/if}}
+              <div class="col s12">
+                {{#if showLoader}}
+                  {{> preloader_big}}
+                {{else}}
+                  <button class="btn" type="submit">Submit</button>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>

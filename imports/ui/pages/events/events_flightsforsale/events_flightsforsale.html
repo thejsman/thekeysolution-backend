@@ -1,0 +1,83 @@
+<template name="events_flightsforsale">
+  <div class="events-flights">
+    <div class="row">
+      <div class="col s12">
+	      <h5 class="page-title">Flights For Sale<a class="waves-effect waves-light btn btn-primary" href={{flightforsaleAddPath}}><i class="material-icons left">add</i>Add Flight</a></h5>
+      </div>
+    </div>
+    <div class="row">
+      {{#each flight in flightforsaleList}}
+	      {{> flightforsale_card flight=flight}}
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="flightforsale_card">
+  <div class="col s12 m12 l4">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+	<div class="card-title">
+	  <div class="info-card-title">
+	    {{#with flightStart}}
+	      {{airportIATA}}
+	    {{/with}}
+	    <i class="material-icons flight-icon">airplanemode_active</i>
+	    {{#with flightEnd}}
+	      {{airportIATA}}
+	    {{/with}}
+	  </div>
+	  <div class="info-card-action">
+	    <div class="action-btn">
+	      {{#if isAllowed 'edit-flights'}}
+		<a href="{{flightforsaleEditPath}}" class="waves-effect btn primary">
+		  <i class="fa fa-pencil"></i>
+		</a>
+	      {{/if}}
+	      {{#if isAllowed 'delete-flights'}}
+		<a href="#" class="waves-effect btn primary click_delete-flight" id="{{flight._id}}">
+		  <i class="fa fa-trash"></i>
+		</a>
+	      {{/if}}
+	    </div>
+	  </div>
+	  <p class="info-card-date">{{flightDeparture}}</p>
+	</div>
+      </div>
+      <div class="card-content-bg white-text">
+	<div class="card-content">
+	  <div class="row">
+	    {{#each leg in flightLegs}}
+	      <div class="row">
+		<div class="col s5">
+		  <span>{{leg.departureCity.airportIATA}}</span><br>
+		  <span>{{leg.departureTime}}</span>
+		</div>
+		<div class="col s2">
+		  <i class="material-icons">flight_takeoff</i>
+		</div>
+		<div class="col s5">
+		  <span>{{leg.arrivalCity.airportIATA}}</span><br>
+		  <span>{{leg.arrivalTime}}</span>
+		</div>
+	      </div>
+	    {{/each}}
+	  </div>
+	  <div class="row">
+	    <div class="col s12 center-align card-top-content">
+	      <h5>Arrival : {{flightArrival}}</h5>
+	    </div>
+	    <div class="col s6 m6 l6 center-align">
+	      <h6>Reserved</h6>
+	      <p class="small">{{flightReserved}}</p>
+	    </div>
+	    <div class="col s6 m6 l6 center-align">
+	      <h6>Available</h6>
+	      <p class="small">{{flightAvailable}}</p>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,114 @@
+<template name="events_hotelsforsale_add">
+  <div class="events-hotels-add">
+    <div class="row">
+      <div class="col s6">
+	      <h5>{{title}}</h5>
+      </div>
+    </div>
+    {{#let info=info}}
+      <form class="row" id="add-hotel-for-sale-form">
+        <div class="row">
+          <div class="input-field col s4">
+          </div>
+          <div class=" col s8">
+            <div class="input-field col s6">
+              <input type="file" id="input-file-now" class="dropify file-hotelImage" data-default-file="{{info.hotelImageUrl}}" name="hotelImage" >
+        	  </div>
+            <div class=" col s6">
+              <div class="input-field col s12">
+                <input id="hotelAirpotPickupCharges" type="text" name="hotelAirpotPickupCharges" value={{info.hotelAirpotPickupCharges}}>
+                <label class="always-active" for="hotelAirpotPickupCharges">Airport To Hotel Drop Charges</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="hotelAirpotDropCharges" type="text" name="hotelAirpotDropCharges" value={{info.hotelAirpotDropCharges}}>
+                <label class="always-active" for="hotelAirpotDropCharges">Hotel To Airport Drop Charges</label>
+              </div> 
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <input id="hotel_name" data-length="20" maxlength="20" type="text" name="hotelName" value={{info.hotelName}}>
+            <label class="always-active" for="hotel_name">Hotel Name</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="hotel_type" type="text" name="hotelType" value={{info.hotelType}}>
+            <label class="always-active" for="hotel_type">Hotel Type</label>
+          </div>
+          <div class=" col s4">
+            <label>Hotel Rating</label>
+            <select id="hotel_rating" name="hotelRating" class="" style="height:40px;min-width:120px;width:100%;display:block">
+              <option value="" disabled selected>Select Star Rating</option>
+              <option value="1" selected="{{selectRating '1'}}">1 Star</option>
+              <option value="2" selected="{{selectRating '2'}}">2 Star</option>
+              <option value="3" selected="{{selectRating '3'}}">3 Star</option>
+              <option value="4" selected="{{selectRating '4'}}">4 Star</option>
+              <option value="5" selected="{{selectRating '5'}}">5 Star</option>
+            </select>
+	        </div>
+	      </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <input id="hotel_contact_name" type="text" name="hotelContactName" value={{info.hotelContactName}}>
+            <label class="always-active" for="hotel_contact_name">Contact Person</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="hotel_contact_designation" type="text" name="hotelContactDesignation" value={{info.hotelContactDesignation}}>
+            <label class="always-active" for="hotel_contact_designation">Contact Person Designation</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="hotel_contact_number" type="text" name="hotelContactPhone" value={{info.hotelContactPhone}}>
+            <label class="always-active" for="hotel_contact_number">Contact Number</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="hotelAddress1" type="text" name="hotelAddress1" value={{info.hotelAddress1}}>
+            <label class="always-active" for="hotelAddress1">Address Line 1</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="hotelAddress2" type="text" name="hotelAddress2" value={{info.hotelAddress2}}>
+            <label class="always-active" for="hotelAddress2">Address Line 2</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="hotelAddressCity" type="text" name="hotelAddressCity" value={{info.hotelAddressCity}}>
+            <label class="always-active" for="hotelAddressCity">City</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="hotelAddressState" type="text" name="hotelAddressState" value={{info.hotelAddressState}}>
+            <label class="always-active" for="hotelAddressState">State</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="hotelAddressPincode" type="text" name="hotelAddressPincode" value={{info.hotelAddressPincode}}>
+            <label class="always-active" for="hotelAddressPincode">Pincode</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="hotelAddressLandmark" type="text" name="hotelAddressLandmark" value={{info.hotelAddressLandmark}}>
+            <label class="always-active" for="hotelAddressLandmark">LandMark</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="hotelPhone" type="text" name="hotelPhone" value={{info.hotelPhone}}>
+            <label class="always-active" for="hotelPhone">Hotel Telephone no.</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="hotelWebsite" type="text" name="hotelWebsite" value={{info.hotelWebsite}}>
+            <label class="always-active" for="hotelWebsite">Hotel Website</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="hotelGoogleMapLink" type="text" name="hotelGoogleMapLink" value={{info.hotelGoogleMapLink}}>
+            <label class="always-active" for="hotelGoogleMapLink">Google Map Link</label>
+          </div>
+          <div class="input-field col s12">
+            <textarea id="hotelDescription" class="materialize-textarea" name="hotelDescription">{{info.hotelDescription}}</textarea>
+            <label class="always-active" for="hotelDescription">Hotel Description</label>
+          </div>
+	      </div>
+        <div class="row">
+          <button class="btn waves-effect waves-light" type="submit" name="action" form="add-hotel-for-sale-form">{{buttonText}}
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    {{/let}}
+  </div>
+</template>

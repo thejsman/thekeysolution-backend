@@ -1,0 +1,81 @@
+$primary-color-dark:   #1976D2;
+$primary-color:        #2196F3;
+$primary-color-light:  #BBDEFB;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #FFEB3B;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+
+html,body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+    .full-height {
+	height: 100%;
+    }
+
+    .dark-primary-color    { background: $primary-color-dark; }
+    .default-primary-color { background: $primary-color; }
+    .light-primary-color   { background: $primary-color-light; }
+    .text-primary-color    { color: $primary-color-text; }
+    .accent-color          { background: $accent-color; }
+    .primary-text-color    { color: $primary-text-color; }
+    .secondary-text-color  { color: $secondary-text-color; }
+    .divider-color         { border-color: $divider-color; }
+
+    /* label color */
+   .input-field label {
+     color: $primary-text-color !important;
+   }
+   /* label focus color */
+   .input-field input:focus + label {
+       color: $secondary-text-color !important;
+   }
+   /* label underline focus color */
+   .input-field input:focus {
+       border-bottom: 1px solid $primary-color !important;
+       box-shadow: 0 1px 0 0 $primary-color !important;
+   }
+   /* valid color */
+   .input-field input.valid {
+       border-bottom: 1px solid #000 !important;
+       box-shadow: 0 1px 0 0 #000 !important;
+   }
+   /* invalid color */
+   .input-field input.invalid {
+       border-bottom: 1px solid red !important;
+       box-shadow: 0 1px 0 0 red !important;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+       color: #000 !important;
+   }
+
+   .btn {
+       background: $primary-color !important;
+   }
+
+   //    .input-field input[type=text]:focus + label {
+   //   color: $secondary-text-color;
+   // }
+   // /* label underline focus color */
+   // .input-field input[type=text]:focus {
+   //   border-bottom: 1px solid #000;
+   //   box-shadow: 0 1px 0 0 #000;
+   // }
+   // /* valid color */
+   // .input-field input[type=text].valid {
+   //   border-bottom: 1px solid #000;
+   //   box-shadow: 0 1px 0 0 #000;
+   // }
+   // /* invalid color */
+   // .input-field input[type=text].invalid {
+   //   border-bottom: 1px solid #000;
+   //   box-shadow: 0 1px 0 0 #000;
+   // }
+   
+}
+
+

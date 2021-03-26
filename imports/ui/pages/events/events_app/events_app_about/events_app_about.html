@@ -1,0 +1,175 @@
+<template name="events_app_about">
+  <div class="events-subevent">
+    <div class="row">
+      <div class="col s12">
+        <h5 class="page-title">
+          About Host/App Pages
+          <a class="waves-effect waves-dark btn modal-trigger right" href="#add-about-modal" id="add-about-button_click">
+            <i class="material-icons left">add</i>
+            Add New
+          </a>
+          {{> add_about_page}}
+        </h5>
+      </div>
+    </div>
+    <div class="row eq-height">
+      {{#if hasAboutPages}}
+      {{#each page in aboutPageList}}
+      {{> events_app_about_card info=page}}
+      {{/each}}
+      {{else}}
+      <div class="row">
+        <h6 class="col s12">About pages not added.</h6>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<!-- about page card -->
+<template name="events_app_about_card">
+  <div class="col s12 m12 l4 sub-event-card">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">
+            {{info.aboutPageTitle}}
+          </div>
+          <div class="info-card-action">
+            <div class="action-btn">
+              <a class="btn primary modal-trigger edit-page-button" href="#add-about-modal">
+                <i class="fa fa-pencil"></i>
+              </a>
+              <a href="#" class="btn primary click_delete-button">
+                <i class="fa fa-trash"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content-bg white-text" style="background-image:url('{{info.aboutPageImg}}')">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align card-top-content">
+              {{info.aboutPageContent}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- Add about page modal -->
+<template name="add_about_page">
+  <div class="add-subevent-button">
+    <div id="add-about-modal" class="modal modal-fixed-footer subevent">
+      <div class="modal-content app-setting">
+        <div class="col s6">
+          <h6>{{title}}</h6>
+          {{#let page=pageInfo}}
+          <form class="col s12" id="add-about-page">
+            <div class="row">
+              <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="page sequence number">
+                <input id="aboutPageSequence" type="number" min="1" max="50" name="aboutPageSequence" value={{page.aboutPageSequence}}>
+                <label class="always-active" for="aboutPageSequence">Page Sequence</label>
+              </div>
+              <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="This image will appear in the App. Please ensure it is a licensed / purchased image or use one from our resources page">
+                <input type="file" id="input-file-now" class="dropify" data-default-file="{{page.aboutPageImg}}" name="aboutPageImg">
+                <label class="dropify-img-label" for="aboutPageImg">About Page Image 1, Max : 1 Mb, 1200 x 520, Format:
+                  JPEG</label>
+              </div>
+              <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Name of Event as it should appear in the App">
+                <input id="aboutPageTitle" type="text" name="aboutPageTitle" data-length="40" maxlength="40" value={{page.aboutPageTitle}}>
+                <label class="always-active" for="aboutPageTitle">Page Title <i class="tooltip-icon"></i></label>
+              </div>
+              <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Name of Event as it should appear in the App">
+                <textarea class="materialize-textarea aboutPageContent" id="aboutPageContent" name="aboutPageContent"
+                  cols="30" rows="10">{{page.aboutPageContent}}</textarea>
+                <label class="always-active" for="aboutPageContent">Page Content <i class="tooltip-icon"></i></label>
+              </div>
+            </div>
+          </form>
+          {{/let}}
+        </div>
+        <div class="col s6" style="max-width: 450px;margin:auto;">
+          {{> app_preview_about_page}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+        <button class="btn waves-effect waves-light" id="update_app_preview">
+          <i class="fa fa-refresh"></i>App Preview <i class="tooltip-icon" data-position="top" data-delay="50"
+            data-tooltip="All the App screens togther, for final approval from your client"></i></button>
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="add-about-page">
+          <i class="material-icons left">add</i>{{buttonText}}
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- App Preview -->
+<template name="app_preview_about_page">
+  <h5 class="page-title center">Screen Preview</h5>
+  {{#with appAboutSettings}} {{#let page=pageInfo}}
+  <div class="app-preview about welcome" style="color: {{appColor2}}">
+    {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=aboutUsTitle}}
+    {{#if aboutPageBackground}}
+    <div class="app-body" style="background-image:url('{{aboutPageBackground}}'); color: {{appColor2}}">
+      <div>
+        <br>
+        <div class="row" style="padding-left:20px;">
+          <center>
+            <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{page.aboutPageTitle}}</a>
+          </center>
+        </div>
+        <div class="row center-align">
+          <div class="col s4"></div>
+          <div class="col s4 page-dots">
+            <i class="fa fa-circle selected"></i> &nbsp;
+            <i class="fa fa-circle"></i> &nbsp;
+            <i class="fa fa-circle"></i>
+          </div>
+          <div class="col s4"></div>
+        </div>
+      </div>
+      <div class="welcome-content">
+        <div class="welcome-image" id="about_main_banner" style="background-image:url('{{aboutPageMainbanner}}'); "></div>
+        <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+          <h5 id="about_main_title">{{page.aboutPageTitle}}</h5>
+          <p id="about_main_description" style="white-space: pre-wrap; font-size: 14px;">{{page.aboutPageContent}}</p>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+      <div>
+        <br>
+        <div class="row" style="padding-left:20px;">
+          <center>
+            <a class=" btn " style="background: transparent !important; border: 1px solid {{appColor2}}; cursor: pointer; color: {{appColor2}}; font-family:{{appBodyFont}}">{{page.aboutPageTitle}}</a>
+          </center>
+        </div>
+        <div class="row center-align">
+          <div class="col s4"></div>
+          <div class="col s4 page-dots">
+            <i class="fa fa-circle selected"></i> &nbsp;
+            <i class="fa fa-circle"></i> &nbsp;
+            <i class="fa fa-circle"></i>
+          </div>
+          <div class="col s4"></div>
+        </div>
+      </div>
+      <div class="welcome-content">
+        <div class="welcome-image" id="about_main_banner" style="background-image:url('{{page.aboutPageImg}}'); "></div>
+        <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+          <p id="about_main_title" style="font-size: 14px; font-weight: 600;">{{page.aboutPageTitle}} </p>
+          <p id="about_main_description" style="white-space: pre-wrap; font-size: 14px;">{{page.aboutPageContent}}</p>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+  {{/let}} {{/with}}
+</template>

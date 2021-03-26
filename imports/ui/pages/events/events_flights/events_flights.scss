@@ -1,0 +1,152 @@
+.events-flights-add {
+  .flight-leg {
+	  position: relative;
+  }
+  .select2{
+    margin-left: 0;
+    width: 100% !important;
+    background: transparent;
+    span{
+      background: transparent;
+    }
+  }
+
+  .edit-delete-btn {
+    position: relative;
+    width: 100%;
+    text-align: right;
+    a{
+      position: relative;
+    }
+  }
+}
+.select2-container{
+  z-index:1211;
+}
+.picker {
+  z-index:1212;
+}
+.modal-overlay {
+  z-index: 999 !important;
+}
+.modal {
+  z-index: 1010 !important;
+}
+
+.events-flights{
+  .info-card{
+    .info-card-title{
+      display : flex;
+      width: 100%;
+      .flight-title{
+        flex: 1;
+        display: flex;
+      }
+    }
+    .airline-name {
+      color: #fff;
+    }
+    .flight-pnr{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+    .flight-class {
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+}
+
+.row.sucess-msg-box {
+  position: relative;
+  padding-top: 10px;
+  h5{
+    margin: 20px 0;
+  }
+}
+.leg-loader {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-page .flightModal {
+  min-height: 60% !important;
+}
+.legLabel {
+  display: inline-block;
+    flex-direction: row;
+    width: 63px;
+}
+
+.flight--bulk-upload{
+  position: relative;
+  font-size: 16px;
+  input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 16px;
+    max-width: 240px;
+    margin-top: 10px;
+    min-height: 40px;
+  }
+}
+.flight-upload-success {
+  color: #4CAF54;
+  border:1px solid;
+  padding: 3px; 
+}
+.flight-upload-error {
+  color: red;
+  padding: 3px;
+  border: 1px solid;
+}
+.flightHelp td, .flightHelp th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 10px;
+    text-align: center;
+}
+
+.flightHelp td {
+    text-align: center;
+}
+
+.flightHelp tr:nth-child(even) {
+    background-color: #eee;
+}
+
+.flightHelp th[scope="col"] {
+    background-color: #696969;
+    color: #fff;
+}
+
+.flightHelp th[scope="row"] {
+    background-color: #d7d9f2;
+}
+
+caption {
+    padding: 10px;
+    caption-side: bottom;
+}
+
+ .flightHelp {
+    border-collapse: collapse;
+    border: 2px solid rgb(200, 200, 200);
+    letter-spacing: 1px;
+    font-family: sans-serif;
+    font-size: .8rem;
+}
+.accepted {
+  color: red;
+  font-weight: 600;
+  
+}
+.strongTitle {
+  font-size: 1.5em;
+  font-weight: 400;
+}

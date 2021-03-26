@@ -1,0 +1,147 @@
+<template name="events_services_details">
+  <div class="events-services-details">
+    {{#with serviceInfo}}
+      {{> events_services_add_form service=serviceInfo}}
+      <div class="row">
+        <div class="col s4">
+          <h5>{{serviceName}}</h5>
+        </div>
+        <div class="col s8 right-align">
+          {{#if isAllowed 'edit-services'}}
+          {{#if isAllowed 'delete-services'}}
+            <a class="waves-effect waves-light btn click_delete-button"><i class="material-icons">delete</i></a>
+          {{/if}}
+          {{#if isAllowed 'edit-services'}}
+            <a class="waves-effect waves-light btn click_edit-button modal-trigger" href="#event-services-add"><i class="material-icons">mode_edit</i></a>
+          {{/if}}
+        {{/if}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s6">
+              {{serviceDescription}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <a class="waves-effect waves-light btn modal-trigger" href="#add-providers-modal">Add providers</a>
+        {{> events_services_add_provider}}
+      </div>
+      <div class="row">
+        <div class="col s12">
+          {{> service_details_providers providerDetails=serviceProviders}}
+        </div>
+      </div>
+    {{/with}}
+  </div>
+</template>
+
+
+<template name="service_contact_info">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+	      Service Name: {{serviceName}}
+      </div>
+      <p>Description: {{serviceDescription}}</p>
+    </div>
+  </div>
+</template>
+
+<template name="service_details_providers">
+  <div class="summary-table">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>No. of Service Providers</th>
+          <th>Service Manager Mobile No.</th>
+          <th>Dates Available</th>
+          <th>Duration per service (in minutes)</th>
+          <th>No of Slots</th>
+          <th>Timing</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each provider in providerDetails}}
+        {{> service_details_providers_list_item provider=provider index=@index}}
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="service_details_providers_list_item">
+  <tr>
+    <th scope="row">{{indexPlusOne index}}</th>
+    <td>{{provider.serviceNoOfProviders}}</td>
+    <td>{{provider.serviceProviderContact}}</td>
+    <td>{{provider.serviceStartDate}} to {{provider.serviceEndDate}}</td>
+    <td>{{provider.singleServiceSlot}}</td>
+    <td>{{slotCount}}</td>
+    <td>{{provider.serviceStartTime}} - {{provider.serviceEndTime}}</td>
+    <td>
+      {{#if isAllowed 'edit-services'}}
+	      <a class="waves-effect waves-light btn lighten-2 click_edit-slots-button modal-trigger" href="#add-providers-modal"><i class="material-icons">edit</i></a>
+      {{/if}}
+      {{#if isAllowed 'delete-services'}}
+	      <a class="waves-effect waves-light btn lighten-2 click_delete-slots-button"><i class="material-icons">delete</i></a>
+      {{/if}}
+    </td>
+  </tr>
+</template>
+
+<template name="events_services_add_provider">
+  <div id="add-providers-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      {{#let data=initialData}}
+      <h4>{{data.title}}</h4>
+      <form id="add-new-service-provider">
+        <div class="row">
+          <div class="input-field col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="No. of people who will be providing the service">
+            <input id="serviceProviderName" type="number" name="serviceNoOfProviders" value={{data.serviceNoOfProviders}}>
+            <label class="always-active" for="serviceProviderName">No. of Service Providers <i class="tooltip-icon"></i></label>
+          </div>
+          <div class="input-field col s4">
+            <input id="serviceProviderContact" type="text" name="serviceProviderContact" value={{data.serviceProviderContact}}>
+            <label class="always-active" for="serviceProviderContact">Service Manager Mobile No.</label>
+          </div>
+          <div class="input-field col s4 tooltipped" data-position="top" data-delay="50" data-tooltip="Amount of time the service will take per guest">
+            <input id="singleServiceSlot" type="number" name="singleServiceSlot" value={{data.singleServiceSlot}}>
+            <label class="always-active" for="singleServiceSlot">Duration per service (in minutes) <i class="tooltip-icon"></i></label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <label for="serviceStartDate"> Date</label>
+            <input id="serviceStartDate" type="text" class="datepicker" name="serviceStartDate" value={{data.serviceStartDate}}>
+          </div>
+       <!--   <div class="col s6">
+            <label for="serviceEndDate">End Date</label>
+            <input id="serviceEndDate" type="text" class="datepicker" name="serviceEndDate" value={{data.serviceEndDate}}>
+          </div>  -->
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <label for="serviceStartTime">Start Time</label>
+            <input id="serviceStartTime" type="text" class="timepicker" name="serviceStartTime" value={{data.serviceStartTime}}>
+          </div>
+          <div class="col s6">
+            <label for="serviceEndTime">End Time</label>
+            <input id="serviceEndTime" type="text" class="timepicker" name="serviceEndTime" value={{data.serviceEndTime}}>
+          </div>
+        </div>
+      </form>
+      {{/let}}
+    </div>
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-service-provider">Submit
+	      <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</template>

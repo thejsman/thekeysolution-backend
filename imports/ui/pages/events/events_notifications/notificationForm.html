@@ -1,0 +1,73 @@
+<template name="notificationForm">
+  <div class="events-itinerary-add">
+    <h5>{{title}} <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="There are some pre-added notifications in given in the list below. These notifications will go as a push message for all App users. These will also be sent as an SMS. You can send the same notification as many times as you require."></i></h5>
+    {{#let notif=notificationInfo}}
+      <form id="notificationForm">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="NotificationTitle" type="text" class="validate" name="notificationTitle" value={{notif.notificationTitle}}>
+            <label class="always-active" for="NotificationTitle">Short Title</label>
+          </div>
+          <div class="input-field col s12">
+            <p class="notificationWarning">Please, keep the notification content within 160 characters.</p>
+            <textarea class="materialize-textarea" name="notificationDescription" rows="8" cols="40" value={{notif.notificationDescription}}></textarea>
+            <label class="always-active" for="notificationDesc">Notification Content</label>
+          </div>
+        </div>
+        <div class="row selectListType">
+          <div class="col s12">
+            <div class="row">
+              <div class="col s12">
+                <p class="sub-title">Select Guests to send notifications.</p>
+              </div>
+              <div class="col s4">
+                <input value="guest" class="with-gap" type="radio" id="guest" name="listType"/>
+                <label for="guest">Guests</label>
+              </div>
+              <div class="col s4">
+                <input value="{{invitationBy}}" class="with-gap" type="radio" id="{{invitationBy}}" name="listType" />
+                <label for="{{invitationBy}}">{{invitationBy}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{#if showForm}}
+          <div class="row">
+            {{#if showGuests}}
+              <div class="col s12">
+                {{> notificationGuestList}}
+              </div>
+            {{else}}
+              <div class="col s12">
+                {{> notificationSubEventList}}
+              </div>
+            {{/if}}
+          </div>
+          <div class="row">
+            <a class="btn waves-effect waves-light" href={{notificationPath}}>Cancel</a>
+            <button class="btn waves-effect waves-light" type="submit" name="action" form="notificationForm">Save
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        {{else}}
+          Please select either of options to continue
+        {{/if}}
+      </form>
+    {{/let}}
+  </div>
+</template>
+
+<template name="notificationSubEventList">
+  <div class="notificationSubEventListBox">
+    <div class="modal-content">
+      <div class="row">
+        {{#each subEvent in subEventList}}
+          <p class="col s6">
+            <input type="checkbox" name=subEvents[] value={{subEvent.Ids}} id="{{subEvent.selector}}"/>
+            <label for="{{subEvent.selector}}">{{subEvent.title}}</label>
+          </p>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

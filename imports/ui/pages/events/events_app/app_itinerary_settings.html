@@ -1,0 +1,155 @@
+<template name="app_itinerary_settings">
+  <div class="app-setting">
+    {{#with appSettings}} {{#if defaultAppBackgroud}}
+    <div class="row card">
+      <div class="col s12">
+        <h5 class="page-title">Itinerary</h5>
+      </div>
+      <form id="app_contact_setting_file_uploads" method="post" class="col s12">
+        <div class="row">
+          <div class="col s6">
+            <label>Itinerary Background Max : 1 Mb, 1080 x 1920</label>
+            <input type="file" class="dropify" data-default-file={{appData.itineraryBackground}} name="itineraryBackground" data-max-file-size="1M"
+              data-allowed-formats="portrait" data-allowed-file-extensions="jpg" />
+          </div>
+        </div>
+      </form>
+    </div>
+    {{/if}} {{/with}}
+    <div class="row">
+      <div class="col s8">
+        {{> app_itinerary_setting_list list=itinerary itineraryVar=itineraryVar editId=editId}}
+      </div>
+      <div class="col s4">
+        {{> app_preview_itinerary }}
+      </div>
+    </div>
+    <div class="row">
+      {{#if subEventsReady}}
+      <a class="waves-effect waves-light btn btn-primary modal-trigger" href="#add-itinerary-modal" id="add-itinerary-button">
+        <i class="material-icons left">add</i>Add Itinerary</a>
+      {{/if}}
+      <button class="btn waves-effect waves-light" type="button" id="update_itinerary_preview">
+        <i class="fa fa-refresh"></i> App Preview</button>
+      <button class="btn waves-effect waves-light" type="submit" name="action" id="save-itinerary"> Save Changes</button>
+      {{> app_itinerary_setting_add itineraryVar=itineraryVar editId=editId}}
+    </div>
+  </div>
+</template>
+
+<!-- Add Itenary Section  -->
+<template name="app_itinerary_setting_add">
+  <div class="events-itinerary-add">
+    <div id="add-itinerary-modal" class="modal" style="height: 70%">
+      <div class="modal-content">
+        <h4>{{itineraryTitle}}
+          <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="All new itinerary elements will be sorted as per date & time in the App."></i>
+        </h4>
+        <form id="add-new-itinerary">
+          {{#let data=itineraryInfo}}
+          <div class="row">
+            <div class="col s3">
+              <label for="subEventDate">Select Date
+              <input type="text" class="datepicker" name="date" id="subEventDate" value="{{data.date}}">
+            </label>
+            </div>
+            <div class="col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="Each element in the itinerary is linked to a sub-event. If the guest is not invited for a particular event, they will not see the itinerary linked to it either. Select common if this itinerary element is common to all.">
+              <label for="subEvent">Select SubEvent
+                <i class="tooltip-icon"></i>
+              </label>
+              <select id="subEvent" name="subEventId">
+                <option value="common" selected>Common Itinerary</option>
+                {{#each ev in subevents}}
+                <option value="{{ev._id}}">{{ev.subEventTitle}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="input-field col s3">
+              <label for="subEventStartTime">Start Time</label>
+              <input type="text" class="timepicker" name="startTime" id="subEventStartTime" value="{{data.startTime}}">
+            </div>
+            <div class="input-field col s3">
+              <label for="subEventEndTime">End Time</label>
+              <input type="text" class="timepicker" name="endTime" id="subEventEndTime" value="{{data.endTime}}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4 ablIconSelect">
+              <label for="selectIcon">Select Icon</label>
+              <select id="selectIcon" name="selectIcon" value="{{data.selectIcon}}">
+                <option value="" disabled selected>Select Icon</option>
+                <option value="common">
+                  <i class="icon-common-itinerary"></i> Common Icon</option>
+                <option value="food">
+                  <i class="icon-food-itineray-and-meal"></i> F & B</option>
+                <option value="event">
+                  <i class="icon-event-details"></i> Event</option>
+                <option value="travel">
+                  <i class="icon-travel-itinerary"></i> Travel</option>
+                <option value="transport">
+                  <i class="icon-transport"></i> Transport</option>
+                <option value="hotel">
+                  <i class="icon-bed"></i> Hotel</option>
+                <option value="tour">
+                  <i class="icon-tour"></i> Tour</option>
+              </select>
+            </div>
+            <div class="input-field col s8">
+              <input id="itineraryText" type="text" class="validate" name="description" value="{{data.description}}">
+              <label for="itineraryText">Description</label>
+            </div>
+          </div>
+          {{/let}}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light" type="submit" name="action" form="add-new-itinerary">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- List of Itenary-->
+<template name="app_itinerary_setting_list">
+  <div class="itinerary-list">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Date</th>
+          <th>Sub Event</th>
+          <th>Timing</th>
+          <th>Icon</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each list}} {{#if startTime}}
+        <tr>
+          <td>{{indexPlusOne @index}}</td>
+          <td>{{date}}</td>
+          <td>{{getSubEvent subEventId}}</td>
+          <td>{{startTime}} - {{endTime}}</td>
+          <td>{{selectIcon}}</td>
+          <td>{{description}}</td>
+          <td>
+            <div class="action-btn">
+              {{#if isAllowed 'delete-itinerary'}}
+              <a class="waves-effect btn click_itinerary-edit-button modal-trigger" href="#add-itinerary-modal" id="{{_id}}">
+                <i id={{_id}} class="fa fa-pencil"></i>
+              </a>
+              <a class="waves-effect btn click_itinerary-delete-button" id={{_id}}>
+                <i class="fa fa-trash"></i>
+              </a>
+              {{/if}}
+            </div>
+          </td>
+        </tr>
+        {{/if}} {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

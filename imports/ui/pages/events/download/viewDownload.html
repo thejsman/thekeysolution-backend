@@ -1,0 +1,79 @@
+<template name="viewDownload">
+  <section class="page-section downloads">
+    <header>
+      <h5 class="section-title">
+        Download Section
+      </h5>
+    </header>
+    <main class="card-container">
+      <!-- Download section Info -->
+      <div class="row">
+        <div class="col s12">
+          <div class="card-panel grey lighten-5 z-depth-1">
+            <div class="card-title">{{ data.name }}</div>
+            <div class="black-text">
+              {{ data.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#if multipleSections}}
+        {{#each sections}}
+          <div class="col s12">
+            <h5>Select files for subsection : {{name}}</h5>
+            <form class="uploadFileForm">
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>Files</span>
+                  <input type="file" multiple name="files[]">
+                  <input type="hidden" class="subsectionId" value="{{_id}}" />
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                </div>
+              </div>
+            </form>
+          </div>
+        {{/each}}
+      {{else}}
+
+      <form class="uploadFileForm">
+        <div class="col s12">
+          <h5>Select files to upload for {{ sectionName }}</h5>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Files</span>
+              <input type="file" multiple name="files[]" />
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Upload one or more files">
+            </div>
+          </div>
+        </div>
+      </form>
+      
+      {{/if}}
+      <form class="notifyUser">
+        <div class="notify-user-option">
+          <span>
+            <input type="checkbox" name="sendNofication" id="sendNofication" />
+            <label for="sendNofication">Send Nofication</label>
+          </span>
+          <span>
+            <input type="checkbox" name="sendEmail" id="sendEmail" />
+            <label for="sendEmail">Send Email</label>
+          </span>
+        </div>
+      </form>
+      <div class="my-3">
+        <button type="button" class="upload-files btn btn-primary pull-right">
+          Upload All
+        </button>
+        <div class="progress is-hidden">
+          <div class="indeterminate"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </main>
+  </section>
+</template>

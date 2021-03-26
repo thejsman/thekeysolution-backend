@@ -1,0 +1,64 @@
+.events-gifts{
+  .card.gift{
+    position: relative;
+    padding: 20px;
+    .name{
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .quantity {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      h5{
+        font-size: 1.25rem;
+      }
+      p{
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+  }
+  .flight-card {
+  	.flight-card-title {
+      margin: 0;
+      font-weight: 300;
+      color: #fff;
+      display: flex;
+      justify-content: space-around;
+      font-size: 2.28rem;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  	}
+  	.flight-card-date {
+	    font-size: 1.0rem;
+      margin: 10px 0 0 0;
+	    color: #fff;
+      text-align: center;
+  	}
+	  .card-header {
+	    .card-title {
+		    padding: 20px;
+	    }
+	  }
+  	.card-content-bg {
+	    background: url('/img/flightbg.jpg') no-repeat center center;
+	    background-size: cover;
+	  }
+  	.card-content {
+  	  background: rgba(0,0,0,0.25);
+  	}
+  	.flight-state-two {
+  	  border-left: 1px dashed #9e9e9e;
+  	}
+    .leg-info{
+      .leg-name{
+        font-size: 1.8rem;
+        font-weight: 400;
+      }
+    }
+  }
+}

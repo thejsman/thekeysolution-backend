@@ -1,0 +1,40 @@
+<template name="photo_share_settings">
+  <div class="photo_share_settings">
+    <h4>Photo Sharing Settings</h4>
+    <form id="photoShareSetting">
+
+      <div class="row">
+        <div class="col s12">
+
+          <label class="active" for="host">Host Name*</label>
+          <input type="text" name="host" id="host" required placeholder="The hostname will appear as a sharer name on all the photos which have been uploaded from the Workstation and are featured." />
+        </div>
+        <h6>Enable/Disable below options</h6>
+        <!-- <div class="col s12">
+          <input type="checkbox" name="download" id="download" />
+          <label for="download">Download</label>
+          <p class="settingsHelp">Check the above checkbox to enable the Download button on the App.</p>
+        </div> -->
+        <div class="col s12">
+          <input type="checkbox" name="like" id="like" />
+          <label for="like">Like</label>
+          <p class="settingsHelp">Check the above checkbox to enable the Download Like on the App.</p>
+        </div>
+        <div class="col s12">
+          <input type="checkbox" name="share" id="share" />
+          <label for="share">Share</label>
+          <p class="settingsHelp">Check the above checkbox to enable the Share button on the App.</p>
+        </div>
+        <div class="col s12">
+          <input type="checkbox" name="comment" id="comment" />
+          <label for="comment">Comments</label>
+          <p class="settingsHelp">Check the above checkbox to enable the Share button on the App.</p>
+        </div>
+
+        <div class="col s12">
+          <button class="btn" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>

@@ -1,0 +1,90 @@
+<template name="addmeetingForm">
+  <div class="events-itinerary-add">
+    <h5>
+      {{title}}
+      <i
+        class="tooltip-icon"
+        data-position="top"
+        data-delay="50"
+        data-tooltip="There are some pre-added notifications in given in the list below. These notifications will go as a push message for all App users. These will also be sent as an SMS. You can send the same notification as many times as you require."
+      ></i>
+    </h5>
+    {{#let meeting=meetingInfo}}
+    <form id="meetingForm">
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="topic">Topic</label>
+          <input
+            id="topic"
+            type="text"
+            class="validate"
+            name="topic"
+            value="{{meeting.topic}}"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="agenda">Meeting Agenda</label>
+          <input
+            id="agenda"
+            type="text"
+            class="validate"
+            name="agenda"
+            value="{{meeting.agenda}}"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="date-field col s12">
+          {{> datetimepicker id="start_time" type="text"
+          name="start_time" label="Start Date and Time"
+          value=meeting.start_time}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="duration">Meeting Duration</label>
+          <input
+            id="duration"
+            type="number"
+            min="1"
+            class="validate"
+            name="duration"
+            value="{{meeting.duration}}"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="password">Meeting Password</label>
+          <input
+            id="password"
+            type="number"
+            min="1"
+            class="validate"
+            name="password"
+            value="{{meeting.password}}"
+          />
+        </div>
+      </div>
+
+      <div class="row">{{> meetingGuestList}}</div>
+      <div class="row">
+        <a class="btn waves-effect waves-light" href="{{meetingPath}}"
+          >Cancel</a
+        >
+        <button
+          class="btn waves-effect waves-light"
+          type="submit"
+          name="action"
+          form="meetingForm"
+        >
+          Save
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+    {{/let}}
+  </div>
+</template>

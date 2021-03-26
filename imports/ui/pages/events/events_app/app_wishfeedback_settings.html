@@ -1,0 +1,77 @@
+<template name="app_wishfeedback_settings">
+  {{#with appData}}
+  <div class="app-setting">
+    <h5 class="title">General Queries</h5>
+    <div class="row">
+      <div class="col s8">
+        <div class="row card">
+          <form id="app_wishfeedback_setting" method="post" class="col s12">
+            <div class="row">
+              {{#if hasguestInfo 'guestVisaInfo'}}
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="For instance - In case your guests are traveling to Europe, use 'Do you have a valid Schengen VISA?">
+                  <input type="text" name="visaQuestion" value="{{appData.visaQuestion}}" id="app_wishfeedback_visa_question" />
+                  <label class="always-active" for="visaQuestion">VISA Question
+                    <i class="tooltip-icon"></i>
+                  </label>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestPhotoID'}}
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Ex: Do you have a valid Passport? or Please upload your Valid Photo ID">
+                  <input type="text" name="passportQuestion" value="{{appData.passportQuestion}}" id="app_wishfeedback_passport_question" />
+                  <label class="always-active" for="passportQuestion">Photo ID Question
+                    <i class="tooltip-icon"></i>
+                  </label>
+                </div>
+              {{/if}}
+              <div class="col s12" id="wishSection">
+                <h6>
+                  <b>Wishes</b>
+                </h6>
+                <div class="input-field col s6 tooltipped" data-position="top" data-delay="50" data-tooltip="Ex: Wishes, Blessings, Message for Bride & Groom">
+                  <input type="text" name="wishesTitle" value="{{appData.wishesTitle}}" id="app_wishfeedback_wishes_title" />
+                  <label class="always-active" for="wishesTitle">Screen Title
+                    <i class="tooltip-icon"></i>
+                  </label>
+                </div>
+                <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Indicative text in the box to let Guests know what to type Ex: Please leave a blessing for the Bride & Groom">
+                  <input type="text" name="wishesDescription" value="{{appData.wishesDescription}}" id="app_wishfeedback_wishes_description"
+                  />
+                  <label class="always-active" for="wishesDescription">Indicative Text
+                    <i class="tooltip-icon"></i>
+                  </label>
+                </div>
+              </div>
+              <div class="col s12" id="feedbackSection">
+                <h6>
+                  <b>Feedback
+                    <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Questions 1 - 5 have a star rating. Please define your questions accordingly. Question 6 allows Guests to type in their feedback"></i>
+                  </b>
+                </h6>
+                {{#each question in feedbackQuestions}}
+                <div class="input-field col s12">
+                  <input type="text" name="feedbackQuestions[]" value="{{question}}" id="app_wishfeedback_feedback_question{{indexPlusOne @index}}"
+                  />
+                  <label class="always-active" for="wishesDescription">Feedback Question {{incremented @index}}</label>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Save
+                  <i class="material-icons right">send</i>
+                </button>
+                <button class="btn waves-effect waves-light" type="button" id="update_general_queries_preview">
+                  <i class="fa fa-refresh"></i>App Preview</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col s4">
+        {{>app_preview_wishes}}
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

@@ -1,0 +1,17 @@
+<template name="event_update_hotel_room_number">
+  <div class="row">
+    <form class="col s12 update-room-number" id="update-room-number-{{room._id}}">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="room_number" type="text">
+          <label class="always-active" for="room_number">Room Number assigned by Hotel</label>
+        </div>
+        <div class="col s6">
+          <button class="btn waves-effect waves-light" type="submit" form="update-room-number-{{room._id}}">Update Room Number
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>

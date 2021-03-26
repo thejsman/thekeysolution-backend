@@ -1,0 +1,486 @@
+<template name="app_preview_slideshow">
+  <div class="app-setting appslideshow row col s12" id="general_section">
+    <div class="col s12">
+      <h5></h5>
+    </div>
+    <div class="col s4">
+    </div>
+    <div class="col s4">
+      {{>general_preview}}
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="app-setting appslideshow row col s12 hide " id="welcome_section">
+    <div class="col s4">
+    </div>
+    <div class="col s4">
+      {{>app_preview_welcome }}
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="app-setting appslideshow row col s12 hide " id="gq_section">
+    <div class="col s4">
+    </div>
+    <div class="col s4">
+      {{>app_preview_wishes}}
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="app-setting appslideshow row col s12  hide" id="about_section">
+    <div class="col s4">
+    </div>
+    <div class="col s4">
+      {{>app_preview_about}}
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="app-setting appslideshow row col s12 hide" id="preferences_section">
+    <div class="col s4">
+    </div>
+    <div class="col s4">
+      <div class="owl-carousel">
+        <div id="slide1">
+          {{> app_preview_preference_meal}}
+        </div>
+        <div id="slide2">
+          {{> app_preview_preference_size}}
+        </div>
+        <div id="slide3">
+          {{> app_preview_preference_assistance}}
+        </div>
+      </div>
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="app-setting appslideshow row col s12 hide " id="contact_section">
+    <div class="col s4">
+    </div>
+    <div class="col s4">
+      {{>app_preview_contact}}
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="app-setting appslideshow row col s12 hide " id="destination_section">
+    <div class="col s4">
+    </div>
+    <div class="col s4" id="main">
+      <h5 class="page-title center">Screen Preview</h5>
+      {{#with app_setting }}
+      <div class="owl-carousel">
+        <div id="slide1">
+          <div id="app_preview_destination_overview">
+            <div class="app-preview about welcome" style="color: {{appColor2}}">
+              <header>
+                <nav style="background-color: {{appColor1}}; color: {{appColor6}}">
+                  <div class="nav-icons">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-bars"></i>
+                  </div>
+                  <div class="app-title center-align " style="font-family: {{appHeadingFont}};font-size:14px;">DESTINATION</div>
+                  <div class="nav-icons right">
+                    <i class="icon-notification"></i>
+                    {{#if checkFeature 'Chat Option'}}
+                    <i class="icon-chat"></i>
+                    {{/if}}
+                  </div>
+                </nav>
+              </header>
+              <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+                <div>
+                  <br/>
+                  <div class="row center-align" style="padding-left:20px;">
+                    <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat; border: 1px solid; cursor: pointer;color: {{appColor2}} !important;font-family:{{appBodyFont}}">{{destinationName}}</a>
+                  </div>
+                </div>
+                <div class="row center-align">
+                  <div class="col s4"></div>
+                  <div class="col s4 page-dots">
+                    <i class="fa fa-circle selected"></i> &nbsp;
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle "></i>
+                  </div>
+                  <div class="col s4"></div>
+                </div>
+                <div class="welcome-content">
+                  <div class="welcome-image" style="background-image:url('{{mainImage}}'); "></div>
+                  <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+                    <h5 id="placename">{{destinationName}}</h5>
+                    <p id="placedetails">{{aboutDestination}}</p>
+                    <p class="center-align">
+                      <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat; font-size:14px; border: 1px solid; cursor: pointer;color: {{appColor2}};font-family:{{appBodyFont}}">PLACES TO VISIT</a>
+                    </p>
+
+                  </div>
+                  <div class="center-align">
+                    <br/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br/>
+          </div>
+        </div>
+        <div id="slide2">
+          <div id="app_preview_destination_travel">
+            <div class="app-preview about welcome" style="color: {{appColor2}}">
+              <header>
+                <nav style="background-color: {{appColor1}}; color: {{appColor6}}">
+                  <div class="nav-icons">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-bars"></i>
+                  </div>
+                  <div class="app-title center-align " style="font-family:{{appHeadingFont}};font-size:14px;">DESTINATION</div>
+
+                  <div class="nav-icons right">
+                    <i class="icon-notification"></i>
+                    {{#if checkFeature 'Chat Option'}}
+                    <i class="icon-chat"></i>
+                    {{/if}}
+                  </div>
+                </nav>
+              </header>
+              <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+                <div>
+                  <br/>
+                  <div class="row center-align" style="padding-left:20px;">
+                    <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat; border: 1px solid; cursor: pointer;color: {{appColor2}} !important;font-family:{{appBodyFont}}">{{destinationName}}</a>
+                  </div>
+
+                </div>
+                <div class="row center-align">
+                  <div class="col s4"></div>
+                  <div class="col s4 page-dots">
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle selected"></i> &nbsp;
+                    <i class="fa fa-circle "></i>
+                  </div>
+                  <div class="col s4"></div>
+                </div>
+
+                <div class="welcome-content">
+                  <div class="welcome-image" style="background-image:url('{{otherDetailsImage}}'); "></div>
+                  <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+                    <h6>Nearest Airport</h6>
+                    <p id="airport">{{airport}}</p>
+                    <h6 style="font-weight: bold">Weather</h6>
+                    <p id="weather">{{weather}}</p>
+                    <h6 style="font-weight: bold">Currency</h6>
+                    <p id="currency1">{{currency1}}</p>
+                    <p id="currency2">{{currency2}}</p>
+                    <p id="currency3">{{currency3}}</p>
+                    <h6 style="font-weight: bold">TimeZone</h6>
+                    <p id="timezone">{{timezone}}</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+        <div id="slide3">
+          <div id="app_preview_destination_dos">
+            <div class="app-preview about welcome" style="color: {{appColor2}}">
+              <header>
+                <nav style="background-color: {{appColor1}}; color: {{appColor6}}">
+                  <div class="nav-icons">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-bars"></i>
+                  </div>
+                  <div class="app-title center-align " style="font-family:{{appHeadingFont}};font-size:14px;">DESTINATION</div>
+
+                  <div class="nav-icons right">
+                    <i class="icon-notification"></i>
+                    {{#if checkFeature 'Chat Option'}}
+                    <i class="icon-chat"></i>
+                    {{/if}}
+                  </div>
+                </nav>
+              </header>
+              <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+                <div>
+                  <br/>
+                  <div class="row center-align" style="padding-left:20px;">
+                    <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat; border: 1px solid; cursor: pointer;color: {{appColor2}} !important;font-family:{{appBodyFont}}">{{destinationName}}</a>
+                  </div>
+
+                </div>
+                <div class="row center-align">
+                  <div class="col s4"></div>
+                  <div class="col s4 page-dots">
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle selected"></i>
+                  </div>
+                  <div class="col s4"></div>
+                </div>
+
+                <div class="welcome-content">
+                  <div class="welcome-image" style="background-image:url('{{tipsImage}}'); "></div>
+                  <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+                    {{#each do in dos}}
+                    <p id="do1">{{do}}</p>
+                    {{/each}} {{#each dont in donts}}
+                    <p id="do1">{{dont}}</p>
+                    {{/each}}
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+        <div id="slide5">
+          <div id="app_preview_destination_places">
+            <div class="app-preview welcome about" style="color: {{appColor2}}">
+              <header>
+                <nav style="background-color: {{appColor1}}; color: {{appColor6}}">
+                  <div class="nav-icons">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-bars"></i>
+                  </div>
+                  <div class="app-title center-align" style="font-family: {{appHeadingFont}};font-size:14px;">DESTINATION</div>
+
+                  <div class="nav-icons right">
+                    <i class="icon-notification"></i>
+                    {{#if checkFeature 'Chat Option'}}
+                    <i class="icon-chat"></i>
+                    {{/if}}
+                  </div>
+                </nav>
+              </header>
+              <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}};padding-top: 10px;">
+                <div class="row center-align" style="padding-left:20px;">
+                  <a class=" btn " style="background-color: transparent!important; background-repeat: no-repeat;  border: 1px solid ; font-size:14px; cursor: pointer;color: {{appColor2}};font-family:{{appBodyFont}}">PLACES TO VISIT</a>
+
+                </div>
+                <div class="row center-align">
+                  <div class="col s4"></div>
+                  <div class="col s4 page-dots">
+                    <i class="fa fa-circle selected"></i> &nbsp;
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle "></i>
+                  </div>
+                  <div class="col s4"></div>
+                </div>
+
+                <div class="welcome-content" style="padding: 2px 10px;">
+                  <div class="center-align row s12" style=" margin-bottom:10px; font-family:{{fontActualName appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-bottom:10px;">
+
+                    <div class="welcome-image" id="image1" style="background-image:url('{{placeImage1}}'); font-family:{{appBodyFont}} ;"></div>
+                    <div class="center-align row s12" style=" margin-bottom:10px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-top:10px;padding-bottom:10px;">
+                      {{#with places 0}}
+                      <h6 id="title1" style="padding-left: 10px;text-align: left;">
+                        <b>{{title}}</b>
+                      </h6>
+                      <p id="description1" style="padding: 10px;text-align: left;">{{description}}</p>
+                      {{/with}}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="slide4">
+          <div id="app_preview_destination_places">
+            <div class="app-preview welcome about" style="color: {{appColor2}}">
+              <header>
+                <nav style="background-color: {{appColor1}}; color: {{appColor6}}">
+                  <div class="nav-icons">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-bars"></i>
+                  </div>
+                  <div class="app-title center-align" style="font-family: {{appHeadingFont}};font-size:14px;">DESTINATION</div>
+
+                  <div class="nav-icons right">
+                    <i class="icon-notification"></i>
+                    {{#if checkFeature 'Chat Option'}}
+                    <i class="icon-chat"></i>
+                    {{/if}}
+                  </div>
+                </nav>
+              </header>
+              <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}};padding-top: 10px;">
+                <div class="row center-align" style="padding-left:20px;">
+                  <a class=" btn " style="background-color: transparent!important; background-repeat: no-repeat; font-size:14px; border: 1px solid ; cursor: pointer;color: {{appColor2}};font-family:{{appBodyFont}}">PLACES TO VISIT</a>
+
+                </div>
+                <div class="row center-align">
+                  <div class="col s4"></div>
+                  <div class="col s4 page-dots">
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle selected"></i> &nbsp;
+                    <i class="fa fa-circle "></i>
+                  </div>
+                  <div class="col s4"></div>
+                </div>
+
+                <div class="welcome-content" style="padding: 2px 10px;">
+                  <div class="center-align row s12" style=" margin-bottom:10px; font-family:{{fontActualName appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-bottom:10px;">
+
+                    <div class="welcome-image" id="image1" style="background-image:url('{{placeImage2}}'); font-family:{{appBodyFont}} ;"></div>
+
+
+                    <div class="center-align row s12" style=" margin-bottom:10px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-top:10px;padding-bottom:10px;">
+                      {{#with places 1}}
+                      <h6 id="title1" style="padding-left: 10px;text-align: left;">
+                        <b>{{title}}</b>
+                      </h6>
+                      <p id="description1" style="padding: 10px;text-align: left;">{{description}}</p>
+                      {{/with}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="slide6">
+          <div id="app_preview_destination_places">
+            <div class="app-preview welcome about" style="color: {{appColor2}}">
+              <header>
+                <nav style="background-color: {{appColor1}}; color: {{appColor6}}">
+                  <div class="nav-icons">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-bars"></i>
+                  </div>
+                  <div class="app-title center-align" style="font-family: {{appHeadingFont}};font-size:14px;">DESTINATION</div>
+                  <div class="nav-icons right">
+                    <i class="icon-notification"></i>
+                    {{#if checkFeature 'Chat Option'}}
+                    <i class="icon-chat"></i>
+                    {{/if}}
+                  </div>
+                </nav>
+              </header>
+              <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}};padding-top: 10px;">
+                <div class="row center-align" style="padding-left:20px;">
+                  <a class=" btn " style="background-color: transparent!important; background-repeat: no-repeat; font-size:14px; border: 1px solid ; cursor: pointer;color: {{appColor2}};font-family:{{appBodyFont}}">PLACES TO VISIT</a>
+
+                </div>
+                <div class="row center-align">
+                  <div class="col s4"></div>
+                  <div class="col s4 page-dots">
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle "></i> &nbsp;
+                    <i class="fa fa-circle selected"></i>
+                  </div>
+                  <div class="col s4"></div>
+                </div>
+
+                <div class="welcome-content" style="padding: 2px 10px;">
+                  <div class="center-align row s12" style=" margin-bottom:10px; font-family:{{fontActualName appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-bottom:10px;">
+
+                    <div class="welcome-image" id="image1" style="background-image:url('{{placeImage3}}'); font-family:{{appBodyFont}} ;"></div>
+
+
+                    <div class="center-align row s12" style=" margin-bottom:10px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});padding-top:10px;padding-bottom:10px;">
+                      {{#with places 2}}
+                      <h6 id="title1" style="padding-left: 10px;text-align: left;">
+                        <b>{{title}}</b>
+                      </h6>
+                      <p id="description1" style="padding: 10px;text-align: left;">{{description}}</p>
+                      {{/with}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/with}}
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="app-setting appslideshow row col s12 hide" id="subevent_section">
+    <div class="col s4">
+    </div>
+    {{#if hasSubevents}} {{#with app_setting}}
+
+    <div class="col s4">
+      <h5 class="page-title center">Screen Preview</h5>
+      <div class="app-preview about welcome subevent" style="color: {{appColor2}}">
+        <header>
+          <nav style="background-color: {{appColor1}}; color: {{appColor6}}">
+            <div class="back-icon">
+              <i class="fa fa-angle-left"></i>
+            </div>
+            <div class="app-title center-align " style="font-family: {{appHeadingFont}};">Event Details</div>
+            <div class="nav-icons">
+              <i class="fa fa-home"></i>
+            </div>
+          </nav>
+        </header>
+
+        <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}}">
+          <div>
+            <br/>
+            <div class="row center-align" style="padding-left:20px;">
+              <a class=" btn " style="background-color: Transparent !important; background-repeat: no-repeat; border: 1px solid; cursor: pointer;color: {{appColor2}} !important; font-family:{{appBodyFont}}">{{SubEventDate}}</a>
+            </div>
+          </div>
+          <div class="welcome-content">
+            <div class="welcome-image" style="background-image:url('{{SubEventBanner}}'); background-size:cover;"></div>
+            <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+              <b>
+                <h5>{{SubEventName}}</h5>
+              </b>
+              <p>{{SubEventTimings}}</p>
+              <h6 style="font-weight: bold;">{{SubEventTab1Title}}</h6>
+              <p>{{SubEventTab1Content}}</p>
+              <h6 style="font-weight: bold;">{{SubEventTab2Title}}</h6>
+              <p>{{SubEventTab2Content}}</p>
+              <h6 style="font-weight: bold;">{{SubEventTab3Title}}</h6>
+              <p>{{SubEventTab3Content}}</p>
+              <h6 style="font-weight: bold;">Description</h6>
+              <p>{{SubEventDescription}}</p>
+              <p class="center-align">
+                <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}};font-family:{{appBodyFont}}"
+                  href="javascript:">GET DIRECTION</a>
+              </p>
+            </div>
+            <div class="row center-align" style="margin-top:10px;">
+              <!--  <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}" href="javascript:">VIEW ITENERARY</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/with}} {{/if}}
+    <div class="col s4">
+    </div>
+  </div>
+
+  <div class="app-setting appslideshow row col s12  hide" id="itinerary_section">
+    <div class="col s4">
+    </div>
+    <div class="col s4">
+      {{>app_preview_itinerary}}
+    </div>
+    <div class="col s4">
+    </div>
+  </div>
+  <div class="row s12 ceter-align">
+    <button class="btn slideshowbtn" data-section="general_section" type="button" id="general_btn">Home</button>
+    <button class="btn slideshowbtn" data-section="welcome_section" type="button" id="welcome_btn">Welcome Message</button>
+    <button class="btn slideshowbtn" data-section="about_section" type="button" id="about_btn">About</button>
+    <button class="btn slideshowbtn" data-section="preferences_section" type="button" id="preferences_btn">Preferences</button>
+    <button class="btn slideshowbtn" data-section="destination_section" type="button" id="destination_btn">Destination</button>
+    <button class="btn slideshowbtn" data-section="subevent_section" type="button" id="subevent_btn">Sub-Events</button>
+    <button class="btn slideshowbtn" data-section="itinerary_section" type="button" id="itinerary_btn">Itinerary</button>
+    <button class="btn slideshowbtn" data-section="gq_section" type="button" id="gq_btn">General Queries</button>
+    <button class="btn slideshowbtn" data-section="contact_section" type="button" id="contact_btn">Contact us</button>
+  </div>
+</template>

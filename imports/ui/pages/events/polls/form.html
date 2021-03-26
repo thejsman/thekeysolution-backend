@@ -1,0 +1,101 @@
+<template name="events_polls_form">
+  <div class="form-container">
+    <div class="page-title">{{ pageTitle }}</div>
+    {{#with poll}}
+    <form name="eventsPollForm" id="eventsPollForm">
+      <div class="row">
+        <div class="form-input-field col s12">
+          <span class="form-input-label">What do you want to ask ?</span>
+          <input
+            placeholder="What do you want to ask ?"
+            id="question"
+            type="text"
+            name="question"
+            value="{{ poll.question }}"
+          />
+        </div>
+        <div class="form-input-field col s12">
+          <div class="form-select-label">
+            {{#if isEdit}} Selected Poll Type: <b>{{ poll.type }}</b
+            >{{else}} Select Poll type : {{/if}}
+          </div>
+          {{#if isEdit}}
+          {{else}}
+          <select class="select-css" name="type" id="pollType">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="mcq">MCQs</option>
+            <option value="rating">Ratings</option>
+          </select>
+          {{/if}}
+        </div>
+        {{#if pollType 'mcq' }}
+        {{#each mcqOptions}}
+        <div class="col s12 mcq-options">
+          <input type="hidden" value="{{ index }}" name="options[index]" />
+          <span>{{ index }}.</span>
+          <input
+            name="options[text]"
+            type="text"
+            data-index="{{ index }}"
+            class="mcq_option_text"
+            placeholder="add option"
+            value="{{ text }}"
+          />
+          <span class="delete-option" data-index="{{ index }}"
+            ><i class="fa fa-trash"></i
+          ></span>
+        </div>
+        {{/each}}
+        <button class="btn-outline" id="add-mcq-option">add option</button>
+        {{else if pollType 'rating'}}
+        <div class="form-input-field col s12">
+          <div class="form-select-label">How many star do you want ?</div>
+          <select class="select-css" id="star_count" name="starCount">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        {{else}}
+        <div class="info-bar">Please select poll type to continue.</div>
+        {{/if}}
+        {{#if allowFormSubmit}}
+        <div class="form-input-field input-checkbox col s12">
+          {{#if poll.active}}
+          <input id="active" type="checkbox" name="active" checked /> {{else}}
+          <input id="active" type="checkbox" name="active" /> {{/if}}
+          <label for="active" class="form-input-label"
+            >Activate this poll.</label
+          >
+        </div>
+        {{#if pollType 'mcq' }}
+        <div class="form-input-field input-checkbox col s12">
+          {{#if multipleAnswer}} <input id="multiple-answer" type="checkbox" name="multipleAnswer" checked/> {{else}} <input id="multiple-answer" type="checkbox" name="multipleAnswer" /> {{/if}}
+          <label for="multiple-answer" class="form-input-label"
+            >Allow multiple answers</label
+          >
+          {{#if multipleAnswer }}
+          <select class="select-css" id="maxAnswer" name="maxAnswer">
+            <option value="1" disabled selected
+              >Choose max options allowed</option
+            >
+            {{#each mcqOptions}}
+            <option value="{{ index }}">{{ index }}</option>
+            {{/each}}
+          </select>
+          {{/if}}
+        </div>
+        {{/if}}
+        <div class="col s12 align-right">
+          <button type="submit" form="eventsPollForm" class="btn btn-primary">
+            submit
+          </button>
+        </div>
+        {{/if}}
+      </div>
+    </form>
+    {{/with}}
+  </div>
+</template>

@@ -1,0 +1,71 @@
+// TODO : @MB remove #subscription_template_div from here
+#subscription_billing_info_template_div{
+	display:none;
+}
+
+#subscription_summary_template_div{
+  // TODO : @MB uncomment this
+	display:none;
+}
+
+// MB
+.single-plan, .single-module{
+  position: relative;
+  min-height: 380px;
+  h5.plan-name {
+    font-size: 18px;
+  }
+  p.plan-description {
+    font-size: 14px;
+  }
+  h6 {
+    font-weight: 600;
+    margin-top: 20px;
+  }
+  .plan-features {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    li{
+      width: 50%;
+    }
+  }
+  .cost-per-app {
+    position: relative;
+    padding: 10px 0;
+    font-size: 14px;
+    text-align: center;
+    span{
+      display: block;
+      width: 100%;
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+  .select-wrapper + label, label.always-active{
+    color: rgba(0,0,0,0.87) !important;
+    font-size: 14px;
+  }
+  &.teal{
+    color: #fff;
+    span.tag{
+      color: rgba(0,0,0,0.87);
+    }
+    .select-wrapper + label, label.always-active{
+      color: #fff !important;
+      font-size: 14px;
+    }
+  }
+  &.single-module{
+    min-height: 320px;
+    p.plan-description{
+      margin-bottom: 20px;
+    }
+  }
+}
+.payment-summary{
+  position: relative;
+  display: flex;
+}

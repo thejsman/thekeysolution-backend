@@ -1,0 +1,48 @@
+<template name="app_contact_settings">
+  {{#with appData}}
+  <div class="app-setting">
+    <h5 class="title">Contact Screen <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Please add local emergency numbers, host/client liason numbers or agency contacts here for the guests to call. These details can be changed as and when required, even after the App has been generated."></i></h5>
+    <div class="row ">
+      <div class="card col m8">
+        <form id="app_contact_settings" method="post" class="col s12">
+          {{#unless isDefaultAppBackground}}
+          <div class="row">
+            <label>Contact Page Background, Max : 1 Mb, 1080 x 1920, Format: JPEG</label>
+            <input type="file" class="dropify" data-default-file={{appData.contactBackground}} name="contactBackground" data-max-file-size="1M" data-allowed-formats="portrait" data-allowed-file-extensions="jpg"/>
+          </div>
+          {{/unless}}
+          <div class="row">
+            <div class="col s3">No. of Contacts <i class="tooltip-icon" data-position="top" data-delay="50" data-tooltip="Choose upto 5 contacts to show in the App"></i></div>
+            <div class="col s1">
+              <select id="contact_counter" style="width:100px;">
+                {{#each contacts}}
+                  <option value="{{incremented @index}}">{{incremented @index}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            {{#each contacts}}
+            <div id="{{@index}}" class="contact_item {{hide}}">
+              <div class="input-field col s6">
+                <input id="title" type="text" class="title{{incremented @index}}" name="contactItems[][name]" value={{name}}>
+                <label class="always-active" for="first_name">Contact Title ({{incremented @index}}) </label>
+              </div>
+              <div class="input-field col s6">
+                <input id="number" type="text" class="number{{incremented @index}}" name="contactItems[][number]" value={{number}}>
+                <label class="always-active" for="first_name">Contact Number ({{incremented @index}})</label>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Save</button>
+          <button class="btn waves-effect waves-light" type="button"  id="update_contact_preview"><i class="fa fa-refresh"></i>App Preview</button>
+        </form>
+      </div>
+      <div class="col m4">
+        {{>app_preview_contact}}
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

@@ -1,0 +1,75 @@
+<template name="plan_list_page">
+  <div class="plan-list-page">
+      <div class="row">
+	<div class="col s8">
+	  <h5>Plan list with Edit/delete</h5>
+	</div>
+	<div class="col s12">
+	  {{> add_plan_button}}
+	</div>
+      </div>
+        {{#if hasPlans}}
+      <table class="centered">
+	<thead>
+	  <tr>
+	    <th>S.No.</th>
+      <th>Plan Name</th>
+      <th>Edit</th>
+      <th>Delete</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {{#each planList}}
+	    {{> plan_details_item info=this index=@index}}
+	  {{/each}}
+	</tbody>
+	{{> plan_delete_confirm}}
+      </table>
+    {{else}}
+      <div class="row">
+	<h5 class="col s6"> NO PLANS ADDED </h5>
+      </div> 
+ {{/if}}
+  </div>
+</template>
+
+
+<template name="plan_details_item">
+  <tr>
+    <th scope="row"><center>{{indexPlusOne index}}</center></th>
+    <td>{{info.planName}}</td>
+    <td>
+      <a class="waves-effect waves-light btn lighten-2 click_edit-plan-button"><i class="material-icons">edit</i></a>  <!--change to change styling of button  -->   
+    </td>
+    <td>
+      <a class="waves-effect waves-light btn lighten-2 click_delete-plan-button"><i class="material-icons">delete</i></a> <!--change to change styling of button  -->
+    </td>
+  </tr>
+</template>
+
+
+<template name="plan_delete_confirm">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete Plan</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-plan" type="button" name="action">
+	<i class="material-icons left">remove</i>
+	Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+
+
+<template name="add_plan_button">
+  <div class="add-plan-button">
+    <a class="waves-effect waves-dark btn  right" href={{addPlanRoute}}><i class="material-icons left">add</i>Add Plan</a>
+
+  </div> 
+</template>
+

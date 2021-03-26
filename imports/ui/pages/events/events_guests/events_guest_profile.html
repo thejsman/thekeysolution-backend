@@ -1,0 +1,261 @@
+<!-- Guest Profile Layout -->
+<template name="events_guest_profile">
+  {{#if Template.subscriptionsReady}}
+    <div class="guest-profile">
+      <div class="row">
+        <!-- Guest Basic Info -->
+        <div class="col s12">
+          {{> events_guest_profile_basic_info guest=guestDetails}}
+        </div>
+        <!-- Family Info -->
+        {{#if guestDetails.guestIsPrimary}}
+          <div class="col s12">
+            {{> events_guest_member_list}}
+          </div>
+        {{/if}}
+        <!-- Guest Invitation -->
+        <div class="col s12">
+          {{> events_guest_invite}}
+        </div>
+        <!-- RSVP Status -->
+        <div class="col s12">
+          {{> events_guests_rsvp}}
+        </div>
+        <!-- Guest Preference -->
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-title">
+                <h5 class="page-title">Guest Preferences</h5>
+                <p class="section-short-info">Input will come from Guest's App. Manual entry from Dashboard is also possible.</p>
+              </div>
+              {{> guest_profile_preference}}
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel Information -->
+        {{#if eventHasHotels}}
+          {{#unless showPaidHotel}}
+            <!-- Hotel Info -->
+            <div class="col s12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-title">
+                    <h5 class="page-title">Hotel Information</h5>
+                  </div>
+                  {{> events_guests_hotel_info}} {{> agency_guest_hotel_add}}
+                </div>
+              </div>
+            </div>
+          {{/unless}}
+          {{#if showPaidHotel}}
+            <!-- Hotel for sale Info -->
+            <div class="col s12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-title">
+                    <h5 class="page-title">Paid Hotel Information</h5>
+                  </div>
+                  {{> events_guests_hotelforsale_info}} {{> agency_guest_hotelforsale_add}}
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        {{/if}}
+        <!-- Flight for Sale Info -->
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-title">
+                <h5 class="page-title">Flight Information</h5>
+              </div>
+              {{#if Template.subscriptionsReady}}
+                {{#if hasFlightInfo}}
+                  <div class="row">
+                    {{#each flightInfo}}
+                      <div class="col s6">
+                        {{> guest_flight_info}}
+                      </div>
+                    {{/each}}
+                  </div>
+                {{/if}}
+              {{/if}}
+              {{#if guestFlightImages}}
+                <div class="user-uploads">
+                  <h6>Uploaded by user</h6>
+                  <div class="img-uploaded">
+                    {{#each image in guestFlightImages}}
+                      <figure>
+                        <img src="{{image}}" alt="">
+                        <div class="hover-options">
+                          <a onclick="window.open('{{image}}', 'newwindow', 'width=600,height=600'); return false;">open</a>
+                          <a target="_blank" href="{{image}}" download>download</a>
+                        </div>
+                      </figure>
+                    {{/each}}
+                  </div>
+                </div>
+              {{/if}}
+              {{> agency_guest_flight_add}}
+            </div>
+          </div>
+        </div>
+        {{#if eventHasPaidFlights}}
+          {{#if showPaidFlight}}
+            <!-- Flight Info -->
+            {{#if hasFlightforsaleInfo}}
+              {{#each flightforsaleInfo}}
+                <div class="col s6">
+                  {{> guest_flightforsale_info}}
+                </div>
+              {{/each}}
+            {{/if}}
+            <div class="col s12">
+              {{> agency_guest_flightforsale_add}}
+            </div>
+          {{/if}}
+        {{/if}}
+
+        <!-- Passport Info -->
+        <div class="col s12">
+          {{> agency_passport_add}}
+        </div>
+        <!-- Visa Info -->
+        <div class="col s12">
+          {{> agency_visa_add}}
+        </div>
+        <!-- Insurance Info -->
+        <div class="col s12">
+          {{#if hasInsuranceInfo}} {{#with insuranceInfo}} {{> guest_insurance_info}} {{/with}} {{else}} {{> agency_insurance_add}}
+          {{/if}}
+        </div>
+        <!-- Tansport Info -->
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-title">
+                <h5 class="page-title">Guest Transport Information</h5>
+              </div>
+              {{> guest_profile_transport}}
+            </div>
+          </div>
+        </div>
+        <!-- Gift Info -->
+        <div class="col s12">
+          {{> agency_guest_gift_add}}
+        </div>
+        <!-- Service Info -->
+        <div class="col s12">
+          {{> agency_guest_service_add}}
+        </div>
+      </div>
+    </div>
+  {{else}}
+    <div class="preloader-wrapper small active">
+      <div class="spinner-layer spinner-green-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</template>
+
+<!-- Basic Info -->
+<template name="events_guest_profile_basic_info">
+  <div class="guest-basic-info">
+    <div class="section-title">
+      <div class="row">
+        <div class="col s6">
+          Guest Snapshot
+        </div>
+        <div class="col s6">
+          {{#if guestNotPrimary}}
+            {{#let pm=primaryGuest}}
+              Primary Guest - <a href={{pm.link}}>{{pm.guestFirstName}} {{pm.guestLastName}}</a>
+            {{/let}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <div class="guest-profile card">
+      <div class="card-content">
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="col s6">
+                <h5 class="page-title">
+                  {{guest.guestTitle}} {{guest.guestFirstName}} {{guest.guestLastName}}
+                </h5>
+              </div>
+              <div class="col s3">
+                {{#if isAllowed 'guest-edit'}}
+                  <a class="waves-effect waves-dark btn right" href={{guestEditPath}}>
+                    <i class="material-icons left">edit</i>
+                    Edit Guest Details
+                  </a>
+                {{/if}}
+              </div>
+              <div class="col s3">
+                {{#if guest.guestIsPrimary}}
+                  <a class="waves-effect waves-dark btn modal-trigger right" href="#add-guest-member-modal">
+                    <i class="material-icons left">add</i>
+                    Add Family Member
+                  </a>
+                  {{> agency_guest_member_add}}
+                {{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="col s4">
+            <figure>
+              <img src="{{photoId}}" alt="profile-pic" />
+            </figure>
+            {{#if profileImage}}
+            <div class="image-download-options">
+              <a class="btn" onclick="window.open('{{photoId}}', 'newwindow', 'width=600,height=600');  return false;">open</a>
+              <a class="btn" target="_blank" href="{{photoId}}" download>download</a>
+            </div>
+            {{/if}}
+          </div>
+          <div class="col s8">
+            <div class="guest-details">
+              <ul>
+                <li>
+                  <i class="fa fa-phone"></i>
+                  <div class="title">Contact No.</div>
+                  <div>{{guest.guestPhoneCode}}-{{guest.guestContactNo}}</div>
+                </li>
+                <li>
+                  <i class="fa fa-envelope"></i>
+                  <div class="title">Email</div>
+                  <div class="value">{{guest.guestPersonalEmail}}</div>
+                </li>
+                <li>
+                  <i class="fa fa-map-marker"></i>
+                  <div class="title">Address</div>
+                  <div class="value">{{guest.guestAddress1}}<br/>{{guest.guestAddress2}}<br/>{{guest.guestAddressCity}}<br/>{{guest.guestAddressState}}<br/>{{guest.guestAddressPincode}}<br/>{{guest.guestAddressLandmark}}<br/>{{guest.guestAddressNationality}}</div>
+                </li>
+                <li>
+                  <i class="fa fa-users"></i>
+                  <div class="title">Family ID</div>
+                  <div class="value">{{guest.guestFamilyID}}</div>
+                </li>
+                <li>
+                  <i class="fa fa-comment"></i>
+                  <div class="title">Remark</div>
+                  <div class="value">{{guest.guestRemarks}}</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

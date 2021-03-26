@@ -1,0 +1,167 @@
+<!-- App Preview -->
+<template name="app_preview_wishes">
+  <h5 class="center-align">Screen Preview</h5>
+  {{#with appWishesSettings}}
+  <div class="owl-carousel">
+    {{#if hasguestInfo 'guestVisaInfo'}}
+      <!--  VISA SCREEN -->
+      <div class="visa-preview">
+          <h6 class="center-align"><b>My Visa Screen</b></h6>
+        <div class="app-preview about welcome" style="color: {{appColor2}}">
+          {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="MY INFORMATION"}}
+          <div class="app-body" style="padding-top: 20px; background-image:url('{{appBackground}}'); color: {{appColor2}};font-family: {{appBodyFont}};">
+            <div></div>
+            <div class="welcome-content">
+              {{#if hasguestInfo 'guestDetails'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-my-details"></i> MY DETAILS</h6>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestAddress'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-my-address"></i> MY ADDRESS</h6>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestPhotoID'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-id-card"></i> MY PHOTO ID</h6>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestVisaInfo'}}
+                <div class="welcome-text" style="margin-top: 20px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+                  <h6><i class="icon-my-visa"></i> MY VISA</h6>
+                  <p class="center">
+                    <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">Guest Name</a>
+                  </p>
+                  <p class="center" id="general_visa_question">{{visaQuestion}}</p>
+                  <p class="center">
+                    <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">Yes</a>
+                    <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">NO</a>
+                  </p>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestInsuranceInfo'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-insurance"></i> MY INSURANCE</h6>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+    {{#if hasguestInfo 'guestPhotoID'}}
+      <!--  PASSPORT SCREEN -->
+      <div class="passport-preview">
+          <h6 class="center-align"><b>My PhotoID Screen</b></h6>
+        <div class="app-preview about welcome" style="color: {{appColor2}}">
+          {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="MY INFORMATION"}}
+          <div class="app-body" style="padding-top: 20px; background-image:url('{{appBackground}}'); color: {{appColor2}};font-family: {{appBodyFont}};">
+            <div></div>
+            <div class="welcome-content">
+              {{#if hasguestInfo 'guestDetails'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-my-details"></i> MY DETAILS</h6>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestAddress'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-my-address"></i> MY ADDRESS</h6>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestPhotoID'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-id-card"></i> MY PHOTO ID</h6>
+                  <p class="center">
+                    <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">Guest Name</a>
+                  </p>
+                  <p class="center" id="general_visa_question">{{passportQuestion}}</p>
+                  <p class="center">
+                    <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">Yes</a>
+                    <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">NO</a>
+                  </p>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestVisaInfo'}}
+                <div class="welcome-text" style="margin-top: 20px; font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+                  <h6><i class="icon-my-visa"></i> MY VISA</h6>
+                </div>
+              {{/if}}
+              {{#if hasguestInfo 'guestInsuranceInfo'}}
+                <div class="welcome-text" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});margin-top: 20px;">
+                  <h6><i class="icon-insurance"></i> MY INSURANCE</h6>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+    <!--  WISHES SCREEN -->
+    {{#unless showFeedbackScreen}}
+      <div class="wishes-preview">
+        <h6 class="center-align">
+          <b>Wishes Screen</b>
+        </h6>
+        <div class="app-preview about welcome" style="color: {{appColor2}}">
+          {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle=wishesTitle}}
+          <div class="app-body" style="background-image:url('{{appBackground}}');font-family: {{appBodyFont}}; color: {{appColor2}}">
+            <div style="padding:20px 10px;">
+              <p class="center-align" id=""></p>
+            </div>
+            <div style="background: transparent;width: 80%;margin-left: 10%;border: 1px solid #fff;min-height: 200px;" id="general_wishes_description">{{wishesDescription}}</div>
+            <p class="center-align">
+              <a class="btn" style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">SUBMIT</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    {{/unless}}
+
+    <!--  FEEDBACK SCREEN -->
+    {{#if showFeedbackScreen}}
+      <div class="feedback-preview">
+        <h6 class="center-align">
+          <b>Feedback Screen</b>
+        </h6>
+        <div class="app-preview about welcome" style="color: {{appColor2}}">
+          {{> app_navbar bgColor=appColor1 color=appColor6 font=appHeadingFont pageTitle="FEEDBACK"}}
+          <div class="app-body" style="background-image:url('{{appBackground}}'); color: {{appColor2}};font-family: {{appBodyFont}};">
+            <div class="welcome-content">
+              <div class="welcome-text center-align" style="font-family:{{appBodyFont}} ; background: linear-gradient(to right, {{appColor3}}, {{appColor4}});">
+                {{#each question in feedbackQuestions}}
+                <div class="row text-center">
+                  <h6 id="general_feedback{{incremented @index}}">{{question}}</h6>
+                  <div id="star{{incremented @index}}">
+                    <span style="margin-left:10px;margin-right: 5%" class="center-align">
+                      <i class="fa fa-star-o"></i>
+                    </span>
+                    <span style="margin-right: 5%" class="center-align">
+                      <i class="fa fa-star-o"></i>
+                    </span>
+                    <span style="margin-right: 5%" class="center-align">
+                      <i class="fa fa-star-o"></i>
+                    </span>
+                    <span style="margin-right: 5%" class="center-align">
+                      <i class="fa fa-star-o"></i>
+                    </span>
+                    <span style="margin-right: 5%" class="center-align">
+                      <i class="fa fa-star-o"></i>
+                    </span>
+                  </div>
+                </div>
+                {{/each}}
+                <p>
+                  <center>
+                    <a class=" btn " style="background-color: Transparent!important; background-repeat: no-repeat;  border: 1px solid; cursor: pointer;color: {{appColor2}}">SUBMIT</a>
+                  </center>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+  {{/with}}
+</template>

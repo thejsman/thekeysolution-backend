@@ -1,0 +1,251 @@
+<template name="events_app">
+  {{> app_general_settings}} {{> app_welcome_settings}}
+  {{> app_about_settings}} {{> app_contact_settings}}
+</template>
+
+<!-- General Settings -->
+<template name="app_general_settings">
+  {{#with appData}}
+  <div class="app-setting">
+    <div class="row">
+      <div class="col s6">
+        <h5 class="title">App Design</h5>
+      </div>
+      {{#if canMakeApp}}
+      <div class="col s6 right-align">
+        {{#if isAllowed 'superadmin'}}
+        {{#if requested}}
+        <button class="btn waves-effect" type="button" id="request-done-button">
+          Mark as 'DONE'
+        </button>
+        {{/if}}
+        {{/if}}
+        {{#if allowedToGenerate}}
+        <button
+          class="btn waves-effect waves-light"
+          type="button"
+          id="request-app-button"
+        >
+          {{ buttonText }} <i class="material-icons right">send</i>
+        </button>
+        {{else}}
+        <span style="display: inline-block; margin-right: 10px;">
+          App Remaining: 0
+        </span>
+        <a class="btn" href="{{ purchaseRoute }}">Buy Apps</a>
+        {{/if}}
+      </div>
+      {{/if}}
+      <div class="row">
+        <div class="col s12 m8 l8 card">
+          <form id="app-general-setting" method="post" class="col s12">
+            <div class="row">
+              <div class="col s6">
+                {{> imageUpload labelTitle="App Logo" labelText="Square, Max 1 Mb, 512 x 512, Format: PNG" imageName="appLogo" defaultImage=appLogo imageExtension="png"}}
+              </div>
+              <div class="col s6">
+                {{> imageUpload labelTitle="App Background" labelText="Portrait, Max 1 Mb, 1080 x 1920, Format: PNG, JPEG" imageName="appBackground" defaultImage=appBackground}}
+
+                <div
+                  class="tooltipped"
+                  data-position="top"
+                  data-delay="50"
+                  data-tooltip="Incase you wish to have the same background in all App screens, select Default for all pages"
+                >
+                  <input
+                    type="checkbox"
+                    name="isDefaultAppBackground"
+                    id="isDefaultAppBackground"
+                    value="true"
+                  />
+                  <label for="isDefaultAppBackground"
+                    >Default for all pages
+                    <i class="tooltip-icon"></i>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input
+                  id="appName"
+                  type="text"
+                  name="appName"
+                  value="{{ appData.appName }}"
+                />
+                <label class="always-active" for="appName">Event Name</label>
+              </div>
+              <div class="input-field col s6">
+                <input
+                  id="appShortName"
+                  type="text"
+                  name="appShortName"
+                  value="{{ appData.appShortName }}"
+                />
+                <label class="always-active" for="appShortName">App Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <h6 class="col s12">
+                Fonts
+              </h6>
+              <div class="input-field col s6">
+                <select name="appHeadingFont" id="appHeadingFont">
+                  <option value="" disabled>Choose fonts</option>
+                  {{#each font in headingFonts}}
+                  <option
+                    value="{{ font.fileName }}"
+                    selected="{{ font.selected }}"
+                    >{{ font.fontName }}</option
+                  >
+                  {{/each}}
+                </select>
+                <label>Heading Fonts</label>
+              </div>
+              <div class="input-field col s6">
+                <select name="appBodyFont" id="appBodyFont">
+                  <option value="" disabled selected>Choose fonts</option>
+                  {{#each font in bodyFonts}}
+                  <option
+                    value="{{ font.fileName }}"
+                    selected="{{ font.selected }}"
+                    >{{ font.fontName }}</option
+                  >
+                  {{/each}}
+                </select>
+                <label>Body Fonts</label>
+              </div>
+            </div>
+            <div class="row js_select_color">
+              <h6 class="col s12">
+                Colors
+              </h6>
+              <div class="col s4">
+                {{> colorPicker pickerLabel="Top Heading Color" pickerId="appColor1" color=appColor1 }}
+              </div>
+              <div class="col s4">
+                {{> colorPicker pickerLabel="Default Font Color" pickerId="appColor2" color=appColor2 }}
+              </div>
+              <!-- <div class="col s6">
+                {{> colorPicker pickerLabel="Selected Color" pickerId="appColor5" color=appColor5 }}
+              </div> -->
+              <div class="col s4">
+                {{> colorPicker pickerLabel="Heading Font Color" pickerId="appColor6" color=appColor6 }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <h6>
+                  <b>Social Accounts</b>
+                </h6>
+              </div>
+              {{#if hasFeature 'Facebook'}}
+              <div
+                class="input-field col s4 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="Input page link"
+              >
+                <i class="fa fa-facebook-square prefix"></i>
+                <input
+                  id="facebookLink"
+                  type="text"
+                  class="validate"
+                  name="facebookLink"
+                  value="{{ appData.facebookLink }}"
+                />
+                <label class="always-active" for="facebookLink"
+                  >Facebook URL <i class="tooltip-icon"></i
+                ></label>
+              </div>
+              {{/if}}
+              {{#if hasFeature 'Twitter'}}
+              <div
+                class="input-field col s4 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="Input page link"
+              >
+                <i class="fa fa-twitter-square prefix"></i>
+                <input
+                  id="twitterLink"
+                  type="text"
+                  class="validate"
+                  name="twitterLink"
+                  value="{{ appData.twitterLink }}"
+                />
+                <label class="always-active" for="twitterLink"
+                  >Twitter URL <i class="tooltip-icon"></i
+                ></label>
+              </div>
+              {{/if}}
+              {{#if hasFeature 'Instagram'}}
+              <div
+                class="input-field col s4 tooltipped"
+                data-position="top"
+                data-delay="50"
+                data-tooltip="Input page link"
+              >
+                <i class="fa fa-instagram prefix"></i>
+                <input
+                  id="instagramLink"
+                  type="text"
+                  class="validate"
+                  name="instagramLink"
+                  value="{{ appData.instagramLink }}"
+                />
+                <label class="always-active" for="instagramLink"
+                  >Instagram URL <i class="tooltip-icon"></i
+                ></label>
+              </div>
+              {{/if}}
+            </div>
+            <div class="row">
+              {{#if isAllowed 'superadmin'}}
+              <div class="col s12">
+                <h6>
+                  <b>App Domain</b>
+                </h6>
+              </div>
+              <div class="input-field col s12">
+                <input
+                  id="appDomain"
+                  type="text"
+                  class="validate"
+                  name="appDomain"
+                  value="{{ appData.appDomain }}"
+                />
+                <label class="always-active" for="appDomain">App Domain</label>
+              </div>
+              {{/if}}
+            </div>
+          </form>
+          <div class="modal-footer">
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              name="action"
+              form="app-general-setting"
+            >
+              Save
+            </button>
+            {{#with appBaseSettings
+
+
+            }}<button
+              class="btn waves-effect waves-light"
+              type="button"
+              id="update_app_design_preview"
+            >
+              <i class="fa fa-refresh"></i> Screen Preview</button
+            >{{/with}}
+          </div>
+        </div>
+        <div class="col s12 m4 l4">
+          {{> general_preview}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

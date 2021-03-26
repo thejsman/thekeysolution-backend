@@ -1,0 +1,89 @@
+<template name="events_subevent">
+  <div class="events-subevent">
+    <div class="row">
+      <div class="col s12">
+        <h5 class="page-title">
+          Sub-events Section {{#if isAllowed 'subevents-add'}}
+          <a class="waves-effect waves-dark btn modal-trigger right" href={{addSubEventPath}} id="add-subevent-button_click">
+            <i class="material-icons left">add</i>
+            Add New
+          </a>
+        {{/if}}
+        </h5>
+      </div>
+    </div>
+    <div class="row eq-height">
+      {{#if hasSubevents}} {{#each subeventList}} {{> subevent_card info=this index=@index}} {{/each}} {{else}}
+      <div class="row">
+        <h6 class="col s12">Sub-events not added.</h6>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="subevent_delete_confirm">
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete subevent</h4>
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-dark btn-flat modal-close">Cancel</a>
+      <button class="btn waves-effect waves-light red lighten-2 click_delete-subevent" type="button" name="action">
+        <i class="material-icons left">remove</i>
+        Yes
+      </button>
+    </div>
+  </div>
+</template>
+
+<!-- single-sub-event-card -->
+<template name="subevent_card">
+  <div class="col s12 m12 l4 sub-event-card">
+    <div class="card info-card">
+      <div class="card-header amber darken-2">
+        <div class="card-title">
+          <div class="info-card-title">
+            {{info.subEventTitle}}
+          </div>
+          <div class="info-card-action">
+            <div class="action-btn">
+              {{#if isAllowed 'subevents-edit'}}
+              <a class="btn primary edit-subevent-button">
+                <i class="fa fa-pencil"></i>
+              </a>
+              {{/if}} {{#if isAllowed 'subevents-delete'}}
+              <a href="#" class="btn primary click_delete-subevent">
+                <i class="fa fa-trash"></i>
+              </a>
+              {{/if}}
+            </div>
+          </div>
+          <p class="info-card-date">{{info.subEventDate}}</p>
+        </div>
+      </div>
+      <div class="card-content-bg white-text" style="background-image:url('{{info.subEventImg}}')">
+        <div class="card-content">
+          <div class="row">
+            <div class="col s12 center-align card-top-content">
+              <h5>{{info.subEventStartTime}} - {{info.subEventEndTime}}</h5>
+            </div>
+            <div class="col s4 m4 l4 center-align">
+              <h6>{{info.subEventTab1}}</h6>
+              <p class="small">{{info.subEventTab1Content}}</p>
+            </div>
+            <div class="col s4 m4 l4 center-align">
+              <h6>{{info.subEventTab2}}</h6>
+              <p class="small">{{info.subEventTab2Content}}</p>
+            </div>
+            <div class="col s4 m4 l4 center-align">
+              <h6>{{info.subEventTab3}}</h6>
+              <p class="small">{{info.subEventTab3Content}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

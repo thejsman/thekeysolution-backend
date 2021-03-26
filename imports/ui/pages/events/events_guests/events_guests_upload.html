@@ -1,0 +1,95 @@
+<template name="events_guests_upload">
+  <div class="guestsheet-upload">
+    <div class="row">
+      <!-- <div class="right">
+        <a class="waves-effect waves-light btn" href="https://thekeysolution.com/downloads/guestsimport-sample.xlsx" download>
+          <i class="fa fa-cloud-download" style="padding-right: 1rem;"></i>download sample sheet
+        </a>
+      </div> -->
+    </div>
+    <div class="row">
+        <h4>Bulk Guest Import</h4>
+      <div class="col s12">
+          
+        <div class="checklist">
+          <p>Please read the instructions below:</p>
+          <ol>
+            <li>Download the Excel sheet from <a class="waves-effect waves-light btn" href="https://thekeysolution.com/downloads/guestsimport-sample.xlsx" download>
+              <i class="fa fa-cloud-download" style="padding-right: 1rem;"></i>download sample sheet
+            </a></li>
+            <li>Fill in the data as per the given instructions in the sample sheet.</li>
+            <li><span class="accepted">Remove</span> all sample records before you upload the sheet.</li>
+            <li>All fields are mandatory except <span class="accepted">"Nickname" & Remark"</span> column.</li>
+            <li>Please read the explanation below to understand the how to fill the data.</li>
+            <li>Before uploading the sheet, select <span class="accepted">Sub-event/Destination/Date</span> checkboxes below to invite guests to the specific Sub-event/Destination/Date.</li>
+            <li>Based on these invitations the guest will only see what they are invited for on their App.</li>
+            <li>Please make a <span class="accepted">new blank sheet</span> every time to import new guests.</li>
+          </ol>
+          <table class="flightHelp">
+            <caption>Bulk Guest upload fields explanation</caption>
+            <tr>
+            <th>Title</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Family ID</th>
+            <th>Is Primary</th>
+            <th>Nickname</th>
+            <th>Gender</th>
+            <th>Primary Email</th>
+            <th>Country Code</th>  
+            <th>Contact Number</th>  
+            <th>Remark</th>  
+          </tr>                          		
+            <td>Title of the Guests like Mr, Ms, Mrs. <span class="accepted">Accepted Values: 
+              Mr, Ms, Mrs, Dr, Prof</span></td>
+            <td>First Name of the Guest</td>
+            <td>Last Name of the Guest</td>
+            <td>Family grouping ID to group members of the family together.
+                For individual members, please enter a unique Family ID.</td>
+            <td>Specify if the person is the head of the family?
+                For the primary member of the family, enter TRUE and for family members leave blank.
+                For individual members, please fill TRUE.
+                <span class="accepted">Accepted Values: TRUE</span></td>
+            <td>How to address in the APP like Uncle, Chacha ji, If this is left blank it will take the 1st name as default</td>
+            <td>Gender of the Guest : <span class="accepted">Accepted Values: Male, Female, Child</span></td>
+            <td>Email ID of the Guest, for family members it can be left blank or same as Primary members email</td>
+            <td>Country code of the contact number. This field is required for Primary members. for example +91, +44, +65</td>
+            <td>Contact number of the Guest, for family members it can left blank or same of Primary member contact number</td>
+            <td>Remarks if any.</td>
+        </table>
+        </div>
+      </div>
+      <form id="bulk-upload-guest" class="col s12">
+        <div class="strongTitle">Guest Invitation - Select {{invitationBy}}'s</div>
+        <div class="row">
+          {{#each event in subeventsList}}
+            {{> events_guests_rsvp_item rsvp=event}}
+          {{/each}}
+        </div>
+        {{#if inProgress}}
+          <div class="upload-in-process">
+            <i class="fa fa-circle-o-notch fa-spin"></i> Guest upload is in progress, please wait.
+          </div>
+        {{ else }}
+          <div class="row">
+            <input name="file" type="file" id="upload-excel" required>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <button class="btn waves-effect waves-light" type="submit">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        {{/if}}
+      </form>
+    </div>
+  </div>
+</template>
+
+<template name="events_guests_rsvp_item">
+  <p class="col s4">
+    <input value="{{rsvp.subEventId}}" type="checkbox" name="subevents[]" id="i{{rsvp.subEventId}}" />
+    <label for="i{{rsvp.subEventId}}">{{rsvp.subEventTitle}}</label>
+  </p>
+</template>
