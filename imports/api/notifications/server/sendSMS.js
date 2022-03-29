@@ -52,7 +52,7 @@ export const sendSMS = (numbers, msg, eventId) => {
   let j = 0;
   intlList.map(a => {
     let numberString = a.join();
-    let urlbase = `https://api.msg91.com/api/sendhttp.php?mobiles=${numberString}&authkey=203075AXEdh7tX5aaa6c14&route=4&sender=${senderId}&message=${msg}&country=0&PEID=1101687620000016536&HeaderId=1505163050518773137&templateId=1507163188418585641`;
+    let urlbase = `https://api.msg91.com/api/sendhttp.php?mobiles=${numberString}&authkey=203075AXEdh7tX5aaa6c14&route=4&sender=${senderId}&message=${msg}&country=0`;
     console.log("International SMS Sent :: ", urlbase);
     try {
       HTTP.call("GET", urlbase);
