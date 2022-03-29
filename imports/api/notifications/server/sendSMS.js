@@ -37,7 +37,7 @@ export const sendSMS = (numbers, msg, eventId) => {
     if (numberString.length < 12) {
       console.log("Domestic mobile no Less than 10 - ", numberString.length);
     } else {
-      let urlbase = `https://bulksms.analyticsmantra.com/sendsms/bulksms.php?username=BlueMT&password=blue123&type=UNICODE&sender=${senderId}&mobile=${numberString}&message=${msg}`;
+      let urlbase = `https://bulksms.analyticsmantra.com/sendsms/bulksms.php?username=BlueMT&password=blue123&type=UNICODE&sender=${senderId}&mobile=${numberString}&message=${msg}&PEID=1101687620000016536&HeaderId=1505163050518773137&templateId=1507163188418585641`;
       try {
         HTTP.call("GET", urlbase);
         i++;
